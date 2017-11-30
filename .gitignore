@@ -1,2 +1,13 @@
-.ppt
+*.pptx
+*.ppt
+*.key
+!plantilla.pptx
+
+*.png
+*.jpeg
+*.gif
+*.svg
+*.pdf
+
+
 
