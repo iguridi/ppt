@@ -3,13 +3,16 @@
 *.key
 !plantilla.pptx
 
+
 *.png
+*.jpg
 *.jpeg
 *.gif
 *.svg
 *.pdf
 
 __pycache__
+*.pyc
 
 
 
