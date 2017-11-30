@@ -9,5 +9,7 @@
 *.svg
 *.pdf
 
+__pycache__
+
 
 
