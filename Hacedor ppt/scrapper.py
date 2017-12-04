@@ -115,23 +115,23 @@ def pulir(texto_general): # especifica la lecura.
 
 pl = 'Primera lectura'
 sr = 'Salmo responsorial'
-sl = "Segunda Lectura"
+nombre_salmo = "Segunda Lectura"
 creado_name = "Credo"
 
 
 primera_lectura_general = lecturas[lecturas.find(pl):lecturas.find(sr)] 
 #direccion_primera_lectura, primera_lectura = pulir(primera_lectura_general)
 if not primera_lectura_general:
-    for i in [pl, sr, sl]:
+    for i in [pl, sr, nombre_salmo]:
         lecturas = lecturas.replace(i.upper(), i)
     creado_name = creado_name.upper()
     print("Buscando lecturas con mayusculas activado")
     primera_lectura_general = lecturas[lecturas.find(pl):lecturas.find(sr)] 
 
-salmo_general = lecturas[lecturas.find(sr):lecturas.find(sl)]
+salmo_general = lecturas[lecturas.find(sr):lecturas.find(nombre_salmo)]
 
 
-salmo_general = salmo_general.replace(sl[5:], '')
+salmo_general = salmo_general.replace(nombre_salmo[5:], '')
 # the salmo does not show when we have to answer
 
 salmo_general = salmo_general.replace('.\n', '. R. ')
@@ -146,7 +146,7 @@ salmo_general = salmo_general[:i] + 'santiago hizo esto' + salmo_general[i + 3:]
 # print('ejeem', salmo_general)
 #direccion_salmo, salmo = pulir(salmo_general)
 
-segunda_lectura_general = lecturas[lecturas.find(sl)+15:lecturas.find('SECUENCIA')]
+segunda_lectura_general = lecturas[lecturas.find(nombre_salmo)+15:lecturas.find('SECUENCIA')]
 #direccion_segunda_lectura, segunda_lectura = pulir(segunda_lectura_general)
 
 evangelio_div = str(texto[10].text) #Es otro <div>
