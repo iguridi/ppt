@@ -191,7 +191,7 @@ FIN_LECTURAS = {'primera_lectura':'''</a:t>
 
 if __name__ == '__main__':
     Hacedor(LECTURAS, PPT_BASE, PPT_FINAL, DIC, FIN_LECTURAS, SLIDE_SIZE, DIRS, FECHA, TITULO)
-    subprocess.Popen("%s %s" % (office, PPT_FINAL))
+    #subprocess.Popen("%s %s" % (office, PPT_FINAL))
    
 
 
