@@ -96,8 +96,7 @@ class Hacedor:
     def add_end(self):
         self.diaps_l[-1] += self.ends[self.name]
 
-    def replacing(self):
-        
+    def replacing(self): 
         d = self.diaps_l
         for i in range(self.cant_diap):
             # la cagada por culpa del salmo

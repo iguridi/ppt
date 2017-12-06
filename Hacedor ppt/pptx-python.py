@@ -1,7 +1,4 @@
 from pptx import Presentation
-from pptx.dml.color import RGBColor
-from pptx.enum.dml import MSO_THEME_COLOR
-#from pptx.util import Presentation
 
 
 def analyze_ppt(input, output):

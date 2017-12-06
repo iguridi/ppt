@@ -1,6 +1,7 @@
 *.pptx
 *.ppt
 *.key
+!plantilla python.pptx
 !plantilla.pptx
 
 

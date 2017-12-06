@@ -2,8 +2,8 @@
 
 from hacedor import *
 import scrapper
-import subprocess, os
-import sys
+# import subprocess, os
+# import sys
 
 # when de text is in a txt file
 def iterar(file, hasta):
@@ -19,8 +19,8 @@ def iterar(file, hasta):
             break
     return lec 
 
-office = r"C:\Program Files (x86)\Microsoft Office\root\Office16\POWERPNT.EXE"
-ENC = 'utf-8'
+#office = r"C:\Program Files (x86)\Microsoft Office\root\Office16\POWERPNT.EXE"
+#ENC = 'utf-8'
 PPT_BASE = 'plantilla.xml'
 PPT_FINAL = 'ppt_listo.xml'
 SLIDE_SIZE = 740
