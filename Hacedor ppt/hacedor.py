@@ -28,9 +28,8 @@ class Hacedor:
         self.names = ['primera_lectura', 'salmo', 
                 'segunda_lectura', 'evangelio']
         for name in self.names:
-            text = self.lecturas[name]
             self.name = name
-            self.text = text
+            self.text = self.lecturas[name]
             self.modifier()
             self.replace_dirs()
             self.title_date()
@@ -45,7 +44,7 @@ class Hacedor:
     def modifier(self):
         self.remove_spaces()
         self.add_details()
-        # the begginning of the editino of the salmo
+        # the begginning of the editing of the salmo
         if self.name == 'salmo':
             self.text = self.text.replace('. R. ', '. R.')
             self.text = self.text.replace('! R. ', '! R.')
@@ -66,7 +65,6 @@ class Hacedor:
         self.add_end()
         
         self.replacing()
-        # self.replace_dirs()
         self.del_diaps()
 
     def remove_spaces(self):

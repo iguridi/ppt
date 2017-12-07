@@ -120,7 +120,6 @@ creado_name = "Credo"
 
 
 primera_lectura_general = lecturas[lecturas.find(pl):lecturas.find(sr)] 
-#direccion_primera_lectura, primera_lectura = pulir(primera_lectura_general)
 if not primera_lectura_general:
     for i in [pl, sr, sl]:
         lecturas = lecturas.replace(i.upper(), i)
@@ -136,28 +135,22 @@ salmo_general = salmo_general.replace(sl[5:], '')
 
 salmo_general = salmo_general.replace('.\n', '. R. ')
 salmo_general = salmo_general.replace('!\n', '! R. ')
-# salmo_general = salmo_general.replace('R/.', 'R. ')
-# we put a mark where the answer finishes
-# print(salmo_general, '\n')
-print(repr(lecturas))
-i = salmo_general.find(' R.')
-salmo_general = salmo_general[:i] + 'santiago hizo esto' + salmo_general[i + 3:]
 
-# print('ejeem', salmo_general)
-#direccion_salmo, salmo = pulir(salmo_general)
+i = salmo_general.find(' R.')
+salmo_general = salmo_general[:i] + salmo_general[i + 3:]
+
 
 segunda_lectura_general = lecturas[lecturas.find(sl)+15:lecturas.find('SECUENCIA')]
-#direccion_segunda_lectura, segunda_lectura = pulir(segunda_lectura_general)
 
 evangelio_div = str(texto[10].text) #Es otro <div>
-print('evangelio', evangelio_div)
 evangelio_general = evangelio_div[evangelio_div.find('Evangelio de nuestro Señor Jesucristo')+48:evangelio_div.find(creado_name)-1]
-# direccion_evangelio, evangelio = pulir(evangelio)
 
 DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(primera_lectura_general)
 DIR_SALMO, SALMO = pulir(salmo_general)
 DIR_SEGUNDA_LECTURA, SEGUNDA_LECTURA = pulir(segunda_lectura_general)
 DIR_EVANGELIO, EVANGELIO = pulir(evangelio_general)
+
+print(SALMO)
 
 
 

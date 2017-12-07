@@ -30,4 +30,4 @@ def analyze_ppt(input, output):
                 print('{} {}'.format(phf.idx, shape.name))
     prs.save(output)
 
-analyze_ppt('plantilla python.pptx', 'probando.pptx')
+analyze_ppt('plantilla python.pptx', 'hola.pptx')

@@ -1,9 +1,11 @@
+import sys
+
 from pptMaker import Maker
 import scrapper
 
 BASE_PPT = 'plantilla python.pptx'
 END_PPT = 'ppt_listo.pptx'
-SLIDE_SIZE = 740
+SLIDE_SIZE = 730
 
 ADDRS = {}
 LECTURES = {}
@@ -40,7 +42,6 @@ else:
 		LECTURES['salmo'] = iterar(file, 'SEGUNDA_LECTURA')
 		LECTURES['segunda_lectura'] = iterar(file, 'EVANGELIO')
 		LECTURES['evangelio'] = iterar(file, 'SANTIAGO SCRAPPERS')
-
 
 
 if __name__ == '__main__':
