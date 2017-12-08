@@ -1,7 +1,4 @@
 from pptx import Presentation
-from pptx.dml.color import RGBColor
-from pptx.enum.dml import MSO_THEME_COLOR
-from pptx.util import Pt
 
 def remove_spaces(text):
 	text = text.replace('\n', ' ')
@@ -16,7 +13,7 @@ class Reading:
 		self.addrs = addrs
 		self.body = body
 
-		self.slides = [] #List of the text slited into pieces of 730 chars
+		self.slides = [] #List of the text splited into chunks of a predifined max chars
 		self.make_pretty()
 
 	def make_pretty(self):
@@ -24,6 +21,11 @@ class Reading:
 		self.body = '	' +  self.body + '\n'
 
 class Psalm(Reading):
+	'''
+	Is harder to format the psalm text so it has its own class and functions
+	Arguments:
+		* Same as his parent: Reading()
+	'''
 	def __init__(self, title, addrs, body):
 		super().__init__(title, addrs,body)
 		self.make_pretty()
@@ -35,17 +37,31 @@ class Psalm(Reading):
 		self.body = self.body.replace('! R. ', '! R.')
 
 	def split_paragraphs(self):
+		'''
+		Spliting the psalm`s paragraphs is needed for adding the "R." at the end of each.
+		'''
 		self.psalm_paragraphs = self.body.split(' R.')
 		del self.psalm_paragraphs[-1]
 		for n, _ in enumerate(self.psalm_paragraphs):
 			self.psalm_paragraphs[n] = '	' + self.psalm_paragraphs[n]
 
+	def __repr__(self):
+		return self.body
 
-	
 
 
 class Maker:
-	
+	'''
+	In charge of making and formating the slides.
+	Arguments:
+		* readings (list(string)): lectures themselves
+		* base_ppt (string): name of the ppt with the layouts 
+		* output_ppt (string): name of the  ppt to modify
+		* slide_size (int): ideal maximum of characters in a slide
+		* addrs (list(string)): readings bible addresses
+		* date (string): Date of the mass
+		* ppt_title (string): title of the presentation based on the celebration on that *date
+	'''
 	def __init__(self, readings, base_ppt, output_ppt, slide_size, addrs, date, ppt_title):
 		self.readings = readings
 		self.slide_size = slide_size
@@ -58,6 +74,9 @@ class Maker:
 		self.prs.save(output_ppt)
 
 	def process(self):
+		'''
+		The process of making and formating the ppt.
+		'''
 		names = ['primera_lectura',
 				 'salmo',
 				 'segunda_lectura',
@@ -73,6 +92,9 @@ class Maker:
 			self.make_readings_slides()
 
 	def separate_text(self):
+		'''
+		Split the text into various slides depending of the text length
+		'''
 		t = self.reading.body
 		new_text = ''
 		while len(t) > self.slide_size:
@@ -85,6 +107,9 @@ class Maker:
 		#del self.reading.slides[-1] ###FIX
 
 	def make_cover(self):
+		'''
+		Add the cover and its title and date to the ppt
+		'''
 		cover_layout = self.prs.slide_layouts[0]
 		cover = self.prs.slides.add_slide(cover_layout)
 		title = cover.shapes.title #placeholder idx of the address
@@ -95,58 +120,64 @@ class Maker:
 
 
 	def make_readings_slides(self):
+		'''
+		Add the actual slides and its text and address and ending
+		'''
 		ppt_readings_layout = {
 							   'primera_lectura': 1,
 						       'salmo': 2,
 						       'segunda_lectura': 3,
-						       'evangelio' : 4#,
-						       #'oracion': 5
+						       'evangelio' : 4
 						       }
 
 		n = ppt_readings_layout[self.reading.title]
 		slide_layout = self.prs.slide_layouts[n]
 		for i, slide_text in enumerate(self.reading.slides):
 			slide = self.prs.slides.add_slide(slide_layout)
-			address = slide.placeholders[12] #placeholder idx of the address
-			body = slide.placeholders[10] #placeholder idx of the body
+			address = slide.placeholders[12] # Placeholder idx of the address
+			body = slide.placeholders[10] # Placeholder idx of the body text
 
-			address.text = self.reading.addrs
-			body.text = slide_text
+			address.text = self.format_addr(self.reading.addrs)
 
-			if i == len(self.reading.slides)-1 and self.reading.title != 'salmo':
-				self.add_end(self.reading.title, slide)
-				endings = {'primera_lectura': ('Palabra de Dios','Te alabamos Señor'),
-				   		   'segunda_lectura': ('Palabra de Dios','Te alabamos Señor'),
-				   		   'evangelio':       ('Palabra del Señor', 'Gloria a tí, Señor Jesus')
-				   }
+			#Setting up the text of the body of the psalm is different beacause its formatting 
+			if self.reading.title == 'salmo':
+				txt_fm =  body.text_frame
+				for i in self.reading.psalm_paragraphs:
+					par = txt_fm.add_paragraph()
+					par.text = i
+					run = par.add_run()
+					run.text = ' R.'
+					font = run.font
+					font.bold = True
 
-				char1 = slide.placeholders[15] 
-				dialog_padre = slide.placeholders[13]
-				char1.text = 'L.'
-				dialog_padre.text = endings[self.reading.title][0]
+			#Other readings
+			else:
+				body.text = slide_text
+				if i == len(self.reading.slides)-1:
+					self.add_end(slide)
 
-				char2 = slide.placeholders[17]
-				dialog_people = slide.placeholders[16]
-				char2.text = 'R.'
-				dialog_people.text = endings[self.reading.title][1]
+			
+	def format_addr(self, addr):
+		addr = addr.strip()
+		addr = '(' + addr + ')'
+		return addr
 
-			elif i == len(self.reading.slides)-1 and self.reading.title == 'salmo':
-				txtfm =  body.text_frame
-				for paragraph in txtfm.paragraphs:
 
-					for i in self.reading.psalm_paragraphs:
-						par = txtfm.add_paragraph()
-						par.text = i
-						run = par.add_run()
-						run.text = ' R.'
-						font = run.font
-						font.bold = True
+	def add_end(self, slide):
+		endings = {'primera_lectura': ('Palabra de Dios','Te alabamos Señor'),
+		   		   'segunda_lectura': ('Palabra de Dios','Te alabamos Señor'),
+		   		   'evangelio':       ('Palabra del Señor', 'Gloria a tí, Señor Jesus')
+		   }
 
-				
+		dialog_padre = slide.placeholders[13]
+		character = slide.placeholders[17]
+		dialog_people = slide.placeholders[16]
 
-	def add_end(self, title, slide):
-		#15 = R, 13=Dialog
-		pass
+		dialog_padre.text = endings[self.reading.title][0]
+		character.text = 'R.'
+		dialog_people.text = endings[self.reading.title][1]
+
+		
 		
 		
 
