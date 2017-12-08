@@ -4,7 +4,7 @@ from pptMaker import Maker
 import scrapper
 
 BASE_PPT = 'plantilla python.pptx'
-END_PPT = 'ppt_listo.pptx'
+OUTPUT_PPT = 'ppt_listo.pptx'
 SLIDE_SIZE = 730
 
 ADDRS = {}
@@ -14,7 +14,7 @@ PPT_TITLE = sys.argv[1] #Change when running on server
 
 #When extracts from the web
 if len(sys.argv) > 2:
-	#Data obtained from www.eucaristiadiaria.cl using scraper.py
+	#Data obtained from www.eucaristiadiaria.cl using scrapper.py
 	DATE = scrapper.FECHA
 
 	#Bible readings addresses
@@ -47,4 +47,4 @@ else:
 
 
 if __name__ == '__main__':
-	Maker(READINGS, BASE_PPT, END_PPT, SLIDE_SIZE, ADDRS, DATE, PPT_TITLE)
+	Maker(READINGS, BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, ADDRS, DATE, PPT_TITLE)

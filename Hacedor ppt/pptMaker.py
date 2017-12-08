@@ -20,6 +20,9 @@ class Reading:
 		self.body = remove_spaces(self.body)
 		self.body = '	' +  self.body + '\n'
 
+	def __repr__(self):
+		return (self.title, self, addrs, self.body)
+
 class Psalm(Reading):
 	'''
 	Is harder to format the psalm text so it has its own class and functions
@@ -33,6 +36,7 @@ class Psalm(Reading):
 
 	def make_pretty(self):
 		self.body = remove_spaces(self.body)
+		self.body = self.body.replace('R/. ', 'R. ')
 		self.body = self.body.replace('. R. ', '. R.')
 		self.body = self.body.replace('! R. ', '! R.')
 
@@ -40,13 +44,17 @@ class Psalm(Reading):
 		'''
 		Spliting the psalm`s paragraphs is needed for adding the "R." at the end of each.
 		'''
+		self.psalm_response = self.body[:self.body.find('***')]
+		print(self.psalm_response)
+		pars_pos =self.body.find('***') + 3
+		self.body = self.body[pars_pos:]
 		self.psalm_paragraphs = self.body.split(' R.')
+		print(self.psalm_paragraphs)
 		del self.psalm_paragraphs[-1]
 		for n, _ in enumerate(self.psalm_paragraphs):
 			self.psalm_paragraphs[n] = '	' + self.psalm_paragraphs[n]
 
-	def __repr__(self):
-		return self.body
+	
 
 
 
@@ -70,12 +78,13 @@ class Maker:
 		self.ppt_title = ppt_title
 
 		self.prs = Presentation(base_ppt)
-		self.process()
+		self.process() #All the actions
 		self.prs.save(output_ppt)
 
 	def process(self):
 		'''
 		The process of making and formating the ppt.
+		It calls almost all of the methods of the class.
 		'''
 		names = ['primera_lectura',
 				 'salmo',
@@ -102,9 +111,9 @@ class Maker:
 			i = len(diap) - diap[::-1].find('.')
 			new_text +=  t[:i] + '\n\n    '
 			t = t[i:]
-		separated_text = new_text
+		separated_text = new_text + t
 		self.reading.slides = separated_text.split('\n\n')
-		#del self.reading.slides[-1] ###FIX
+
 
 	def make_cover(self):
 		'''
@@ -137,12 +146,18 @@ class Maker:
 			address = slide.placeholders[12] # Placeholder idx of the address
 			body = slide.placeholders[10] # Placeholder idx of the body text
 
-			address.text = self.format_addr(self.reading.addrs)
+			address.text = self.format_addr(self.reading.addrs) # The address is the same for all
 
 			#Setting up the text of the body of the psalm is different beacause its formatting 
 			if self.reading.title == 'salmo':
 				txt_fm =  body.text_frame
+				#Add the response bold text at the beggining
+				resp = txt_fm.paragraphs[0]# Te default paragraph has white space. Dont have to add a new one, you have to use it 
+				resp.text = self.reading.psalm_response
+				font = resp.font
+				font.bold = True
 				for i in self.reading.psalm_paragraphs:
+					#Add each paragraph of the psalm
 					par = txt_fm.add_paragraph()
 					par.text = i
 					run = par.add_run()
@@ -176,50 +191,3 @@ class Maker:
 		dialog_padre.text = endings[self.reading.title][0]
 		character.text = 'R.'
 		dialog_people.text = endings[self.reading.title][1]
-
-		
-		
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
