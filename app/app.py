@@ -14,14 +14,26 @@ app = Flask(__name__)
 
 @app.route('/next_sunday')
 def next_sunday():
-    print('hola')
+
+    from maker import scrapper, pptMaker
+    folder = '/maker'
+    directory = os.path.dirname(__file__)
+    BASE_PPT = directory + folder + '/plantilla python.pptx'
+    OUTPUT_PPT = directory + folder + '/ppt_listo.pptx'
+    SLIDE_SIZE = 730
+    PPT_TITLE = 'hooola'
+    ADDRS = scrapper.ADDRS
+    READINGS = scrapper.READINGS
+    DATE = scrapper.FECHA
+    pptMaker.Maker(READINGS, BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, ADDRS, DATE, PPT_TITLE)
+    # from maker import __init__
     # full path:
     # path = os.path.join(current_app.root_path, app.config['UPLOAD_FOLDER'])
-    print(current_app.root_path)
-    path = current_app.root_path
+    print('hooola')
+    path = current_app.root_path + folder
+    print(path)
     return send_from_directory(directory=path, filename='ppt_listo.pptx')
-    print('aaloo')
-    return
+
 
 
 @app.route('/', methods=['GET', 'POST'])

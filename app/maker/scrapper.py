@@ -4,7 +4,7 @@ Copyright (c) 2017 Santiago Guridi. All rights reserved. 
  Redistribution and use in source and binary forms, with or without 
 modification, arenn`t permitted without his permission
 '''
-
+import os
 from bs4 import BeautifulSoup
 import requests
 import csv
@@ -37,8 +37,13 @@ print("fecha:", FECHA)
 
 def crearListaLibros():
 	#En el csv van así: Nombre Completo, abreviacion, posible(otra abreviacion)
+	abreviations_file = 'Abreviaciones Biblia.csv'
+	path = os.path.dirname(__file__) + '/' + abreviations_file
+	# path = os.path.abspath(__file__).replace(__file__, abreviations_file)
+	# print(__file__, 'blablablo')
+	# print(os.path.dirname(__file__), 'ejejej')
 	libros = []
-	with open('Abreviaciones Biblia.csv', 'r', encoding='utf-8') as abrv:
+	with open(path, 'r', encoding='utf-8') as abrv:
 		bookReader = csv.DictReader(abrv)
 		#Crear un diccionario
 		for row in bookReader:
@@ -55,7 +60,6 @@ def pulirDireccion(texto_general):
 	for palabra in texto_general.split(' '): #Buscar palabra por palabra
 		palabra = palabra.strip() #sacar espacios
 		for libro in libros: #Buscar un libro(en forma de diccionario) an la lista de libros
-			print(palabra, libro['Name'])
 			if libro['Name'] == palabra: 
 				lbr = libro['Name']
 				lbrAbrev = libro['Abreviattion'] #Reemplazar el nombre del libro por su abreviacion
@@ -147,11 +151,16 @@ DIR_SALMO, SALMO = pulir(salmo_general)
 DIR_SEGUNDA_LECTURA, SEGUNDA_LECTURA = pulir(segunda_lectura_general)
 DIR_EVANGELIO, EVANGELIO = pulir(evangelio_general)
 
+ADDRS = {}
+ADDRS['primera_lectura'] = DIR_PRIMERA_LECTURA 
+ADDRS['salmo'] = DIR_SALMO 
+ADDRS['segunda_lectura'] = DIR_SEGUNDA_LECTURA 
+ADDRS['evangelio'] = DIR_EVANGELIO
 
-
-print(DIR_SALMO)
-
-
-
+READINGS = {}
+READINGS['primera_lectura'] = PRIMERA_LECTURA
+READINGS['salmo'] = SALMO
+READINGS['segunda_lectura'] = SEGUNDA_LECTURA
+READINGS['evangelio'] = EVANGELIO
 
 
