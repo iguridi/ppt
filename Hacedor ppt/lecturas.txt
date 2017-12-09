@@ -1,57 +1,59 @@
-6 julio 2
+8 diciembre 2017
 
-PRIMERA_LECTURA_DIR = Ap 9a; 12, 1-6a. 10ab
-SALMO_DIR = Sal 44, 10b-12. 15b-16
-SEGUNDA_LECTURA_DIR = Co 15, 20-27a
-EVANGELIO_DIR = Lu 11, 27-28
+PRIMERA_LECTURA_DIR = Gen 3,9-15.20
+SALMO_DIR = 97,1.2-3ab.3c-4
+SEGUNDA_LECTURA_DIR = Ef 1,3-6. 11-12
+EVANGELIO_DIR = Lc 1,26-38
 
 PRIMERA_LECTURA
 
-Se abrió el Templo de Dios que está en el cielo y quedó a la vista el Arca de la Alianza.
+Después que el hombre y la mujer comieron del árbol que Dios les había prohibido, el Señor Dios llamó al hombre y le dijo: “¿Dónde estás?”
 
-Y apareció en el cielo un gran signo: una Mujer revestida del sol, con la luna bajo sus pies y una corona de doce estrellas en su cabeza.
+“Oí tus pasos por el jardín, respondió él, y tuve miedo porque estaba desnudo. Por eso me escondí”.
 
-Estaba embarazada y gritaba de dolor porque iba a dar a luz.
+Él replicó: “¿Y quién te dijo que estabas desnudo? ¿Acaso has comido del árbol que yo te prohibí?”
 
-Y apareció en el cielo otro signo: un enorme Dragón rojo como el fuego, con siete cabezas y diez cuernos, y en cada cabeza tenía una diadema. Su cola arrastraba una tercera parte de las estrellas del cielo, y las precipitó sobre la tierra. El Dragón se puso delante de la Mujer que iba a dar a luz, para devorar a su hijo en cuanto naciera.
+El hombre respondió: “La mujer que pusiste a mi lado me dio el fruto y yo comí de él”.
+
+El Señor Dios dijo a la mujer: “¿Cómo hiciste semejante cosa?” La mujer respondió: “La serpiente me sedujo y comí”.
+
+Y el Señor Dios dijo a la serpiente: “Por haber hecho esto, maldita seas entre todos los animales domésticos y entre todos los animales del campo. Te arrastrarás sobre tu vientre, y comerás polvo todos los días de tu vida. Pondré enemistad entre ti y la mujer, entre tu descendencia y la suya. Él te aplastará la cabeza y tú le acecharás el talón”.
+
+El hombre dio a su mujer el nombre de Eva, por ser ella la madre de todos los vivientes.
 
 SALMO
 
-R. ¡De pie a tu derecha está la Reina, Señor! R
+R/. Canten al Señor un canto nuevo, porque Él hizo maravillas.
 
-# Una hija de reyes está de pie a tu derecha: es la reina, adornada con tus joyas y con oro de Ofir. R.
+Canten al Señor un canto nuevo, porque Él hizo maravillas: su mano derecha y su santo brazo le obtuvieron la victoria. R.
 
-# ¡Escucha, hija mía, mira y presta atención! Olvida tu pueblo y tu casa paterna, y el rey se prendará de tu hermosura. Él es tu señor: inclínate ante él. R.
+El Señor manifestó su victoria, reveló su justicia a los ojos de las naciones: se acordó de su amor y su fidelidad en favor del pueblo de Israel. R.
 
-# Las vírgenes van detrás, sus compañeras la guían, con gozo y alegría entran al palacio real. R.
+Los confines de la tierra han contemplado el triunfo de nuestro Dios. Aclame al Señor toda la tierra, prorrumpan en cantos jubilosos. R.
 
 
 SEGUNDA_LECTURA
 
-Hermanos:
+Bendito sea Dios, el Padre de nuestro Señor Jesucristo, que nos ha bendecido en Cristo con toda clase de bienes espirituales en el cielo, y nos ha elegido en Él, antes de la creación del mundo, para que fuéramos santos e irreprochables en su presencia, por el amor.
 
- Cristo resucitó de entre los muertos, el primero de todos. Porque la muerte vino al mundo por medio de un hombre, y también por medio de un hombre viene la resurrección.
+Él nos predestinó a ser sus hijos adoptivos por medio de Jesucristo, conforme al beneplácito de su voluntad, para alabanza de la gloria de su gracia, que nos dio en su Hijo muy querido.
 
- En efecto, así como todos mueren en Adán, así también todos revivirán en Cristo, cada uno según el orden que le corresponde:
-
- Cristo, el primero de todos; luego, aquéllos que estén unidos a Él en el momento de su Venida.
-
- En seguida vendrá el fin, cuando Cristo entregue el 
+En Él, nosotros, los que hemos puesto nuestra esperanza en Él, hemos sido constituidos herederos y destinados de antemano, para ser alabanza de su gloria, según el previo designio del que realiza todas las cosas conforme a su voluntad.
 
 EVANGELIO
 
-María partió y fue sin demora a un pueblo de la montaña de Judá. Entró en la casa de Zacarías y saludó a Isabel. Apenas ésta oyó el saludo de María, el niño saltó de alegría en su vientre, e Isabel, llena del Espíritu Santo, exclamó:
+El Ángel Gabriel fue enviado por Dios a una ciudad de Galilea, llamada Nazaret, a una virgen que estaba comprometida con un hombre perteneciente a la familia de David, llamado José. El nombre de la virgen era María.
 
-# “¡Tú eres bendita entre todas las mujeres y bendito es el fruto de tu vientre! ¿Quién soy yo, para que la madre de mi Señor venga a visitarme? Apenas oí tu saludo, el niño saltó de alegría en mi vientre. Feliz de ti por haber creído que se cumplirá lo que te fue anunciado de parte del Señor”.
+El Ángel entró en su casa y la saludó, diciendo: “¡Alégrate!, llena de gracia, el Señor está contigo”.
 
-# María dijo entonces:
+Al oír estas palabras, ella quedó desconcertada y se preguntaba qué podía significar ese saludo.
 
-# “Mi alma canta la grandeza del Señor, y mi espíritu se estremece de gozo en Dios, mi Salvador, porque Él miró con bondad la pequeñez de su servidora.
+Pero el Ángel le dijo: “No temas, María, porque Dios te ha favorecido. Concebirás y darás a luz un hijo, y le pondrás por nombre Jesús; Él será grande y será llamado Hijo del Altísimo. El Señor Dios le dará el trono de David, su padre; reinará sobre la casa de Jacob para siempre y su reino no tendrá fin”.
 
-# En adelante todas las generaciones me llamarán feliz, porque el Todopoderoso ha hecho en mí grandes cosas: ¡su Nombre es santo!
+María dijo al Ángel: “¿Cómo puede ser eso, si yo no tengo relación con ningún hombre?”
 
-# Su misericordia se extiende de generación en generación sobre aquéllos que lo temen.
+El Ángel le respondió: “El Espíritu Santo descenderá sobre ti y el poder del Altísimo te cubrirá con su sombra. Por eso el niño será Santo y será llamado Hijo de Dios. También tu parienta Isabel concibió un hijo a pesar de su vejez, y la que era considerada estéril, ya se encuentra en su sexto mes, porque no hay nada imposible para Dios”.
 
-# Desplegó la fuerza de su brazo, dispersó a los soberbios de corazón. Derribó a los poderosos de su trono y elevó a los humildes.
+María dijo entonces: “Yo soy la servidora del Señor, que se haga en mí según tu Palabra”.
 
-# Colmó de bienes a los hambrientos y despidió a los ricos con la
+Y el Ángel se alejó.
