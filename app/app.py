@@ -1,4 +1,5 @@
 import os
+import sys
 import requests
 from flask import Flask, render_template, request, send_from_directory, current_app
 from bs4 import BeautifulSoup
@@ -15,7 +16,8 @@ app.config['DEBUG'] = True
 
 @app.route('/next_sunday')
 def next_sunday():
-
+    print('eeejeemmm')
+    sys.stdout.flush()
     from maker import scrapper, pptMaker
     folder = '/maker'
     directory = os.path.dirname(__file__)
@@ -31,9 +33,11 @@ def next_sunday():
     # full path:
     # path = os.path.join(current_app.root_path, app.config['UPLOAD_FOLDER'])
     print('hooola')
+    sys.stdout.flush()
     path = current_app.root_path + folder
     print(path)
-    
+    sys.stdout.flush()
+
     return send_from_directory(directory=path, filename='ppt_listo.pptx')
 
 
