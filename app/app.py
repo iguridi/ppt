@@ -29,9 +29,7 @@ def next_sunday():
     READINGS = scrapper.READINGS
     DATE = scrapper.FECHA
     pptMaker.Maker(READINGS, BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, ADDRS, DATE, PPT_TITLE)
-    # from maker import __init__
-    # full path:
-    # path = os.path.join(current_app.root_path, app.config['UPLOAD_FOLDER'])
+
     print('hooola')
     sys.stdout.flush()
     path = current_app.root_path + folder
