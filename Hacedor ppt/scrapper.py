@@ -35,6 +35,35 @@ FECHA = fecha.replace("de ", "")
 print("fecha:", FECHA)
 
 
+def crearListaLibros():
+	#En el csv van así: Nombre Completo, abreviacion, posible(otra abreviacion)
+	libros = []
+	with open('Abreviaciones Biblia.csv', 'r', encoding='utf-8') as abrv:
+		bookReader = csv.DictReader(abrv)
+		#Crear un diccionario
+		for row in bookReader:
+			row = {key: value for key, value in row.items() if value != ''}
+			libros.append(row)
+
+	return libros
+
+def pulirDireccion(texto_general):
+	libros = crearListaLibros() #Crear la lista con diccionarios
+	lbr = ''
+	lbrAbrev = ''
+	# finds the first word in the text that refers to a book
+	for palabra in texto_general.split(' '): #Buscar palabra por palabra
+		palabra = palabra.strip() #sacar espacios
+		for libro in libros: #Buscar un libro(en forma de diccionario) an la lista de libros
+			print(palabra, libro['Name'])
+			if libro['Name'] == palabra: 
+				lbr = libro['Name']
+				lbrAbrev = libro['Abreviattion'] #Reemplazar el nombre del libro por su abreviacion
+				break
+		if lbrAbrev: break
+
+
+	#Encontrar el principio de la direccion
 	libroPosition = texto_general.find(lbr)
 
 
@@ -111,35 +140,6 @@ DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(primera_lectura_general)
 DIR_SALMO, SALMO = pulir(salmo_general)
 DIR_SEGUNDA_LECTURA, SEGUNDA_LECTURA = pulir(segunda_lectura_general)
 DIR_EVANGELIO, EVANGELIO = pulir(evangelio_general)
-def crearListaLibros():
-	#En el csv van así: Nombre Completo, abreviacion, posible(otra abreviacion)
-	libros = []
-	with open('Abreviaciones Biblia.csv', 'r', encoding='utf-8') as abrv:
-		bookReader = csv.DictReader(abrv)
-		#Crear un diccionario
-		for row in bookReader:
-			row = {key: value for key, value in row.items() if value != ''}
-			libros.append(row)
-
-	return libros
-
-def pulirDireccion(texto_general):
-	libros = crearListaLibros() #Crear la lista con diccionarios
-	lbr = ''
-	lbrAbrev = ''
-	# finds the first word in the text that refers to a book
-	for palabra in texto_general.split(' '): #Buscar palabra por palabra
-		palabra = palabra.strip() #sacar espacios
-		for libro in libros: #Buscar un libro(en forma de diccionario) an la lista de libros
-			print(palabra, libro['Name'])
-			if libro['Name'] == palabra: 
-				lbr = libro['Name']
-				lbrAbrev = libro['Abreviattion'] #Reemplazar el nombre del libro por su abreviacion
-				break
-		if lbrAbrev: break
-
-
-	#Encontrar el principio de la direccion
 
 
 
