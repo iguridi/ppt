@@ -1,6 +1,7 @@
 # Readme
 
-`Hacedor ppt` is the folder in which the PowerPoint is created and modified with **Python**.
+`maker` is the folder in which the PowerPoint is created and modified with **Python**.
+
 
 To run it, you have to run `init.py` by typing:  
 `$python3 init.py (title) (web)`   
