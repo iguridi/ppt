@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory, current_app
 from bs4 import BeautifulSoup
 #from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -12,9 +12,16 @@ app = Flask(__name__)
 
 # from models import Result
 
-@app.route('/proximo_domingo')
-def proximo_domingo():
-    pass
+@app.route('/next_sunday')
+def next_sunday():
+    print('hola')
+    # full path:
+    # path = os.path.join(current_app.root_path, app.config['UPLOAD_FOLDER'])
+    print(current_app.root_path)
+    path = current_app.root_path
+    return send_from_directory(directory=path, filename='ppt_listo.pptx')
+    print('aaloo')
+    return
 
 
 @app.route('/', methods=['GET', 'POST'])
