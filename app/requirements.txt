@@ -5,8 +5,12 @@ Flask-WTF==0.14.2
 gunicorn==19.7.1
 itsdangerous==0.24
 Jinja2==2.10
+lxml==4.1.1
 MarkupSafe==1.0
-nltk==3.2
+olefile==0.44
+Pillow==4.3.0
+python-pptx==0.6.7
 requests==2.9.1
 Werkzeug==0.12.2
 WTForms==2.1
+XlsxWriter==1.0.2
