@@ -1,1 +1,1 @@
-web: gunicorn -b 33507 app:app --preload
+web: gunicorn app:app --preload --log-file -
