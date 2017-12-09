@@ -33,6 +33,7 @@ def next_sunday():
     print('hooola')
     path = current_app.root_path + folder
     print(path)
+    
     return send_from_directory(directory=path, filename='ppt_listo.pptx')
 
 
