@@ -74,14 +74,16 @@ def pulir(texto_general): # especifica la lecura.
 
 #(Los textos_generales son los con frases que no son de las lecturas mismas)
 
+
 primera_lectura_name = 'Primera lectura'
 salmo_responsorial_name = 'Salmo responsorial'
 segunda_lectura_name = "Segunda Lectura"
-creado_name = "Credo"
+
 
 
 primera_lectura_general = lecturas[lecturas.find(primera_lectura_name):lecturas.find(salmo_responsorial_name)] 
 if not primera_lectura_general:
+
 	for i in [primera_lectura_name, salmo_responsorial_name, segunda_lectura_name]:
 		lecturas = lecturas.replace(i.upper(), i)
 	creado_name = creado_name.upper()
@@ -92,6 +94,7 @@ salmo_general = lecturas[lecturas.find(salmo_responsorial_name):lecturas.find(se
 
 
 salmo_general = salmo_general.replace(salmo_responsorial_name[5:], '')
+
 # the salmo does not show when we have to answer
 
 salmo_general = salmo_general.replace('.\n', '. R. ')
@@ -102,7 +105,9 @@ i = salmo_general.find(' R.')
 salmo_general = salmo_general[:i] + '***' + salmo_general[i + 3:]
 
 
+
 segunda_lectura_general = lecturas[lecturas.find(segunda_lectura_name)+15:lecturas.find('SECUENCIA')]
+
 
 evangelio_div = str(texto[10].text) #Es otro <div>
 evangelio_general = evangelio_div[evangelio_div.find('Evangelio de nuestro Señor Jesucristo')+48:evangelio_div.find(creado_name)-1]
