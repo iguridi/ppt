@@ -28,9 +28,8 @@ class Hacedor:
         self.names = ['primera_lectura', 'salmo', 
                 'segunda_lectura', 'evangelio']
         for name in self.names:
-            text = self.lecturas[name]
             self.name = name
-            self.text = text
+            self.text = self.lecturas[name]
             self.modifier()
             self.replace_dirs()
             self.title_date()
@@ -45,7 +44,7 @@ class Hacedor:
     def modifier(self):
         self.remove_spaces()
         self.add_details()
-        # the begginning of the editino of the salmo
+        # the begginning of the editing of the salmo
         if self.name == 'salmo':
             self.text = self.text.replace('. R. ', '. R.')
             self.text = self.text.replace('! R. ', '! R.')
@@ -55,18 +54,17 @@ class Hacedor:
             a2 = '<a:p><a:pPr algn="just"><a:spcBef><a:spcPts val="600"/></a:spcBef><a:spcAft><a:spcPts val="600"/></a:spcAft><a:defRPr sz="2500"><a:latin typeface="+mj-lt"/><a:ea typeface="+mj-ea"/><a:cs typeface="+mj-cs"/><a:sym typeface="Helvetica"/></a:defRPr></a:pPr><a:r><a:rPr lang="es-CL" b="1" dirty="0"/><a:t>'
             z2 = '</a:t></a:r></a:p><a:p><a:pPr algn="just"><a:spcBef><a:spcPts val="600"/></a:spcBef><a:spcAft><a:spcPts val="600"/></a:spcAft><a:defRPr sz="2500"><a:latin typeface="+mj-lt"/><a:ea typeface="+mj-ea"/><a:cs typeface="+mj-cs"/><a:sym typeface="Helvetica"/></a:defRPr></a:pPr><a:r><a:rPr lang="es-CL" dirty="0"/><a:t>'
             self.text = self.text.replace('R/.', a2 + 'R.')
-            self.text = self.text.replace('santiago hizo esto ', z2)
+            self.text = self.text.replace('*** ', z2)
             self.text += '</a:t></a:r>'
             self.diaps_l = [self.text]
             print('wassaaa')
         else:
-            self.separate_text()
+            self.separate_text()    
 
         self.cant_diap = len(self.diaps_l)
         self.add_end()
         
         self.replacing()
-        # self.replace_dirs()
         self.del_diaps()
 
     def remove_spaces(self):
@@ -96,8 +94,7 @@ class Hacedor:
     def add_end(self):
         self.diaps_l[-1] += self.ends[self.name]
 
-    def replacing(self):
-        
+    def replacing(self): 
         d = self.diaps_l
         for i in range(self.cant_diap):
             # la cagada por culpa del salmo
