@@ -17,7 +17,6 @@ app.config['DEBUG'] = True
 @app.route('/next_sunday')
 def next_sunday():
     print('eeejeemmm')
-    sys.stdout.flush()
     from maker import scrapper, pptMaker
     folder = '/maker'
     directory = os.path.dirname(__file__)
@@ -31,12 +30,11 @@ def next_sunday():
     pptMaker.Maker(READINGS, BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, ADDRS, DATE, PPT_TITLE)
 
     print('hooola')
-    sys.stdout.flush()
     path = current_app.root_path + folder
     print(path)
-    sys.stdout.flush()
 
-    return send_from_directory(directory=path, filename='ppt_listo.pptx')
+    return send_from_directory(directory=path, filename='ppt_listo.pptx',
+        as_attachment=True, attachment_filename=DATE + '.pptx')
 
 
 
