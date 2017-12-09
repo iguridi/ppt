@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 
 app = Flask(__name__)
+app.config['DEBUG'] = True
 #app.config.from_object(os.environ['APP_SETTINGS'])
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # db = SQLAlchemy(app)
