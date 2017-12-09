@@ -1,8 +1,14 @@
 *.pptx
 *.ppt
 *.key
+
 !plantilla python.pptx
 !plantilla.pptx
+
+*.xml
+
+Fotos
+History
 
 
 *.png

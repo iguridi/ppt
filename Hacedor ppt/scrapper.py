@@ -106,7 +106,8 @@ def pulir(texto_general): # especifica la lecura.
 
 primera_lectura_name = 'Primera lectura'
 salmo_responsorial_name = 'Salmo responsorial'
-segunda_lectura_name = "Segunda Lectura"
+segunda_lectura_name = "Segunda Lectura"    
+credo_name = "Credo"
 
 
 
@@ -115,7 +116,7 @@ if not primera_lectura_general:
 
 	for i in [primera_lectura_name, salmo_responsorial_name, segunda_lectura_name]:
 		lecturas = lecturas.replace(i.upper(), i)
-	creado_name = creado_name.upper()
+	credo_name = credo_name.upper()
 	print("Buscando lecturas con mayusculas activado")
 	primera_lectura_general = lecturas[lecturas.find(primera_lectura_name):lecturas.find(salmo_responsorial_name)] 
 
@@ -139,7 +140,7 @@ segunda_lectura_general = lecturas[lecturas.find(segunda_lectura_name)+15:lectur
 
 
 evangelio_div = str(texto[10].text) #Es otro <div>
-evangelio_general = evangelio_div[evangelio_div.find('Evangelio de nuestro Señor Jesucristo')+48:evangelio_div.find(creado_name)-1]
+evangelio_general = evangelio_div[evangelio_div.find('Evangelio de nuestro Señor Jesucristo')+48:evangelio_div.find(credo_name)-1]
 
 DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(primera_lectura_general)
 DIR_SALMO, SALMO = pulir(salmo_general)
