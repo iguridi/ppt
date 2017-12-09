@@ -31,7 +31,7 @@ LECTURAS = {}
 TITULO = sys.argv[1]
 
 # when extracts from web
-if len(sys.argv) > 2:
+if len(sys.argv) > 20:
     FECHA = scrapper.FECHA
 
     
@@ -113,6 +113,7 @@ else:
 
 # María permaneció con Isabel unos tres meses y luego regresó a su casa.'''
 # }
+
 
 DIC = { 'portada':['<p:sldId id="256" r:id="rId2"/>'], 
         'primera_lectura':['<p:sldId id="257" r:id="rId3"/>', 
