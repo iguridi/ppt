@@ -4,18 +4,13 @@
   <head>
     <link rel="stylesheet" type="text/css" href="static/style.css">
     <title>Presentación</title>
-    <style>
-      .container {
-        max-width: 1000px;
-      }
-    </style>
   </head>
   <body>
-    <div class="container">
-      <h1>Descarga Presentación</h1>
+    <div id="bla">
 
       <form method='GET' action='/next_sunday'>
-        <button type="submit">Próximo Domingo</button>  
+        <button type="submit" class="btn-big-red">Apriete Aquí</button>
+        <!-- <button type="submit">Próximo Domingo</button>   -->
       </form>
       <br>
       {% for error in errors %}
