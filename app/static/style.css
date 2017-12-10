@@ -20,7 +20,8 @@ body {
     font-size: 3vw;
     font-weight: bold;
     color: white;
-    padding: 6%;
+    padding-top: 6%;
+    padding-bottom: 6%;
     width: 30%;
     -moz-transition: 0.15s;
     -o-transition: 0.15s;
