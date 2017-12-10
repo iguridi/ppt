@@ -145,6 +145,7 @@ segunda_lectura_general = lecturas[lecturas.find(segunda_lectura_name)+15:lectur
 
 evangelio_div = str(texto[10].text) #Es otro <div>
 evangelio_general = evangelio_div[evangelio_div.find('Evangelio de nuestro Señor Jesucristo')+48:evangelio_div.find(credo_name)-1]
+print(evangelio_div[:evangelio_div.find(credo_name)])
 
 DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(primera_lectura_general)
 DIR_SALMO, SALMO = pulir(salmo_general)
