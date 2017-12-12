@@ -29,7 +29,7 @@ lecturas = str(texto[8].text) #<div> que contiene las lecturas
 #print(lecturas)
 #FECHA
 fecha = texto[0].text
-print(fecha)
+# print(fecha)
 fecha = fecha[fecha.find("Domingo") + len("Domingo") : fecha.find("de 2") + len("de 2017")]
 FECHA = fecha.replace("de ", "")
 print("fecha:", FECHA)
@@ -39,9 +39,6 @@ def crearListaLibros():
 	#En el csv van así: Nombre Completo, abreviacion, posible(otra abreviacion)
 	abreviations_file = 'Abreviaciones Biblia.csv'
 	path = os.path.dirname(__file__) + '/' + abreviations_file
-	# path = os.path.abspath(__file__).replace(__file__, abreviations_file)
-	# print(__file__, 'blablablo')
-	# print(os.path.dirname(__file__), 'ejejej')
 	libros = []
 	with open(path, 'r', encoding='utf-8') as abrv:
 		bookReader = csv.DictReader(abrv)
@@ -67,7 +64,7 @@ def pulirDireccion(texto_general):
 		if lbrAbrev: break
 
 
-	#Encontrar el principio de la direccion
+	# Encontrar el principio de la direccion
 	libroPosition = texto_general.find(lbr)
 
 
@@ -120,7 +117,7 @@ if not primera_lectura_general:
 
 	for i in [primera_lectura_name, salmo_responsorial_name, segunda_lectura_name]:
 		lecturas = lecturas.replace(i.upper(), i)
-	credo_name = credo_name.upper()
+	# credo_name = credo_name.upper()
 	print("Buscando lecturas con mayusculas activado")
 	primera_lectura_general = lecturas[lecturas.find(primera_lectura_name):lecturas.find(salmo_responsorial_name)] 
 
@@ -145,7 +142,7 @@ segunda_lectura_general = lecturas[lecturas.find(segunda_lectura_name)+15:lectur
 
 evangelio_div = str(texto[10].text) #Es otro <div>
 evangelio_general = evangelio_div[evangelio_div.find('Evangelio de nuestro Señor Jesucristo')+48:evangelio_div.find(credo_name)-1]
-print(evangelio_div[:evangelio_div.find(credo_name)])
+print(evangelio_general, 'ejeem')
 
 DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(primera_lectura_general)
 DIR_SALMO, SALMO = pulir(salmo_general)
