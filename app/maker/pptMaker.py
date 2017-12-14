@@ -99,6 +99,7 @@ class Maker:
 				self.reading = Psalm(name, self.addrs[name], self.readings[name])
 			self.separate_text()
 			self.make_readings_slides()
+		self.add_extra_slides()
 
 	def separate_text(self):
 		'''
@@ -169,7 +170,8 @@ class Maker:
 			else:
 				body.text = slide_text
 				if i == len(self.reading.slides)-1:
-					self.add_end(slide)
+					self.add_readings_ends(slide)
+
 
 			
 	def format_addr(self, addr):
@@ -178,7 +180,7 @@ class Maker:
 		return addr
 
 
-	def add_end(self, slide):
+	def add_readings_ends(self, slide):
 		endings = {'primera_lectura': ('Palabra de Dios','Te alabamos Señor'),
 		   		   'segunda_lectura': ('Palabra de Dios','Te alabamos Señor'),
 		   		   'evangelio':       ('Palabra del Señor', 'Gloria a tí, Señor Jesus')
@@ -191,3 +193,18 @@ class Maker:
 		dialog_padre.text = endings[self.reading.title][0]
 		character.text = 'R.'
 		dialog_people.text = endings[self.reading.title][1]
+
+	def add_extra_slides(self):
+		'''
+		Adds the pictures slides and the announcements slides required.
+		'''
+		pic1 = self.prs.slides.add_slide(self.prs.slide_layouts[6])
+		announcements = self.prs.slides.add_slide(self.prs.slide_layouts[5])
+		pic2 = self.prs.slides.add_slide(self.prs.slide_layouts[6])
+
+
+
+
+
+
+

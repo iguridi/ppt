@@ -10,7 +10,7 @@ SLIDE_SIZE = 730
 ADDRS = {}
 READINGS = {}
 
-PPT_TITLE = sys.argv[1] #Change when running on server
+PPT_TITLE = sys.argv[1]
 
 #When extracts from the web
 if len(sys.argv) > 2:
