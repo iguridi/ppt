@@ -1,9 +1,3 @@
-'''
-Copyright (c) 2017 Santiago Guridi. All rights reserved. 
-
- Redistribution and use in source and binary forms, with or without 
-modification, arenn`t permitted without his permission
-'''
 import os
 from bs4 import BeautifulSoup
 import requests
@@ -19,7 +13,6 @@ def remove_spaces(text):
 	return text
 
 page = requests.get('http://www.eucaristiadiaria.cl/domingo.php')
-# page = requests.get('http://www.eucaristiadiaria.cl/dia_cal.php?fecha=2017-08-15')
 soup = BeautifulSoup(page.content, 'html.parser')
 
 contenido = soup.find('div', class_= 'cuadro_interior') #Todo los textos de la pagina del Domingo
@@ -28,11 +21,11 @@ texto = contenido.find_all('div')
 lecturas = str(texto[8].text) #<div> que contiene las lecturas
 #print(lecturas)
 #FECHA
-fecha = texto[0].text
-# print(fecha)
-fecha = fecha[fecha.find("Domingo") + len("Domingo") : fecha.find("de 2") + len("de 2017")]
-FECHA = fecha.replace("de ", "")
-print("fecha:", FECHA)
+# fecha = texto[0].text
+# # print(fecha)
+# fecha = fecha[fecha.find("Domingo") + len("Domingo") : fecha.find("de 2") + len("de 2017")]
+# FECHA = fecha.replace("de ", "")
+# print("fecha:", FECHA)
 
 
 def crearListaLibros():
@@ -83,7 +76,6 @@ def pulirDireccion(texto_general):
 	direccion = texto_general[libroPosition + len(lbr) : last_position]
 	#Quitar espacios inecesarios
 	direccion = remove_spaces(direccion)
-
 	return lbrAbrev + ' ' + direccion, last_position
 
 
@@ -98,11 +90,8 @@ def pulir(texto_general): # especifica la lecura.
 
 	return direccion, texto 
 
-
-
-#----------------------------------------------ACA PARTE TODO SOBRE LAS LECTURAS-----------------------------#
-
-#(Los textos_generales son los con frases que no son de las lecturas mismas)
+###
+#Los textos_generales son los con frases que no son de las lecturas mismas
 
 
 primera_lectura_name = 'Primera lectura'
@@ -117,7 +106,6 @@ if not primera_lectura_general:
 
 	for i in [primera_lectura_name, salmo_responsorial_name, segunda_lectura_name]:
 		lecturas = lecturas.replace(i.upper(), i)
-	# credo_name = credo_name.upper()
 	print("Buscando lecturas con mayusculas activado")
 	primera_lectura_general = lecturas[lecturas.find(primera_lectura_name):lecturas.find(salmo_responsorial_name)] 
 
@@ -126,12 +114,7 @@ salmo_general = lecturas[lecturas.find(salmo_responsorial_name):lecturas.find(se
 
 salmo_general = salmo_general.replace(salmo_responsorial_name[5:], '')
 
-# the salmo does not show when we have to answer
-
-salmo_general = salmo_general.replace('.\n', '. R. ')
-salmo_general = salmo_general.replace('!\n', '! R. ')
-
-
+# the psalm does not show when we have to answer
 i = salmo_general.find(' R.')
 salmo_general = salmo_general[:i] + '***' + salmo_general[i + 3:]
 
@@ -142,7 +125,6 @@ segunda_lectura_general = lecturas[lecturas.find(segunda_lectura_name)+15:lectur
 
 evangelio_div = str(texto[10].text) #Es otro <div>
 evangelio_general = evangelio_div[evangelio_div.find('Evangelio de nuestro Señor Jesucristo')+48:evangelio_div.find(credo_name)-1]
-print(evangelio_general, 'ejeem')
 
 DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(primera_lectura_general)
 DIR_SALMO, SALMO = pulir(salmo_general)
@@ -160,5 +142,10 @@ READINGS['primera_lectura'] = PRIMERA_LECTURA
 READINGS['salmo'] = SALMO
 READINGS['segunda_lectura'] = SEGUNDA_LECTURA
 READINGS['evangelio'] = EVANGELIO
+
+
+
+
+
 
 
