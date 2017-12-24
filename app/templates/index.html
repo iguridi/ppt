@@ -1,21 +1,47 @@
 <!DOCTYPE html>
-
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="static/style.css">
-    <title>Presentación</title>
-  </head>
-  <body>
-    <div id="bla">
-
-      <form method='GET' action='/next_sunday'>
-        <button type="submit" class="btn-big-red">Apriete Aquí</button>
-        <!-- <button type="submit">Próximo Domingo</button>   -->
-      </form>
-      <br>
-      {% for error in errors %}
-        <h4>{{ error }}</h4>
-      {% endfor %}
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>PPT Misa</title>
+  <link rel="stylesheet" type="text/css" href="calendar.css">
+  <script src="calendario.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+</head>
+<body>
+  <section class="content">
+    <h1 class="title">Presentacion Misa</h1>
+    <!-- <div class="guide step1">
+      <h2 class="instruction">1. Seleccione la fecha:</h2>
+    </div> -->
+    <div class="calendar step1">
+      <header>
+        <span id="year">2017</span>
+        <span id="month"></span>
+      </header>
+      <div class="week">
+        <div class="day-name">Lu</div>
+        <div class="day-name">Mar</div>
+        <div class="day-name">Mie</div>
+        <div class="day-name">Jue</div>
+        <div class="day-name">Vie</div>
+        <div class="day-name">Sa</div>
+        <div class="day-name">Do</div>
+      </div>
+      <div id="day_nums">
+      </div>
     </div>
-  </body>
+    <form class="userform" action="/download-ppt" method="post">
+      <input type="hidden" id="date">
+      <div class="input-wrapper step2">
+        <label>
+          <span>Titulo Presentación</span>
+          <input type="text" placeholder="Escriba aquí" title="Change title" id="title-input" required>
+        </label>
+      </div>
+      <div class="download-form step2">
+        <button class="btn-download" type="submit">Descargar</button>
+      </div>
+    </form>
+  </section>
+</body>
 </html>
