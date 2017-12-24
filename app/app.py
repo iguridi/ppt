@@ -26,13 +26,13 @@ def next_sunday():
     PPT_TITLE = 'hooola'
     ADDRS = scrapper.ADDRS
     READINGS = scrapper.READINGS
-    DATE = scrapper.FECHA
+    if request.method == "POST":
+        print(request.form)
+
+    # DATE = scrapper.FECHA
     pptMaker.Maker(READINGS, BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, ADDRS, DATE, PPT_TITLE)
 
-    print('hooola')
     path = current_app.root_path + folder
-    print(path)
-
     return send_from_directory(directory=path, filename='ppt_listo.pptx',
         as_attachment=True, attachment_filename=DATE + '.pptx')
 
