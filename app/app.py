@@ -3,20 +3,14 @@ import sys
 import requests
 from flask import Flask, render_template, request, send_from_directory, current_app
 from bs4 import BeautifulSoup
-#from flask.ext.sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-#app.config.from_object(os.environ['APP_SETTINGS'])
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# db = SQLAlchemy(app)
 
-# from models import Result
 
-@app.route('/next_sunday')
+@app.route('/download-ppt', methods=['GET', 'POST'])
 def next_sunday():
-    print('eeejeemmm')
     from maker import scrapper, pptMaker
     folder = '/maker'
     directory = os.path.dirname(__file__)
@@ -29,7 +23,6 @@ def next_sunday():
     DATE = scrapper.FECHA
     pptMaker.Maker(READINGS, BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, ADDRS, DATE, PPT_TITLE)
 
-    print('hooola')
     path = current_app.root_path + folder
     print(path)
 
