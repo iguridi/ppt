@@ -21,6 +21,10 @@ def next_sunday():
     ADDRS = scrapper.ADDRS
     READINGS = scrapper.READINGS
     DATE = scrapper.FECHA
+
+    if request.method == "POST":
+        print(request.form)
+
     pptMaker.Maker(READINGS, BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, ADDRS, DATE, PPT_TITLE)
 
     path = current_app.root_path + folder
