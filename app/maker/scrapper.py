@@ -13,7 +13,7 @@ def remove_spaces(text):
 	return text
 
 def get_web_page(url):
-	page = requests.get('http://www.eucaristiadiaria.cl/domingo.php')
+	page = requests.get(url)
 	soup = BeautifulSoup(page.content, 'html.parser')
 	#Todo los textos de la pagina del Domingo
 	contenido = soup.find('div', class_= 'cuadro_interior')
@@ -118,13 +118,10 @@ def find_readings(readings, gospel_text):
 	return (rough_first_reading, rough_psalm, rough_second_reading, rough_gospel)
 
 
-def create_url(date):
-	base_url = 'http://www.eucaristiadiaria.cl/'
 
-
-def run(date):
+def run(url):
 	# URL = create_url(date)
-	TEXT = get_web_page('http://www.eucaristiadiaria.cl/dia_cal.php?fecha=2017-12-06')
+	TEXT = get_web_page(url)
 
 	readings = str(TEXT[8].text)
 	gospel_text = str(TEXT[10].text)
@@ -158,4 +155,4 @@ def run(date):
 	READINGS['segunda_lectura'] = SEGUNDA_LECTURA
 	READINGS['evangelio'] = EVANGELIO
 
-	return ADDRS, READINGS,
+	return ADDRS, READINGS
