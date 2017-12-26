@@ -17,6 +17,8 @@ class Reading:
 		self.make_pretty()
 
 	def make_pretty(self):
+		# salmo_general = salmo_general.replace('.\n', '. R. ')
+		# salmo_general = salmo_general.replace('!\n', '! R. ')
 		self.body = remove_spaces(self.body)
 		self.body = '	' +  self.body + '\n'
 
