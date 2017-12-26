@@ -47,16 +47,16 @@ class Psalm(Reading):
 		Spliting the psalm`s paragraphs is needed for adding the "R." at the end of each.
 		'''
 		self.psalm_response = self.body[:self.body.find('***')]
-		print(self.psalm_response)
+		# print(self.psalm_response)
 		pars_pos =self.body.find('***') + 3
 		self.body = self.body[pars_pos:]
 		self.psalm_paragraphs = self.body.split(' R.')
-		print(self.psalm_paragraphs)
+		# print(self.psalm_paragraphs)
 		del self.psalm_paragraphs[-1]
 		for n, _ in enumerate(self.psalm_paragraphs):
 			self.psalm_paragraphs[n] = '	' + self.psalm_paragraphs[n]
 
-	
+
 
 
 
@@ -65,7 +65,7 @@ class Maker:
 	In charge of making and formating the slides.
 	Arguments:
 		* readings (list(string)): lectures themselves
-		* base_ppt (string): name of the ppt with the layouts 
+		* base_ppt (string): name of the ppt with the layouts
 		* output_ppt (string): name of the  ppt to modify
 		* slide_size (int): ideal maximum of characters in a slide
 		* addrs (list(string)): readings bible addresses
@@ -151,11 +151,11 @@ class Maker:
 
 			address.text = self.format_addr(self.reading.addrs) # The address is the same for all
 
-			#Setting up the text of the body of the psalm is different beacause its formatting 
+			#Setting up the text of the body of the psalm is different beacause its formatting
 			if self.reading.title == 'salmo':
 				txt_fm =  body.text_frame
 				#Add the response bold text at the beggining
-				resp = txt_fm.paragraphs[0]# Te default paragraph has white space. Dont have to add a new one, you have to use it 
+				resp = txt_fm.paragraphs[0]# Te default paragraph has white space. Dont have to add a new one, you have to use it
 				resp.text = self.reading.psalm_response
 				font = resp.font
 				font.bold = True
@@ -175,7 +175,7 @@ class Maker:
 					self.add_readings_ends(slide)
 
 
-			
+
 	def format_addr(self, addr):
 		addr = addr.strip()
 		addr = '(' + addr + ')'
@@ -203,10 +203,3 @@ class Maker:
 		pic1 = self.prs.slides.add_slide(self.prs.slide_layouts[6])
 		announcements = self.prs.slides.add_slide(self.prs.slide_layouts[5])
 		pic2 = self.prs.slides.add_slide(self.prs.slide_layouts[6])
-
-
-
-
-
-
-
