@@ -1,7 +1,19 @@
-function daysInMonth(month, year) {
+var date = new Date();
+var year = date.getFullYear();
+var month = date.getMonth();
+
+
+function daysInMonth() {
+    month = month + 1;
     return new Date(year, month, 0).getDate() + 1;
 }
+
+function makeDate(day){
+    return year + '-' + month + '-' + day;
+}
+
 var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
 function firstDayMonth(date, month, year) {
     var dateObj = new Date();
     dateObj.setFullYear(year);
@@ -10,11 +22,11 @@ function firstDayMonth(date, month, year) {
     var first_day = dateObj.getDay();
     return first_day;
 }
+
+
+
 var lastDaySelected;
 window.onload = function makeCalendar() {
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = date.getMonth();
     //Set set year
     var html_year = document.getElementById("month").innerHTML = year;
     //Setting month
@@ -38,15 +50,13 @@ window.onload = function makeCalendar() {
         daysContainer.appendChild(currentMonthDay);
     }
 };
+
 function daySelected(event) {
     var days_available = document.getElementsByClassName("available");
+    //Remove the past day selected
     for (var n = 0; n < days_available.length; n++) {
         if (days_available[n].classList.contains("selected")) {
             days_available[n].classList.remove("selected");
-            var day = document.getElementById(event.target.id);
-            day.classList.add("selected");
-            lastDaySelected = event.target.id;
-            return;
         }
     }
     //Add the selected class to the date
@@ -55,8 +65,8 @@ function daySelected(event) {
     lastDaySelected = event.target.id;
     //Add the value to the form-input
     var dateSelected = document.getElementById("date");
-    dateSelected.value = event.target.id;
-
+    dateSelected.value = makeDate(event.target.id, month, year);
+    console.log(dateSelected.value)
     //Then show next step
     let step2 = document.getElementsByClassName("step2")
     for (i = 0; i < step2.length; i++) {
@@ -68,16 +78,11 @@ function daySelected(event) {
 
 function titleSelected() {
     let titleInput = document.getElementById("title-input");
-    if (titleInput.value === "") {
-        window.alert("Es obligatorio escribir un título.")
-    }
-    else {
-        let step3 = document.getElementsByClassName("step3")
-        console.log(step3)
-        for (i = 0; i < step3.length; i++) {
-            step3[i].style.visibility = "visible";
-            step3[i].style.opacity = "1";
-        }
+    let step3 = document.getElementsByClassName("step3")
+    console.log(step3)
+    for (i = 0; i < step3.length; i++) {
+        step3[i].style.visibility = "visible";
+        step3[i].style.opacity = "1";
     }
     return false;
 }
