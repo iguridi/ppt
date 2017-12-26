@@ -57,7 +57,7 @@ def pulirDireccion(texto_general):
 	for palabra in texto_general.split(' '): #Buscar palabra por palabra
 		palabra = palabra.strip() #sacar espacios
 		for libro in libros: #Buscar un libro(en forma de diccionario) an la lista de libros
-			if libro['Name'] == palabra: 
+			if libro['Name'] == palabra:
 				lbr = libro['Name']
 				lbrAbrev = libro['Abreviattion'] #Reemplazar el nombre del libro por su abreviacion
 				break
@@ -69,10 +69,10 @@ def pulirDireccion(texto_general):
 
 
 	#Encontrar el último número de la direccion
-	for ultimo_numero in texto_general[::-1]: 
+	for ultimo_numero in texto_general[::-1]:
 		if ultimo_numero.isdigit():
 		   break
-	last_position = len(texto_general) - texto_general[::-1].find(ultimo_numero) #Por si un número se repite cuando se busca de dr a izq   
+	last_position = len(texto_general) - texto_general[::-1].find(ultimo_numero) #Por si un número se repite cuando se busca de dr a izq
 	# for when de direcctions don't end in digits
 	while True:
 		if texto_general[last_position] == '\n':
@@ -96,7 +96,7 @@ def pulir(texto_general): # especifica la lecura.
 	texto = texto.lstrip()
 	texto = texto.rstrip()
 
-	return direccion, texto 
+	return direccion, texto
 
 
 
@@ -107,19 +107,19 @@ def pulir(texto_general): # especifica la lecura.
 
 primera_lectura_name = 'Primera lectura'
 salmo_responsorial_name = 'Salmo responsorial'
-segunda_lectura_name = "Segunda Lectura"    
+segunda_lectura_name = "Segunda Lectura"
 credo_name = "Credo"
 
 
 
-primera_lectura_general = lecturas[lecturas.find(primera_lectura_name):lecturas.find(salmo_responsorial_name)] 
+primera_lectura_general = lecturas[lecturas.find(primera_lectura_name):lecturas.find(salmo_responsorial_name)]
 if not primera_lectura_general:
 
 	for i in [primera_lectura_name, salmo_responsorial_name, segunda_lectura_name]:
 		lecturas = lecturas.replace(i.upper(), i)
 	# credo_name = credo_name.upper()
 	print("Buscando lecturas con mayusculas activado")
-	primera_lectura_general = lecturas[lecturas.find(primera_lectura_name):lecturas.find(salmo_responsorial_name)] 
+	primera_lectura_general = lecturas[lecturas.find(primera_lectura_name):lecturas.find(salmo_responsorial_name)]
 
 salmo_general = lecturas[lecturas.find(salmo_responsorial_name):lecturas.find(segunda_lectura_name)]
 
@@ -142,7 +142,6 @@ segunda_lectura_general = lecturas[lecturas.find(segunda_lectura_name)+15:lectur
 
 evangelio_div = str(texto[10].text) #Es otro <div>
 evangelio_general = evangelio_div[evangelio_div.find('Evangelio de nuestro Señor Jesucristo')+48:evangelio_div.find(credo_name)-1]
-print(evangelio_general, 'ejeem')
 
 DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(primera_lectura_general)
 DIR_SALMO, SALMO = pulir(salmo_general)
@@ -150,9 +149,9 @@ DIR_SEGUNDA_LECTURA, SEGUNDA_LECTURA = pulir(segunda_lectura_general)
 DIR_EVANGELIO, EVANGELIO = pulir(evangelio_general)
 
 ADDRS = {}
-ADDRS['primera_lectura'] = DIR_PRIMERA_LECTURA 
-ADDRS['salmo'] = DIR_SALMO 
-ADDRS['segunda_lectura'] = DIR_SEGUNDA_LECTURA 
+ADDRS['primera_lectura'] = DIR_PRIMERA_LECTURA
+ADDRS['salmo'] = DIR_SALMO
+ADDRS['segunda_lectura'] = DIR_SEGUNDA_LECTURA
 ADDRS['evangelio'] = DIR_EVANGELIO
 
 READINGS = {}
@@ -160,5 +159,3 @@ READINGS['primera_lectura'] = PRIMERA_LECTURA
 READINGS['salmo'] = SALMO
 READINGS['segunda_lectura'] = SEGUNDA_LECTURA
 READINGS['evangelio'] = EVANGELIO
-
-
