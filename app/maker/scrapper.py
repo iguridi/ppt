@@ -1,9 +1,3 @@
-'''
-Copyright (c) 2017 Santiago Guridi. All rights reserved. 
-
- Redistribution and use in source and binary forms, with or without 
-modification, arenn`t permitted without his permission
-'''
 import os
 from bs4 import BeautifulSoup
 import requests
@@ -18,27 +12,20 @@ def remove_spaces(text):
 	text = text.replace('  ', '')
 	return text
 
-page = requests.get('http://www.eucaristiadiaria.cl/domingo.php')
-# page = requests.get('http://www.eucaristiadiaria.cl/dia_cal.php?fecha=2017-08-15')
-soup = BeautifulSoup(page.content, 'html.parser')
-
-contenido = soup.find('div', class_= 'cuadro_interior') #Todo los textos de la pagina del Domingo
-texto = contenido.find_all('div')
-
-lecturas = str(texto[8].text) #<div> que contiene las lecturas
-#print(lecturas)
-#FECHA
-fecha = texto[0].text
-# print(fecha)
-fecha = fecha[fecha.find("Domingo") + len("Domingo") : fecha.find("de 2") + len("de 2017")]
-FECHA = fecha.replace("de ", "")
-print("fecha:", FECHA)
+def get_web_page(url):
+	page = requests.get('http://www.eucaristiadiaria.cl/domingo.php')
+	soup = BeautifulSoup(page.content, 'html.parser')
+	#Todo los textos de la pagina del Domingo
+	contenido = soup.find('div', class_= 'cuadro_interior')
+	text = contenido.find_all('div')
+	return text
 
 
 def crearListaLibros():
+	#Crear la lista con diccionarios
 	#En el csv van así: Nombre Completo, abreviacion, posible(otra abreviacion)
 	abreviations_file = 'Abreviaciones Biblia.csv'
-	path = os.path.dirname(__file__) + '/' + abreviations_file
+	path = os.path.join(os.path.dirname(__file__), abreviations_file)
 	libros = []
 	with open(path, 'r', encoding='utf-8') as abrv:
 		bookReader = csv.DictReader(abrv)
@@ -50,7 +37,7 @@ def crearListaLibros():
 	return libros
 
 def pulirDireccion(texto_general):
-	libros = crearListaLibros() #Crear la lista con diccionarios
+	libros = crearListaLibros()
 	lbr = ''
 	lbrAbrev = ''
 	# finds the first word in the text that refers to a book
@@ -63,16 +50,16 @@ def pulirDireccion(texto_general):
 				break
 		if lbrAbrev: break
 
-
 	# Encontrar el principio de la direccion
 	libroPosition = texto_general.find(lbr)
 
-
+	ultimo_numero = ''
 	#Encontrar el último número de la direccion
 	for ultimo_numero in texto_general[::-1]:
 		if ultimo_numero.isdigit():
 		   break
-	last_position = len(texto_general) - texto_general[::-1].find(ultimo_numero) #Por si un número se repite cuando se busca de dr a izq
+	#Por si un número se repite cuando se busca de dr a izq
+	last_position = len(texto_general) - texto_general[::-1].find(ultimo_numero)
 	# for when de direcctions don't end in digits
 	while True:
 		if texto_general[last_position] == '\n':
@@ -83,7 +70,6 @@ def pulirDireccion(texto_general):
 	direccion = texto_general[libroPosition + len(lbr) : last_position]
 	#Quitar espacios inecesarios
 	direccion = remove_spaces(direccion)
-
 	return lbrAbrev + ' ' + direccion, last_position
 
 
@@ -95,67 +81,81 @@ def pulir(texto_general): # especifica la lecura.
 	#Quitar espacios inecesarios
 	texto = texto.lstrip()
 	texto = texto.rstrip()
-
 	return direccion, texto
-
-
-
-#----------------------------------------------ACA PARTE TODO SOBRE LAS LECTURAS-----------------------------#
-
-#(Los textos_generales son los con frases que no son de las lecturas mismas)
-
 
 primera_lectura_name = 'Primera lectura'
 salmo_responsorial_name = 'Salmo responsorial'
 segunda_lectura_name = "Segunda Lectura"
 credo_name = "Credo"
 
+def find_first_reading(text):
+	rough_first_reading = text[text.find(primera_lectura_name):text.find(salmo_responsorial_name)]
+	return rough_first_reading
+
+def find_psalm(text):
+	rough_psalm = text[text.find(salmo_responsorial_name):text.find(segunda_lectura_name)]
+	rough_psalm = rough_psalm.replace(salmo_responsorial_name[5:], '')
+	# the psalm does not show when we have to answer
+	i = rough_psalm.find(' R.')
+	rough_psalm = rough_psalm[:i] + '***' + rough_psalm[i + 3:]
+
+	return rough_psalm
+
+def find_second_reading(text):
+	rough_second_reading = text[text.find(segunda_lectura_name)+15:text.find('SECUENCIA')]
+	return rough_second_reading
+
+def find_gospel(gospel_text):
+	rough_gospel = gospel_text[gospel_text.find('Evangelio de nuestro Señor Jesucristo')+48:gospel_text.find(credo_name)-1]
+	return rough_gospel
 
 
-primera_lectura_general = lecturas[lecturas.find(primera_lectura_name):lecturas.find(salmo_responsorial_name)]
-if not primera_lectura_general:
-
-	for i in [primera_lectura_name, salmo_responsorial_name, segunda_lectura_name]:
-		lecturas = lecturas.replace(i.upper(), i)
-	# credo_name = credo_name.upper()
-	print("Buscando lecturas con mayusculas activado")
-	primera_lectura_general = lecturas[lecturas.find(primera_lectura_name):lecturas.find(salmo_responsorial_name)]
-
-salmo_general = lecturas[lecturas.find(salmo_responsorial_name):lecturas.find(segunda_lectura_name)]
+def find_readings(readings, gospel_text):
+	rough_first_reading = find_first_reading(readings)
+	rough_psalm = find_psalm(readings)
+	rough_second_reading = find_second_reading(readings)
+	rough_gospel = find_gospel(gospel_text)
+	return (rough_first_reading, rough_psalm, rough_second_reading, rough_gospel)
 
 
-salmo_general = salmo_general.replace(salmo_responsorial_name[5:], '')
-
-# the salmo does not show when we have to answer
-
-salmo_general = salmo_general.replace('.\n', '. R. ')
-salmo_general = salmo_general.replace('!\n', '! R. ')
+def create_url(date):
+	base_url = 'http://www.eucaristiadiaria.cl/'
 
 
-i = salmo_general.find(' R.')
-salmo_general = salmo_general[:i] + '***' + salmo_general[i + 3:]
+def run(date):
+	# URL = create_url(date)
+	TEXT = get_web_page('http://www.eucaristiadiaria.cl/dia_cal.php?fecha=2017-12-06')
+
+	readings = str(TEXT[8].text)
+	gospel_text = str(TEXT[10].text)
+
+	rough_readings = find_readings(readings, gospel_text)
+	if not rough_readings[0]:
+		for n in [primera_lectura_name, salmo_responsorial_name, segunda_lectura_name]:
+			readings = readings.replace(n.upper(), n)
+		rough_readings = find_readings(readings, gospel_text)
+
+	rough_first_reading = rough_readings[0]
+	rough_psalm = rough_readings[1]
+	rough_second_reading = rough_readings[2]
+	rough_gospel = rough_readings[3]
+
+	DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(rough_first_reading)
+	DIR_SALMO, SALMO = pulir(rough_psalm)
+	DIR_SEGUNDA_LECTURA, SEGUNDA_LECTURA = pulir(rough_second_reading)
+	DIR_EVANGELIO, EVANGELIO = pulir(rough_gospel)
 
 
+	ADDRS = {}
+	ADDRS['primera_lectura'] = DIR_PRIMERA_LECTURA
+	ADDRS['salmo'] = DIR_SALMO
+	ADDRS['segunda_lectura'] = DIR_SEGUNDA_LECTURA
+	ADDRS['evangelio'] = DIR_EVANGELIO
 
-segunda_lectura_general = lecturas[lecturas.find(segunda_lectura_name)+15:lecturas.find('SECUENCIA')]
+	READINGS = {}
+	READINGS['primera_lectura'] = PRIMERA_LECTURA
+	READINGS['salmo'] = SALMO
+	READINGS['segunda_lectura'] = SEGUNDA_LECTURA
+	READINGS['evangelio'] = EVANGELIO
 
-
-evangelio_div = str(texto[10].text) #Es otro <div>
-evangelio_general = evangelio_div[evangelio_div.find('Evangelio de nuestro Señor Jesucristo')+48:evangelio_div.find(credo_name)-1]
-
-DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(primera_lectura_general)
-DIR_SALMO, SALMO = pulir(salmo_general)
-DIR_SEGUNDA_LECTURA, SEGUNDA_LECTURA = pulir(segunda_lectura_general)
-DIR_EVANGELIO, EVANGELIO = pulir(evangelio_general)
-
-ADDRS = {}
-ADDRS['primera_lectura'] = DIR_PRIMERA_LECTURA
-ADDRS['salmo'] = DIR_SALMO
-ADDRS['segunda_lectura'] = DIR_SEGUNDA_LECTURA
-ADDRS['evangelio'] = DIR_EVANGELIO
-
-READINGS = {}
-READINGS['primera_lectura'] = PRIMERA_LECTURA
-READINGS['salmo'] = SALMO
-READINGS['segunda_lectura'] = SEGUNDA_LECTURA
-READINGS['evangelio'] = EVANGELIO
+	return ADDRS, READINGS,
