@@ -94,6 +94,7 @@ def find_first_reading(text):
 
 def find_psalm(text):
 	second_reading_name_pos = text.find(segunda_lectura_name)
+	rough_psalm = text[text.find(salmo_responsorial_name):second_reading_name_pos]
 	#In case the day selected is an ordinary day.
 	if second_reading_name_pos == -1:
 		rough_psalm = text[text.find(salmo_responsorial_name):text.find('EVANGELIO')]
@@ -111,7 +112,7 @@ def find_second_reading(text):
 	try:
 		text.index(segunda_lectura_name)
 	except ValueError:
-		return False
+		return
 	rough_second_reading = text[text.find(segunda_lectura_name)+15:text.find('SECUENCIA')]
 	return rough_second_reading
 
@@ -125,10 +126,7 @@ def find_readings(readings, gospel_text):
 	rough_psalm = find_psalm(readings)
 	rough_second_reading = find_second_reading(readings)
 	rough_gospel = find_gospel(gospel_text)
-	if rough_second_reading:
-		return (rough_first_reading, rough_psalm, rough_second_reading, rough_gospel)
-	else:
-		return (rough_first_reading, rough_psalm, False, rough_gospel)
+	return (rough_first_reading, rough_psalm, rough_second_reading, rough_gospel)
 
 
 
@@ -168,8 +166,5 @@ def run(url):
 	READINGS['primera_lectura'] = PRIMERA_LECTURA
 	READINGS['salmo'] = SALMO
 	READINGS['evangelio'] = EVANGELIO
-
-	print('\n\n', 'DIRECCION: ',ADDRS['salmo'])
-	print('Lectura: ', READINGS['salmo'], '\n\n')
 
 	return ADDRS, READINGS
