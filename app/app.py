@@ -5,11 +5,10 @@ import requests
 from flask import Flask, render_template, request, send_from_directory, current_app
 from bs4 import BeautifulSoup
 
-
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-#a
+
 @app.route('/download-ppt', methods=['GET', 'POST'])
 def next_sunday():
     from maker import scrapper, pptMaker
