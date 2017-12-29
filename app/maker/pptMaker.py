@@ -79,8 +79,11 @@ class Maker:
 		self.date = date
 		self.ppt_title = ppt_title
 
+		#Create the Presentatio
 		self.prs = Presentation(base_ppt)
-		self.process() #All the actions
+		#All the actions
+		self.process()
+		#Save the presentation
 		self.prs.save(output_ppt)
 
 	def process(self):
@@ -96,6 +99,11 @@ class Maker:
 		self.make_cover()
 		for name in names:
 			if name != 'salmo':
+				if name == 'segunda_lectura':
+					try:
+						self.readings[name]
+					except KeyError:
+						continue
 				self.reading = Reading(name, self.addrs[name], self.readings[name])
 			else:
 				self.reading = Psalm(name, self.addrs[name], self.readings[name])
