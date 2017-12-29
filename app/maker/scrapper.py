@@ -83,18 +83,24 @@ def pulir(texto_general): # especifica la lecura.
 	texto = texto.rstrip()
 	return direccion, texto
 
-primera_lectura_name = 'Primera lectura'
+first_reading_name = 'Primera lectura'
 salmo_responsorial_name = 'Salmo responsorial'
 segunda_lectura_name = "Segunda Lectura"
 credo_name = "Credo"
 
 def find_first_reading(text):
-	rough_first_reading = text[text.find(primera_lectura_name):text.find(salmo_responsorial_name)]
+	rough_first_reading = text[text.find(first_reading_name):text.find(salmo_responsorial_name)]
 	return rough_first_reading
 
 def find_psalm(text):
-	rough_psalm = text[text.find(salmo_responsorial_name):text.find(segunda_lectura_name)]
+	second_reading_name_pos = text.find(segunda_lectura_name)
+	#In case the day selected is an ordinary day.
+	if second_reading_name_pos == -1:
+		rough_psalm = text[text.find(salmo_responsorial_name):text.find('EVANGELIO')]
 	rough_psalm = rough_psalm.replace(salmo_responsorial_name[5:], '')
+
+	rough_psalm = rough_psalm.replace('.\n', '. R. ')		
+	rough_psalm = rough_psalm.replace('!\n', '! R. ')
 	# the psalm does not show when we have to answer
 	i = rough_psalm.find(' R.')
 	rough_psalm = rough_psalm[:i] + '***' + rough_psalm[i + 3:]
@@ -102,6 +108,10 @@ def find_psalm(text):
 	return rough_psalm
 
 def find_second_reading(text):
+	try:
+		text.index(segunda_lectura_name)
+	except ValueError:
+		return False
 	rough_second_reading = text[text.find(segunda_lectura_name)+15:text.find('SECUENCIA')]
 	return rough_second_reading
 
@@ -115,12 +125,14 @@ def find_readings(readings, gospel_text):
 	rough_psalm = find_psalm(readings)
 	rough_second_reading = find_second_reading(readings)
 	rough_gospel = find_gospel(gospel_text)
-	return (rough_first_reading, rough_psalm, rough_second_reading, rough_gospel)
+	if rough_second_reading:
+		return (rough_first_reading, rough_psalm, rough_second_reading, rough_gospel)
+	else:
+		return (rough_first_reading, rough_psalm, False, rough_gospel)
 
 
 
 def run(url):
-	# URL = create_url(date)
 	TEXT = get_web_page(url)
 
 	readings = str(TEXT[8].text)
@@ -128,7 +140,7 @@ def run(url):
 
 	rough_readings = find_readings(readings, gospel_text)
 	if not rough_readings[0]:
-		for n in [primera_lectura_name, salmo_responsorial_name, segunda_lectura_name]:
+		for n in [first_reading_name, salmo_responsorial_name, segunda_lectura_name]:
 			readings = readings.replace(n.upper(), n)
 		rough_readings = find_readings(readings, gospel_text)
 
@@ -139,20 +151,25 @@ def run(url):
 
 	DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(rough_first_reading)
 	DIR_SALMO, SALMO = pulir(rough_psalm)
-	DIR_SEGUNDA_LECTURA, SEGUNDA_LECTURA = pulir(rough_second_reading)
 	DIR_EVANGELIO, EVANGELIO = pulir(rough_gospel)
 
-
 	ADDRS = {}
+	READINGS = {}
+
+	if rough_second_reading:
+		DIR_SEGUNDA_LECTURA, SEGUNDA_LECTURA = pulir(rough_second_reading)
+		ADDRS['segunda_lectura'] = DIR_SEGUNDA_LECTURA
+		READINGS['segunda_lectura'] = SEGUNDA_LECTURA
+
 	ADDRS['primera_lectura'] = DIR_PRIMERA_LECTURA
 	ADDRS['salmo'] = DIR_SALMO
-	ADDRS['segunda_lectura'] = DIR_SEGUNDA_LECTURA
 	ADDRS['evangelio'] = DIR_EVANGELIO
-
-	READINGS = {}
+	
 	READINGS['primera_lectura'] = PRIMERA_LECTURA
 	READINGS['salmo'] = SALMO
-	READINGS['segunda_lectura'] = SEGUNDA_LECTURA
 	READINGS['evangelio'] = EVANGELIO
+
+	print('\n\n', 'DIRECCION: ',ADDRS['salmo'])
+	print('Lectura: ', READINGS['salmo'], '\n\n')
 
 	return ADDRS, READINGS
