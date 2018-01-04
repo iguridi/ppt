@@ -36,7 +36,9 @@ body {
   .calendar header {
     padding: 4px 0 10px 0;
     color: black;
-    text-align: center; }
+    text-align: center;
+    position: relative;
+     }
     .calendar header #month {
       display: block;
       margin-bottom: 4px;
@@ -47,6 +49,36 @@ body {
       display: block;
       font-size: .8em;
       margin-top: 4px; }
+    .calendar header #previous-month {
+      /*visibility: hidden;
+      opacity: 0;*/
+      display: none;
+      position: absolute;
+      top: 26px;
+      left: 5.5%;
+      background-color: #1d86c8;
+      color: white;
+      border-radius: 4px;
+      /*-webkit-transition: visibility 0.5s, opacity 0.5s linear;
+      -o-transition: visibility 0.5s, opacity 0.5s linear;
+      transition: visibility 0.5s, opacity 0.5s linear;*/ 
+    }
+    .calendar header #previous-month:focus {
+      outline: 0;
+    }
+    .calendar header #next-month {
+      display: inline-block;
+      position: absolute;
+      top: 26px;
+      right: 5.5%;
+      background-color: #1d86c8;
+      color: white;
+      border-radius: 4px;
+    }
+    .calendar header #next-month:focus {
+      outline: 0;
+    }
+    
   .calendar .week {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
