@@ -49,7 +49,7 @@ def monthName(month_number):
 
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def index():
     errors = []
     results = {}
