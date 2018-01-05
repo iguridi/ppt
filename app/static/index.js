@@ -124,12 +124,15 @@ function daySelected(event) {
     }
 }
 
-function titleSelected() {
-    let titleInput = document.getElementById("title-input");
-    let step3 = document.getElementsByClassName("step3")
-    for (i = 0; i < step3.length; i++) {
-        step3[i].style.visibility = "visible";
-        step3[i].style.opacity = "1";
-    }
-    return false;
+function displayCheckWarning() {
+    var warning = document.getElementById("check-presentation-warning");
+    warning.style.visibility = "visible";
+    warning.style.opacity = "1";
 }
+
+
+
+
+
+
+
