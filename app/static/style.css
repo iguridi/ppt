@@ -50,8 +50,6 @@ body {
       font-size: .8em;
       margin-top: 4px; }
     .calendar header #previous-month {
-      /*visibility: hidden;
-      opacity: 0;*/
       display: none;
       position: absolute;
       top: 26px;
@@ -59,9 +57,6 @@ body {
       background-color: #1d86c8;
       color: white;
       border-radius: 4px;
-      /*-webkit-transition: visibility 0.5s, opacity 0.5s linear;
-      -o-transition: visibility 0.5s, opacity 0.5s linear;
-      transition: visibility 0.5s, opacity 0.5s linear;*/ 
     }
     .calendar header #previous-month:focus {
       outline: 0;
@@ -121,7 +116,9 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  grid-template-areas: "textinput" "btn"; }
+  grid-template-areas: "textinput " 
+                       "btn       "
+                       "warning   "; }
   .userform .input-wrapper {
     grid-area: textinput;
     padding: 10px 0;
@@ -177,6 +174,16 @@ body {
         background-color: #36a0e2;
         outline: 0;
         cursor: pointer; }
+  .userform #check-presentation-warning {
+      grid-area: warning;
+      color: #F57F17;
+      font-size: 1.3em;
+      font-weight: 700;
+      visibility: hidden;
+      opacity: 0;
+      -webkit-transition: visibility 1s, opacity 1s linear;
+      -o-transition: visibility 1s, opacity 1s linear;
+      transition: visibility 1s, opacity 1s linear; }
 
 .step2 {
   visibility: hidden;
