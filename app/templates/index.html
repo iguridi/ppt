@@ -30,8 +30,9 @@
       </label>
     </div>
     <div class="download-form step2">
-      <button class="btn-download" type="submit">Descargar</button>
+      <button class="btn-download" type="submit" onclick="displayCheckWarning()">Descargar</button>
     </div>
+    <span id="check-presentation-warning">Por favor, revise si la presentación está en orden antes de usarla.</span>
   </form>
 </section>
 {% endblock %}
