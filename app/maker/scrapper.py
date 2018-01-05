@@ -40,35 +40,33 @@ def pulirDireccion(texto_general):
 	libros = crearListaLibros()
 	lbr = ''
 	lbrAbrev = ''
-	# finds the first word in the text that refers to a book
+	#Find the first word in the text that refers to a book name
 	for palabra in texto_general.split(' '): #Buscar palabra por palabra
-		palabra = palabra.strip() #sacar espacios
-		for libro in libros: #Buscar un libro(en forma de diccionario) an la lista de libros
+		palabra = palabra.strip() #Remove spaces
+		for libro in libros: #Buscar un libro(en forma de diccionario) en la lista de libros
 			if libro['Name'] == palabra:
 				lbr = libro['Name']
-				lbrAbrev = libro['Abreviattion'] #Reemplazar el nombre del libro por su abreviacion
+				lbrAbrev = libro['Abreviattion'] #Replace the book name for its shortening
 				break
 		if lbrAbrev: break
 
-	# Encontrar el principio de la direccion
-	libroPosition = texto_general.find(lbr)
+	# Find the begining of the address
+	book_pos = texto_general.find(lbr)
 
-	ultimo_numero = ''
-	#Encontrar el último número de la direccion
-	for ultimo_numero in texto_general[::-1]:
-		if ultimo_numero.isdigit():
+	last_number = ''
+	# Find the ending of the address
+	for last_number in texto_general[::-1]:
+		if last_number.isdigit():
 		   break
-	#Por si un número se repite cuando se busca de dr a izq
-	last_position = len(texto_general) - texto_general[::-1].find(ultimo_numero)
-	# for when de direcctions don't end in digits
+	#Por si un número se repite cuando se busca de left to rigth
+	last_position = len(texto_general) - texto_general[::-1].find(last_number)
+	#If the direcctions doesn't end in digits
 	while True:
 		if texto_general[last_position] == '\n':
 			break
 		last_position += 1
-
-
-	direccion = texto_general[libroPosition + len(lbr) : last_position]
-	#Quitar espacios inecesarios
+	direccion = texto_general[book_pos + len(lbr) : last_position]
+	#Remove unnecesary spaces
 	direccion = remove_spaces(direccion)
 	return lbrAbrev + ' ' + direccion, last_position
 
@@ -129,12 +127,11 @@ def find_readings(readings, gospel_text):
 	return (rough_first_reading, rough_psalm, rough_second_reading, rough_gospel)
 
 
-
 def run(url):
-	TEXT = get_web_page(url)
+	text = get_web_page(url)
 
-	readings = str(TEXT[8].text)
-	gospel_text = str(TEXT[10].text)
+	readings = str(text[8].text)
+	gospel_text = str(text[10].text)
 
 	rough_readings = find_readings(readings, gospel_text)
 	if not rough_readings[0]:
