@@ -49,29 +49,27 @@ body {
       display: block;
       font-size: .8em;
       margin-top: 4px; }
+    .calendar header .change-month {
+      position: absolute;
+      background-color: #1d86c8;
+      color: white;
+      border-radius: 4px;
+      box-shadow: none !important;
+    }
+    .calendar header .change-month:focus {
+      outline: 0;
+      box-shadow: none !important;
+    }
+
     .calendar header #previous-month {
       display: none;
-      position: absolute;
       top: 26px;
       left: 5.5%;
-      background-color: #1d86c8;
-      color: white;
-      border-radius: 4px;
     }
-    .calendar header #previous-month:focus {
-      outline: 0;
-    }
+
     .calendar header #next-month {
-      display: inline-block;
-      position: absolute;
       top: 26px;
       right: 5.5%;
-      background-color: #1d86c8;
-      color: white;
-      border-radius: 4px;
-    }
-    .calendar header #next-month:focus {
-      outline: 0;
     }
     
   .calendar .week {
@@ -219,7 +217,7 @@ body {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     height: calc(100vh - 16px);
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 10px 20px;
     background-color: white; } }
 
