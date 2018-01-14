@@ -1,14 +1,24 @@
 <html>
-  <head>
-    {% if title %}
-    <title>{{ title }} - microblog</title>
-    {% else %}
-    <title>Welcome to microblog</title>
-    {% endif %}
-  </head>
-  <body>
-    <div>Microblog: <a href="/login">form</a></div>
-    <hr>
-    {% block content %}{% endblock %}
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>PPT Misa</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="{{url_for('static', filename='index.js')}}"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111977130-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-111977130-1');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta name="description" content="Download a Powerpoint presentation with the readings of the day you want.">
+  <meta name="keywords" content="porwerpoint,misa,presentacion,descargar,lecturas">
+</head>
+<body>
+  {% block content %}{% endblock %}
+</body>
 </html>

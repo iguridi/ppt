@@ -1,21 +1,38 @@
-<!DOCTYPE html>
-
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="static/style.css">
-    <title>Presentación</title>
-  </head>
-  <body>
-    <div id="bla">
-
-      <form method='GET' action='/next_sunday'>
-        <button type="submit" class="btn-big-red">Apriete Aquí</button>
-        <!-- <button type="submit">Próximo Domingo</button>   -->
-      </form>
-      <br>
-      {% for error in errors %}
-        <h4>{{ error }}</h4>
-      {% endfor %}
+{% extends "base.html" %}
+{% block content %}
+<section class="content">
+  <h1 class="title">Presentacion Misa</h1>
+  <div class="calendar step1">
+    <header>
+      <button id="previous-month" class="change-month" onclick="previousMonth()"><i class="material-icons">keyboard_arrow_left</i></button>
+      <span id="year"></span>
+      <span id="month"></span>
+      <button id="next-month" class="change-month" onclick="nextMonth()"><i class="material-icons">keyboard_arrow_right</i></button>
+    </header>
+    <div class="week">
+      <div class="day-name">Lu</div>
+      <div class="day-name">Mar</div>
+      <div class="day-name">Mie</div>
+      <div class="day-name">Jue</div>
+      <div class="day-name">Vie</div>
+      <div class="day-name">Sa</div>
+      <div class="day-name">Do</div>
     </div>
-  </body>
-</html>
+    <div id="day_nums">
+    </div>
+  </div>
+  <form class="userform" action="/download-ppt" method="POST">
+    <input name="date"type="hidden" id="date">
+    <div class="input-wrapper step2">
+      <label>
+        <span>Titulo Presentación</span>
+        <input name="title" type="text" placeholder="Escriba aquí" title="Change title" id="title-input" required>
+      </label>
+    </div>
+    <div class="download-form step2">
+      <button class="btn-download" type="submit" onclick="displayCheckWarning()">Descargar</button>
+    </div>
+    <span id="check-presentation-warning">Por favor, revise si la presentación está en orden antes de usarla.</span>
+  </form>
+</section>
+{% endblock %}

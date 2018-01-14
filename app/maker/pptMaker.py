@@ -17,6 +17,8 @@ class Reading:
 		self.make_pretty()
 
 	def make_pretty(self):
+		# salmo_general = salmo_general.replace('.\n', '. R. ')
+		# salmo_general = salmo_general.replace('!\n', '! R. ')
 		self.body = remove_spaces(self.body)
 		self.body = '	' +  self.body + '\n'
 
@@ -45,16 +47,16 @@ class Psalm(Reading):
 		Spliting the psalm`s paragraphs is needed for adding the "R." at the end of each.
 		'''
 		self.psalm_response = self.body[:self.body.find('***')]
-		print(self.psalm_response)
+		# print(self.psalm_response)
 		pars_pos =self.body.find('***') + 3
 		self.body = self.body[pars_pos:]
 		self.psalm_paragraphs = self.body.split(' R.')
-		print(self.psalm_paragraphs)
+		# print(self.psalm_paragraphs)
 		del self.psalm_paragraphs[-1]
 		for n, _ in enumerate(self.psalm_paragraphs):
 			self.psalm_paragraphs[n] = '	' + self.psalm_paragraphs[n]
 
-	
+
 
 
 
@@ -63,7 +65,7 @@ class Maker:
 	In charge of making and formating the slides.
 	Arguments:
 		* readings (list(string)): lectures themselves
-		* base_ppt (string): name of the ppt with the layouts 
+		* base_ppt (string): name of the ppt with the layouts
 		* output_ppt (string): name of the  ppt to modify
 		* slide_size (int): ideal maximum of characters in a slide
 		* addrs (list(string)): readings bible addresses
@@ -77,8 +79,11 @@ class Maker:
 		self.date = date
 		self.ppt_title = ppt_title
 
+		#Create the Presentatio
 		self.prs = Presentation(base_ppt)
-		self.process() #All the actions
+		#All the actions
+		self.process()
+		#Save the presentation
 		self.prs.save(output_ppt)
 
 	def process(self):
@@ -94,11 +99,17 @@ class Maker:
 		self.make_cover()
 		for name in names:
 			if name != 'salmo':
+				if name == 'segunda_lectura':
+					try:
+						self.readings[name]
+					except KeyError:
+						continue
 				self.reading = Reading(name, self.addrs[name], self.readings[name])
 			else:
 				self.reading = Psalm(name, self.addrs[name], self.readings[name])
 			self.separate_text()
 			self.make_readings_slides()
+		self.add_extra_slides()
 
 	def separate_text(self):
 		'''
@@ -148,11 +159,11 @@ class Maker:
 
 			address.text = self.format_addr(self.reading.addrs) # The address is the same for all
 
-			#Setting up the text of the body of the psalm is different beacause its formatting 
+			#Setting up the text of the body of the psalm is different beacause its formatting
 			if self.reading.title == 'salmo':
 				txt_fm =  body.text_frame
 				#Add the response bold text at the beggining
-				resp = txt_fm.paragraphs[0]# Te default paragraph has white space. Dont have to add a new one, you have to use it 
+				resp = txt_fm.paragraphs[0]# Te default paragraph has white space. Dont have to add a new one, you have to use it
 				resp.text = self.reading.psalm_response
 				font = resp.font
 				font.bold = True
@@ -169,16 +180,17 @@ class Maker:
 			else:
 				body.text = slide_text
 				if i == len(self.reading.slides)-1:
-					self.add_end(slide)
+					self.add_readings_ends(slide)
 
-			
+
+
 	def format_addr(self, addr):
 		addr = addr.strip()
 		addr = '(' + addr + ')'
 		return addr
 
 
-	def add_end(self, slide):
+	def add_readings_ends(self, slide):
 		endings = {'primera_lectura': ('Palabra de Dios','Te alabamos Señor'),
 		   		   'segunda_lectura': ('Palabra de Dios','Te alabamos Señor'),
 		   		   'evangelio':       ('Palabra del Señor', 'Gloria a tí, Señor Jesus')
@@ -191,3 +203,11 @@ class Maker:
 		dialog_padre.text = endings[self.reading.title][0]
 		character.text = 'R.'
 		dialog_people.text = endings[self.reading.title][1]
+
+	def add_extra_slides(self):
+		'''
+		Adds the pictures slides and the announcements slides required.
+		'''
+		pic1 = self.prs.slides.add_slide(self.prs.slide_layouts[6])
+		announcements = self.prs.slides.add_slide(self.prs.slide_layouts[5])
+		pic2 = self.prs.slides.add_slide(self.prs.slide_layouts[6])
