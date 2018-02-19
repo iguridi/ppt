@@ -34,7 +34,7 @@ var displayMonth = new Object();
 function makeCalendar(_, selectedMonth = "current") {
     if (selectedMonth == "current") {
         pastMonth.startWeekDay = firstDayMonth(month-1, year);
-        pastMonth.monthLength = daysInMonth(month, year);
+        pastMonth.monthLength = daysInMonth(month-1, year); 
         pastMonth.monthNumber = month - 1;
 
         displayMonth.startWeekDay = firstDayMonth(month, year);
@@ -52,17 +52,16 @@ function makeCalendar(_, selectedMonth = "current") {
 
 
     }
-    //Set set year
-    var html_year = document.getElementById("year").innerHTML = year;
-    //Setting month
-    var html_month = document.getElementById("month").innerHTML = months[displayMonth.monthNumber];
+    // setting month and year
+    document.getElementById("month_year").innerHTML = months[displayMonth.monthNumber] + ' ' + year
+
     //Setting dates 
     var daysContainer = document.getElementById("day_nums");
     daysContainer.innerHTML = '';
 
     var n = pastMonth.monthLength - displayMonth.startWeekDay + 2;// Days of the past month to show
     var a = displayMonth.startWeekDay + n - 1;
-    console.log(n)
+    //console.log(n)
     for (i = n; i < a; i++) {
         var dayPastMonth = document.createElement("div");
         dayPastMonth.classList.add("day");
@@ -82,7 +81,7 @@ function makeCalendar(_, selectedMonth = "current") {
 window.onload = makeCalendar;
 
 function nextMonth() {
-    makeCalendar('a', "next");
+    makeCalendar('_', "next");
     //SHOW return button and HIDE    next button
     var nextButton = document.getElementById("next-month");
     nextButton.style.display = 'none';

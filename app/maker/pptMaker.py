@@ -72,7 +72,7 @@ class Maker:
 		* date (string): Date of the mass
 		* ppt_title (string): title of the presentation based on the celebration on that *date
 	'''
-	def __init__(self, readings, base_ppt, output_ppt, slide_size, addrs, date, ppt_title):
+	def __init__(self, base_ppt, output_ppt, slide_size, addrs, readings, ppt_title=None, date=None,):
 		self.readings = readings
 		self.slide_size = slide_size
 		self.addrs = addrs
@@ -132,10 +132,10 @@ class Maker:
 		'''
 		cover_layout = self.prs.slide_layouts[0]
 		cover = self.prs.slides.add_slide(cover_layout)
-		title = cover.shapes.title #placeholder idx of the address
+		self.title = cover.shapes.title #placeholder idx of the address
 		date = cover.placeholders[10] #placeholder idx of the body
 
-		title.text = self.ppt_title
+		self.title.text = self.ppt_title
 		date.text = self.date
 
 

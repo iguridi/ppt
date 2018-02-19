@@ -3,3 +3,6 @@ freeze:
 
 run:
 	gunicorn app:app --preload
+
+heroku_push:
+	git push heroku master
