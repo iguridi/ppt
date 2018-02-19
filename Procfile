@@ -1,1 +1,0 @@
-web: gunicorn --pythonpath app app:app --preload --log-file -

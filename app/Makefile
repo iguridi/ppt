@@ -6,3 +6,8 @@ run:
 
 heroku_push:
 	git push heroku master
+
+new_gitignore:
+	git rm -r --cached ..
+	git add .
+	git commit -m 'new gitignore'
