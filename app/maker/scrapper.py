@@ -75,15 +75,13 @@ def pulirDireccion(texto_general):
 def pulir(texto_general): # especifica la lecura.
 	direccion, last_position = pulirDireccion(texto_general)
 	texto = texto_general[last_position:]
-
 	#Quitar espacios inecesarios
-	texto = texto.lstrip()
-	texto = texto.rstrip()
+	texto = texto.strip()
 	return direccion, texto
 
 first_reading_name = 'Primera lectura'
 salmo_responsorial_name = 'Salmo responsorial'
-segunda_lectura_name = "Segunda Lectura"
+second_reading_name = "Segunda Lectura"
 credo_name = "Credo"
 
 def find_first_reading(text):
@@ -91,7 +89,7 @@ def find_first_reading(text):
 	return rough_first_reading
 
 def find_psalm(text):
-	second_reading_name_pos = text.find(segunda_lectura_name)
+	second_reading_name_pos = text.find(second_reading_name)
 	rough_psalm = text[text.find(salmo_responsorial_name):second_reading_name_pos]
 	#In case the day selected is an ordinary day.
 	if second_reading_name_pos == -1:
@@ -108,10 +106,10 @@ def find_psalm(text):
 
 def find_second_reading(text):
 	try:
-		text.index(segunda_lectura_name)
+		text.index(second_reading_name)
 	except ValueError:
 		return
-	rough_second_reading = text[text.find(segunda_lectura_name)+15:text.find('SECUENCIA')]
+	rough_second_reading = text[text.find(second_reading_name)+15:text.find('SECUENCIA')]
 	return rough_second_reading
 
 def find_gospel(gospel_text):
@@ -135,7 +133,7 @@ def run(url):
 
 	rough_readings = find_readings(readings, gospel_text)
 	if not rough_readings[0]:
-		for n in [first_reading_name, salmo_responsorial_name, segunda_lectura_name]:
+		for n in [first_reading_name, salmo_responsorial_name, second_reading_name]:
 			readings = readings.replace(n.upper(), n)
 		rough_readings = find_readings(readings, gospel_text)
 
@@ -144,24 +142,24 @@ def run(url):
 	rough_second_reading = rough_readings[2]
 	rough_gospel = rough_readings[3]
 
-	DIR_PRIMERA_LECTURA, PRIMERA_LECTURA = pulir(rough_first_reading)
-	DIR_SALMO, SALMO = pulir(rough_psalm)
-	DIR_EVANGELIO, EVANGELIO = pulir(rough_gospel)
+	dir_primera_lectura, primera_lectura = pulir(rough_first_reading)
+	dir_salmo, salmo = pulir(rough_psalm)
+	dir_evangelio, evangelio = pulir(rough_gospel)
 
-	ADDRS = {}
-	READINGS = {}
+	addrs = {}
+	readings = {}
 
 	if rough_second_reading:
-		DIR_SEGUNDA_LECTURA, SEGUNDA_LECTURA = pulir(rough_second_reading)
-		ADDRS['segunda_lectura'] = DIR_SEGUNDA_LECTURA
-		READINGS['segunda_lectura'] = SEGUNDA_LECTURA
+		dir_segunda_lectura, segunda_lectura = pulir(rough_second_reading)
+		addrs['segunda_lectura'] = dir_segunda_lectura
+		readings['segunda_lectura'] = segunda_lectura
 
-	ADDRS['primera_lectura'] = DIR_PRIMERA_LECTURA
-	ADDRS['salmo'] = DIR_SALMO
-	ADDRS['evangelio'] = DIR_EVANGELIO
+	addrs['primera_lectura'] = dir_primera_lectura
+	addrs['salmo'] = dir_salmo
+	addrs['evangelio'] = dir_evangelio
 	
-	READINGS['primera_lectura'] = PRIMERA_LECTURA
-	READINGS['salmo'] = SALMO
-	READINGS['evangelio'] = EVANGELIO
+	readings['primera_lectura'] = primera_lectura
+	readings['salmo'] = salmo
+	readings['evangelio'] = evangelio
 
-	return ADDRS, READINGS
+	return addrs, readings

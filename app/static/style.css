@@ -6,6 +6,12 @@ body {
   font-family: sans-serif;
   font-family: "Roboto", sans-serif; }
 
+.mi_button {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
 .content {
   display: grid;
   grid-template-columns: 1fr;
@@ -73,16 +79,18 @@ body {
     }
     
   .calendar .week {
+
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-column-gap: 2px;
     margin: 0 2px;
     color: black;
     letter-spacing: 1px;
-    border-bottom: 2px solid black; }
+    border-bottom: 0px solid black; }
     .calendar .week .day-name {
+
       text-align: center;
-      font-weight: 700; }
+      font-weight: 200; }
   .calendar #day_nums {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -99,6 +107,7 @@ body {
       color: #999;
       font-size: 1em; }
     .calendar #day_nums .available {
+      border: none;
       cursor: pointer;
       color: white;
       background-color: #1d86c8; }
@@ -109,19 +118,54 @@ body {
     .calendar #day_nums .selected {
       background-color: #F57F17; }
 
+/*
+::placeholder {  Most modern browsers support this now. 
+   color:    #aaaaaa;
+}
+*/
+
+.cursor {
+  position: relative;
+}
+
+.cursor i {
+  
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 1px;
+  height: 100%;
+  background-color: gray;
+  left: 5px;
+  top: 10%;
+  animation-name: blink;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  opacity: 1;
+}
+
+.cursor input:focus + i {
+  display: none;
+}
+
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+
 .userform {
-  grid-area: userform;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-areas: "textinput " 
-                       "btn       "
-                       "warning   "; }
-  .userform .input-wrapper {
+    grid-area: userform; 
+} 
+
+.userform .input-wrapper {
     grid-area: textinput;
-    padding: 10px 0;
-    width: 300px; }
-    .userform .input-wrapper label {
+    padding: 10px 0px;
+    width: 300px; 
+} 
+
+.userform .input-wrapper label {
       grid-column: auto / span 2;
       display: -webkit-box;
       display: -ms-flexbox;
@@ -129,18 +173,25 @@ body {
       -webkit-box-orient: vertical;
       -webkit-box-direction: normal;
       -ms-flex-direction: column;
-      flex-direction: column; }
-      .userform .input-wrapper label span {
-        margin-bottom: 5px;
-        font-size: .8em;
-        text-transform: uppercase; }
-      .userform .input-wrapper label #title-input {
-        display: inline-block;
-        height: 40px;
-        padding: 3px 0;
-        font-size: 1em;
-        border: 0;
-        border-bottom: 2px solid #1d86c8; }
+      flex-direction: column; 
+} 
+
+.userform .input-wrapper label span {
+    margin-bottom: 5px;
+    font-size: .8em;
+    text-transform: uppercase; 
+} 
+
+.userform .input-wrapper label #title-input {
+    display: inline-block;
+    height: 40px;
+    padding: 3px 6px;
+    font-size: 100%;
+    border: 0;
+    border-bottom: 0px solid #1d86c8; 
+    background-color: #1d86c825;
+}
+
         .userform .input-wrapper label #title-input:focus {
           outline: 0; }
         .userform .input-wrapper label #title-input:active {
@@ -184,8 +235,8 @@ body {
       transition: visibility 1s, opacity 1s linear; }
 
 .step2 {
-  visibility: hidden;
-  opacity: 0;
+  /*visibility: hidden;
+  opacity: 0;*/
   -webkit-transition: visibility 0.5s, opacity 0.5s linear;
   -o-transition: visibility 0.5s, opacity 0.5s linear;
   transition: visibility 0.5s, opacity 0.5s linear; }
@@ -200,6 +251,7 @@ body {
     justify-content: space-around; }
 
   .calendar .week {
+
     grid-template-columns: repeat(7, 41px);
     grid-gap: 2px 2px;
     padding: 2px; }
