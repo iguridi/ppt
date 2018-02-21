@@ -2,7 +2,7 @@
 var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 var year = "2005"
 
-var weekDays = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"]
+var weekDays = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"]
 
 
 var date = new Date();
@@ -34,27 +34,14 @@ function removeChilds(myNode) {
 }
 
 
-function buttons() {
-    inputElement = document.getElementById('past_month');
-    inputElement.addEventListener('click', function() {
-        month = date.getMonth() - 1;
-        year = date.getFullYear();
-        date = new Date(year, month, 1);
-        makeCalendar(date, 0);
-    });
-
-    inputElement = document.getElementById('next_month');
-    inputElement.addEventListener('click', function() {
-        month = date.getMonth() + 1;
-        year = date.getFullYear();
-        date = new Date(year, month, 1);
-        makeCalendar(date, 0);
-    });
-}
-
 function clickableDay(day) {
     day.addEventListener('click', function() {
-        download(day);
+        daySelected(day);
+        // save date
+        document.getElementById('dateinput').value = makeDate(year, month + 1, day.innerHTML);
+        // saveLastDate(day.innerHTML);
+        // download(day);
+        showModal();
     });
 }
 
@@ -70,7 +57,7 @@ function getMonthName(n) {
     return months[n];
 }
 
-function post_to_url(path, params, method) {
+function postToUrl(path, params, method) {
     method = method || "post";
 
     var form = document.createElement("form");
@@ -96,11 +83,23 @@ function makeDate(year, month, day) {
     return year + '-' + month + '-' + day;
 }
 
-function download(day) {
-    url = '/download-ppt';
-    date_string = makeDate(year, month + 1, day.innerHTML)
-    params = {date: date_string, title: 'Título'};
-    post_to_url(url, params, 'get');
+function blur(element, n) {
+    element.style['-webkit-filter'] =  'blur(' + n + ')';
+    element.style['-moz-filter'] =  'blur(' + n + ')';
+    element.style['-o-filter'] =  'blur(' + n + ')';
+    element.style['-ms-filter'] =  'blur(' + n + ')';
+    element.style['filter'] =  'blur(' + n + ')';
+}
+
+function showModal() {
+    // url = '/download-ppt';
+    // date_string = makeDate(year, month + 1, day.innerHTML)
+    // params = {date: date_string, title: 'Título'};
+    // post_to_url(url, params, 'get');
+    var modal = document.getElementById('myModal');
+    modal.style.display = "block";
+    var all = document.getElementById('all');
+    blur(all, '10px');
 }   
 
 
@@ -211,59 +210,72 @@ function makeCalendar(date, current) {
         // console.log('ejeem')
 // window.onload = makeCalendar;
 
+function buttons() {
+    inputElement = document.getElementById('past_month');
+    inputElement.addEventListener('click', function() {
+        month = date.getMonth() - 1;
+        year = date.getFullYear();
+        date = new Date(year, month, 1);
+        makeCalendar(date, 0);
+    });
+
+    inputElement = document.getElementById('next_month');
+    inputElement.addEventListener('click', function() {
+        month = date.getMonth() + 1;
+        year = date.getFullYear();
+        date = new Date(year, month, 1);
+        makeCalendar(date, 0);
+    });
+    // var span = document.getElementById("close");
+    // span.addEventListener('click', function() {
+    //     var modal = document.getElementById('myModal');
+    //     modal.style.display = "none";
+    //     var all = document.getElementById('all');
+    //     blur(all, '0px');  
+    // });
+}
+
+function daySelected(day) {
+    var lastDaySelected = day;
+    var days_available = document.getElementsByClassName("available");
+    //Remove the past day selected
+    for (var n = 0; n < days_available.length; n++) {
+        if (days_available[n].classList.contains("selected")) {
+            days_available[n].classList.remove("selected");
+        }
+    }
+    //Add the selected class to the date
+    // var day = document.getElementById(event.target.id);
+    lastDaySelected.classList.add("selected");
+    // lastDaySelected = event.target.id;
+    //Add the value to the form-input
+}
+
+function saveLastDate(day) {
+    var input = document.getElementById('dateinput');
+    // var dateSelected = document.getElementById("date");
+    // date_string = makeDate(year, month + 1, day.innerHTML)
+    input.value = makeDate(year, month + 1, day);
+
+    //Then show next step
+    // let step2 = document.getElementsByClassName("step2")
+    // for (i = 0; i < step2.length; i++) {
+    //     step2[i].style.visibility = "visible";
+    //     step2[i].style.opacity = "1";
+// }
+}
+
 window.onload = function() {
     makeCalendar(date, 1);
     buttons();
-    var i = document.createElement("img");
-    i.src = "/download-ppt?date=2018-02-02";
-
 };
 
-// function makeCalendar(_, selectedMonth = "current") {
+window.onclick = function(event) {
+    var modal = document.getElementById('myModal');
+    if (event.target == modal) {
+        var all = document.getElementById('all');
+        blur(all, '0px');
+        modal.style.display = "none";
+    }
+}
 
-
-//     if (selectedMonth == "current") {
-//         pastMonth.startWeekDay = firstDayMonth(month-1, year);
-//         pastMonth.monthLength = daysInMonth(month-1, year); 
-//         pastMonth.monthNumber = month - 1;
-
-//         displayMonth.startWeekDay = firstDayMonth(month, year);
-//         displayMonth.monthLength = daysInMonth(month, year);
-//         displayMonth.monthNumber = month;
-//     }
-//     else if (selectedMonth == "next") {
-//         pastMonth.startWeekDay = firstDayMonth(month, year);
-//         pastMonth.monthLength = daysInMonth(month, year);
-//         pastMonth.monthNumber = month;
-
-//         displayMonth.startWeekDay = firstDayMonth(month+1, year),
-//         displayMonth.monthLength = daysInMonth(month+1, year)
-//         displayMonth.monthNumber = month + 1;
-
-
-//     }
-//     // setting month and year
-//     document.getElementById("month_year").innerHTML = months[displayMonth.monthNumber] + ' ' + year
-
-//     //Setting dates 
-//     var daysContainer = document.getElementById("day_nums");
-//     daysContainer.innerHTML = '';
-
-//     var n = pastMonth.monthLength - displayMonth.startWeekDay + 2;// Days of the past month to show
-//     var a = displayMonth.startWeekDay + n - 1;
-//     //console.log(n)
-//     for (i = n; i < a; i++) {
-//         var dayPastMonth = document.createElement("div");
-//         dayPastMonth.classList.add("day");
-//         dayPastMonth.textContent = i;
-//         daysContainer.appendChild(dayPastMonth);
-//     }
-//     for (i = 1; i <= displayMonth.monthLength; i++) {
-//         var currentMonthDay = document.createElement("button");
-//         currentMonthDay.setAttribute("id", i);
-//         currentMonthDay.classList.add("day", "available");
-//         currentMonthDay.addEventListener("click", daySelected);
-//         currentMonthDay.textContent = i;
-//         daysContainer.appendChild(currentMonthDay);
-//     }
-// };
