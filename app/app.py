@@ -17,7 +17,7 @@ app.config['DEBUG'] = True
 BASE_URL = 'http://www.eucaristiadiaria.cl/'
 
 @app.route('/download-ppt', methods=['GET', 'POST'])
-def downoad():
+def download():
     from maker import scrapper, pptMaker
     folder = 'maker'
     directory = os.path.dirname(__file__)

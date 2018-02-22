@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Fjalla+One:400|Roboto:400,400italic,700);
+/*@import url(https://fonts.googleapis.com/css?family=Fjalla+One:400|Roboto:400,400italic,700);*/
 
 :root {
     --main_color: #1f8fcf;
@@ -8,6 +8,10 @@
     --available_color: #fff;
 }
 
+@font-face { 
+    font-family: Roboto; 
+    src: url('Roboto-Regular.ttf'); 
+} 
 
 * {
     box-sizing: border-box;
@@ -17,15 +21,15 @@
 
 body {
     background-color: var(--main_color);
+    font-family: Roboto; 
 }
 
-.all {
+#all {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: auto;
     max-width: 800px;
-    font-family: 'Roboto'; 
 }
 
 h1 {
@@ -250,6 +254,115 @@ h4 {
 }
 
 
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    /*padding-top: 100px;  Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #ffffff80
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: var(--main_color);
+    /*background-color: #d3ebf8;*/
+    /*background-color: #eee;*/
+    margin: 120px auto 0;
+    padding: 20px;
+    border: 0px solid var(--main_color);
+    border-radius: 15px;
+    width: 300px;
+    height: 400px;
+    text-align: center;
+}
+
+
+
+#titleinput {
+    outline: 0;
+    border: 0;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    border: 1px solid #fff;
+    border-radius: 7px;
+    height: 40%;
+    width: 80%;
+    margin: 20px auto 28px;
+    display: block;
+    color: #fff;
+    background-color: var(--main_color);
+    font-size: 1.2em;
+    font-family: Roboto;
+    overflow: hidden;
+    padding: 10px;
+    resize: none;
+}
+
+#titleinput::-webkit-input-placeholder {
+    color: #ddd;
+}
+#titleinput::-moz-placeholder 
+#titleinput:-ms-input-placeholder 
+#titleinput:-moz-placeholder 
+ 
+
+#modalheader {
+    margin-top: 40px;
+    color: #fff;
+}
+
+#buttondownload {
+    border: 0;
+    border-radius: 50px;
+    height: 2.2em;
+    width: 8em;
+    width: 80%;
+    outline: 0;
+    background-color: #fff;
+    font-size: 1.3em;
+    margin-bottom: 1px;
+    /*color: var(--main_color);*/
+    /*font-weight: bold;*/
+    /*background-color: #d3ebf8;*/
+    /*background-color: var(--main_color);*/
+}
+
+#buttondownload:not(:focus):hover {
+    background-color: #d3ebf8;
+}
+
+#buttondownload:active {
+    margin-top: 1px;
+    margin-bottom: 0px;
+}
+
+#disclaimer {
+    font-size: 1em;
+    width: 80%;
+    text-align: center;
+    margin: 15% auto;
+}
+
+/* The Close Button */
+/*#close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#close:hover, #close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}*/
+
 
 
 
@@ -257,4 +370,6 @@ h4 {
     zoom: 1.0;
     width: extend-to-zoom;
 }
+
+
 
