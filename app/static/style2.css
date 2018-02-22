@@ -273,7 +273,7 @@ h4 {
     background-color: var(--main_color);
     /*background-color: #d3ebf8;*/
     /*background-color: #eee;*/
-    margin: 120px auto 0;
+    margin: 15% auto 0;
     padding: 20px;
     border: 0px solid var(--main_color);
     border-radius: 15px;
@@ -349,9 +349,9 @@ h4 {
     margin: 15% auto;
 }
 
-.selected {
+/*.selected {
     background-color: #fcd6b6;
-}
+}*/
 /* The Close Button */
 /*#close {
     color: #aaaaaa;
