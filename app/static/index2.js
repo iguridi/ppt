@@ -99,7 +99,7 @@ function showModal() {
     var modal = document.getElementById('myModal');
     modal.style.display = "block";
     var all = document.getElementById('all');
-    blur(all, '10px');
+    blur(all, '8px');
 }   
 
 
