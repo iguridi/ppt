@@ -349,6 +349,9 @@ h4 {
     margin: 15% auto;
 }
 
+.selected {
+    background-color: #fcd6b6;
+}
 /* The Close Button */
 /*#close {
     color: #aaaaaa;

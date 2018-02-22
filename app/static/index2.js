@@ -36,7 +36,7 @@ function removeChilds(myNode) {
 
 function clickableDay(day) {
     day.addEventListener('click', function() {
-        daySelected(day);
+        // daySelected(day);
         // save date
         document.getElementById('dateinput').value = makeDate(year, month + 1, day.innerHTML);
         // saveLastDate(day.innerHTML);
