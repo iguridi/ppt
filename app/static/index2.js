@@ -108,6 +108,9 @@ function makeCalendar(date, current) {
     year = date.getFullYear();
     month = date.getMonth();
     // day = date.getDate();
+    document.getElementById("month").childNodes[0].nodeValue = getMonthName(month)//.toUpperCase()
+    // document.getElementById("month").innerHTML = getMonthName(month)//.toUpperCase()
+    document.getElementById("year").innerHTML = year
 
     var calendar = document.getElementById("calendar");
 
@@ -203,8 +206,6 @@ function makeCalendar(date, current) {
         }
     }
 
-    document.getElementById("month").innerHTML = getMonthName(month)//.toUpperCase()
-    document.getElementById("year").innerHTML = year
 }
 
         // console.log('ejeem')

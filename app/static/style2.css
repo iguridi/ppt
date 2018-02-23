@@ -119,21 +119,22 @@ h1 {
 /*month*/
 h2 {
     margin: 0 4px 25px 0;
-    text-align: right;
+    text-align: center;
     font-size: 30px;
-    width: 47%;
+    width: 74%;
+    /*width: 47%;*/
     flex: 1 1 280px;
 }
 
 /*year*/
-h3 {
+#year {
     margin: 0 0 22px 4px;
     text-align: left;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: normal;
     letter-spacing: -2.2px;
     color: var(--main_color);
-    width: 27%;
+    /*width: 27%;*/
     flex: 2 2 200px;
 }
 
@@ -307,9 +308,15 @@ h4 {
 #titleinput::-webkit-input-placeholder {
     color: #ddd;
 }
-#titleinput::-moz-placeholder 
-#titleinput:-ms-input-placeholder 
-#titleinput:-moz-placeholder 
+#titleinput::-moz-placeholder {
+    color: #ddd;
+}
+#titleinput:-ms-input-placeholder {
+    color: #ddd;
+}
+#titleinput:-moz-placeholder {
+    color: #ddd;
+}
  
 
 #modalheader {
