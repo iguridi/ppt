@@ -36,28 +36,28 @@ function removeChilds(myNode) {
 
 function clickableDay(day) {
     day.addEventListener('click', function() {
-        // daySelected(day);
-        // save date
         document.getElementById('dateinput').value = makeDate(year, month + 1, day.innerHTML);
-        // saveLastDate(day.innerHTML);
-        // download(day);
         showModal();
     });
 }
 
 function getMonthName(n) {
-    if (n < 0) {
+    if( n < 0 ) {
         n = 12 + n;
     }
     if( n >= 12 ) {
         n = n - 12;
     }
-    // print(n);
-    // print('blabla');
     return months[n];
 }
 
 function postToUrl(path, params, method) {
+    // Not used, but very useful function
+    // example of use:
+        // url = '/download-ppt';
+        // date_string = makeDate(year, month + 1, day.innerHTML)
+        // params = {date: date_string, title: 'Título'};
+        // post_to_url(url, params, 'get');
     method = method || "post";
 
     var form = document.createElement("form");
@@ -74,7 +74,6 @@ function postToUrl(path, params, method) {
             form.appendChild(hiddenField);
          }
     }
-
     document.body.appendChild(form);
     form.submit();
 }
@@ -84,6 +83,7 @@ function makeDate(year, month, day) {
 }
 
 function blur(element, n) {
+    // n is a valid css measure (Ej: 5px, 2em)
     element.style['-webkit-filter'] =  'blur(' + n + ')';
     element.style['-moz-filter'] =  'blur(' + n + ')';
     element.style['-o-filter'] =  'blur(' + n + ')';
@@ -92,10 +92,7 @@ function blur(element, n) {
 }
 
 function showModal() {
-    // url = '/download-ppt';
-    // date_string = makeDate(year, month + 1, day.innerHTML)
-    // params = {date: date_string, title: 'Título'};
-    // post_to_url(url, params, 'get');
+    // shows the prompt asking for the ppt title
     var modal = document.getElementById('myModal');
     modal.style.display = "block";
     var all = document.getElementById('all');
@@ -107,19 +104,16 @@ function makeCalendar(date, current) {
 
     year = date.getFullYear();
     month = date.getMonth();
-    // day = date.getDate();
-    document.getElementById("month").childNodes[0].nodeValue = getMonthName(month)//.toUpperCase()
-    // document.getElementById("month").innerHTML = getMonthName(month)//.toUpperCase()
+
+    document.getElementById("month").childNodes[0].nodeValue = getMonthName(month)
     document.getElementById("year").innerHTML = year
 
     var calendar = document.getElementById("calendar");
 
-
-
     var initialWeekday  = new Date(year, month, 1).getDay(); // to be changed to real date
     var numberDaysPastMonth = daysInMonth(month, year);
-    // var a = 31;
-    var numberDaysMonth = daysInMonth(month+1, year);
+
+    var numberDaysCurrentMonth = daysInMonth(month+1, year);
 
     var calendarHeaders = document.getElementById("calendar_headers");
     var calendar = document.getElementById("calendar");
@@ -130,12 +124,12 @@ function makeCalendar(date, current) {
     firstWeek.classList.add('week');
     calendar.appendChild(firstWeek);
 
-    // print(initialWeekday);
-    // print(numberDaysPastMonth);
     // days of the past month
     var n = numberDaysPastMonth - initialWeekday + 1;
+    // this cont keep track of the number of days appended to the calendar
     var cont = 0;
     for( i = n + 1; i <= numberDaysPastMonth; i++ ) {
+        // add the days of the past month
         var dayPastMonth = document.createElement("div");
         dayPastMonth.classList.add("day", "not_available");
         dayPastMonth.textContent = i;
@@ -148,7 +142,6 @@ function makeCalendar(date, current) {
         dottedLine.classList.add("dotted_line");
         weekDay.appendChild(dottedLine);
         calendarHeaders.appendChild(weekDay);
-        // console.log('blablabla')
         cont++;
     }
 
@@ -157,14 +150,13 @@ function makeCalendar(date, current) {
     var dayNumber = 1;
     var weekDay = initialWeekday;
     var i = 0;
+    // reseted is true when the current months is appended completely
     var reseted = false;
     
     var endGrid = false;
     while( endGrid === false ) {
         var dayMonth = document.createElement("div");
         dayMonth.classList.add("day");
-        // var text = document.createElement("span");
-        // dayMonth.appendChild(text)
         if ( !reseted ) {
             dayMonth.classList.add("day", "available");
             clickableDay(dayMonth);
@@ -186,21 +178,24 @@ function makeCalendar(date, current) {
             dayMonth.style.color = 'var(--main_color)';
             dayMonth.style.fontWeight = 'bold';
         }
+
         dayMonth.textContent = doubleDigit(dayNumber.toString());
         week.appendChild(dayMonth);
+
         dayNumber++;
         cont++;
-        if( dayNumber > numberDaysMonth ) {
+        if( dayNumber > numberDaysCurrentMonth ) {
             dayNumber = 1;
             reseted = true;
         }
 
         if( cont % 7 === 0 ) {
+            // end of the week
             var week = document.createElement('div');
             week.classList.add('week');
             calendar.appendChild(week);
-            i == 0;
             if( reseted ) {
+                // if it is the new month and the week ends, we finish adding days
                 endGrid = true;
             }
         }
@@ -208,8 +203,7 @@ function makeCalendar(date, current) {
 
 }
 
-        // console.log('ejeem')
-// window.onload = makeCalendar;
+
 
 function buttons() {
     inputElement = document.getElementById('past_month');
@@ -236,34 +230,26 @@ function buttons() {
     // });
 }
 
-function daySelected(day) {
-    var lastDaySelected = day;
-    var days_available = document.getElementsByClassName("available");
-    //Remove the past day selected
-    for (var n = 0; n < days_available.length; n++) {
-        if (days_available[n].classList.contains("selected")) {
-            days_available[n].classList.remove("selected");
-        }
-    }
-    //Add the selected class to the date
-    // var day = document.getElementById(event.target.id);
-    lastDaySelected.classList.add("selected");
-    // lastDaySelected = event.target.id;
-    //Add the value to the form-input
-}
+// function daySelected(day) {
+//     // function not used yet
+//     var lastDaySelected = day;
+//     var days_available = document.getElementsByClassName("available");
+//     //Remove the past day selected
+//     for (var n = 0; n < days_available.length; n++) {
+//         if (days_available[n].classList.contains("selected")) {
+//             days_available[n].classList.remove("selected");
+//         }
+//     }
+//     //Add the selected class to the date
+//     // var day = document.getElementById(event.target.id);
+//     lastDaySelected.classList.add("selected");
+//     // lastDaySelected = event.target.id;
+//     //Add the value to the form-input
+// }
 
 function saveLastDate(day) {
     var input = document.getElementById('dateinput');
-    // var dateSelected = document.getElementById("date");
-    // date_string = makeDate(year, month + 1, day.innerHTML)
     input.value = makeDate(year, month + 1, day);
-
-    //Then show next step
-    // let step2 = document.getElementsByClassName("step2")
-    // for (i = 0; i < step2.length; i++) {
-    //     step2[i].style.visibility = "visible";
-    //     step2[i].style.opacity = "1";
-// }
 }
 
 window.onload = function() {

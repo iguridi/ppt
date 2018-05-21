@@ -5,17 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style2.css') }}">
-        <!-- @font-face { font-family: Roboto; src: url('../fonts/Roboto-Regular.ttf'); }  -->
         <script src="{{url_for('static', filename='index2.js')}}"></script>
-        <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> -->
-        <script src="{{url_for('static', filename='index.js')}}"></script>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111977130-1"></script>
         <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-111977130-1');
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-111977130-1');
         </script>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="description" content="Download a Powerpoint presentation with the readings of the day you want.">
@@ -30,31 +26,14 @@
                         <div id="left"></div>
                     </div>
                 </div>
-              <!--   <div class="arrow">
-                    <a href="#">
-                      <span class="left"></span>
-                    </a>
-                </div> -->
                 <h2 id="month"> <span id='year'></span></h2> 
-                <!-- <h3 id="year"></h3>  -->
                 <div class="arrow" >
                     <div class="circle" id="next_month">
                         <div id="right"></div>
-                        
                     </div>
                 </div>
             </div>
-            <div id="calendar_headers">
-                <!--  
-                <div class="week_day">Lun<span class="dotted_line"></span></div> 
-                <div class="week_day">Mar<span class="dotted_line"></span></div> 
-                <div class="week_day">Mie<span class="dotted_line"></span></div> 
-                <div class="week_day">Jue<span class="dotted_line"></span></div> 
-                <div class="week_day">Vie<span class="dotted_line"></span></div> 
-                <div class="week_day">Sab<span class="dotted_line"></span></div> 
-                <div class="week_day">Dom<span class="dotted_line"></span></div>  
-                -->
-            </div>
+            <div id="calendar_headers"></div>
 
             <div id="calendar"></div>
         </div>
@@ -62,15 +41,11 @@
         <div id="myModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
-                <!-- <span id="close">&times;</span> -->
                 <h4 class="modalheader">Ingrese el título de la presentación</h4>
-                <!-- <input name="title" type="text" placeholder="Título Presentación" title="Change title" id="title-input" required> -->
                 <form id="finalform" action="/download-ppt" method="GET">
                     <input name="date" type="hidden" id="dateinput">
                     <textarea spellcheck="false" autocorrect="off" autocomplete="off" name="title"  id="titleinput" required autofocus></textarea>
                     <button id="buttondownload" type="submit">Descargar</button>
-
-                <!-- <span id="check-presentation-warning">Por favor, revise si la presentación está en orden antes de usarla.</span> -->
               </form>
               <h4 class="modalheader" id='disclaimer'>Por favor, revise que la presentación esté en orden antes de usarla</h4>
             </div>

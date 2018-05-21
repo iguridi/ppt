@@ -1,0 +1,2 @@
+- No reconoce a Filipo
+- centrado prompt ( ventana de dialogo) desktop version
