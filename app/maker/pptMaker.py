@@ -2,7 +2,7 @@ from pptx import Presentation
 
 def remove_spaces(text):
 	text = text.replace('\n', ' ')
-	text = text.replace('  ', ' ')
+	text = text.replace('\t', ' ')
 	text = text.replace('  ', ' ')
 	return text.rstrip()
 
