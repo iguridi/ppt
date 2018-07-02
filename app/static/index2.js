@@ -99,7 +99,12 @@ function showModal() {
     blur(all, '8px');
 }   
 
+function wrapperWeekDay(weekDay) {
+    // moves the js days to our day index standard
+    // 0 1 2 3 4 5 6 -> 6 0 1 2 3 4 6
+    return (weekDay + 6) % 7
 
+}
 function makeCalendar(date, current) {
 
     year = date.getFullYear();
@@ -125,31 +130,34 @@ function makeCalendar(date, current) {
     calendar.appendChild(firstWeek);
 
     // days of the past month
-    var n = numberDaysPastMonth - initialWeekday + 1;
+    var n = numberDaysPastMonth - wrapperWeekDay(initialWeekday);
     // this cont keep track of the number of days appended to the calendar
-    var cont = 0;
-    for( i = n + 1; i <= numberDaysPastMonth; i++ ) {
+    let cont = 0;
+    for( let i = n; i < numberDaysPastMonth; i++ ) {
         // add the days of the past month
         var dayPastMonth = document.createElement("div");
         dayPastMonth.classList.add("day", "not_available");
-        dayPastMonth.textContent = i;
+        dayPastMonth.textContent = i + 1;
         firstWeek.appendChild(dayPastMonth);
         // add the day_names and the dotted lines under them
         var weekDay = document.createElement("div");
         weekDay.classList.add("week_day");
+
         weekDay.innerHTML = weekDays[cont];
+
         var dottedLine = document.createElement("span");
         dottedLine.classList.add("dotted_line");
         weekDay.appendChild(dottedLine);
         calendarHeaders.appendChild(weekDay);
-        cont++;
+        cont += 1;
     }
 
 
     var week = firstWeek;
     var dayNumber = 1;
-    var weekDay = initialWeekday;
+    // var weekDay = initialWeekday;
     var i = 0;
+    var renderingMonth = month
     // reseted is true when the current months is appended completely
     var reseted = false;
     
@@ -174,7 +182,7 @@ function makeCalendar(date, current) {
             calendarHeaders.appendChild(weekDay);
         }
         // current day of different color
-        if ( month === current_month && dayNumber===current_day && year===current_year) {
+        if ( renderingMonth === current_month && dayNumber===current_day && year===current_year) {
             dayMonth.style.color = 'var(--main_color)';
             dayMonth.style.fontWeight = 'bold';
         }
@@ -182,10 +190,11 @@ function makeCalendar(date, current) {
         dayMonth.textContent = doubleDigit(dayNumber.toString());
         week.appendChild(dayMonth);
 
-        dayNumber++;
-        cont++;
+        dayNumber += 1;
+        cont += 1;
         if( dayNumber > numberDaysCurrentMonth ) {
             dayNumber = 1;
+            renderingMonth += 1;
             reseted = true;
         }
 
