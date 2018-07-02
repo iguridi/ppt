@@ -6,9 +6,9 @@ var weekDays = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"]
 
 
 var date = new Date();
-var current_year = date.getFullYear();
-var current_month = date.getMonth();
-var current_day = date.getDate();
+var currentYear = date.getFullYear();
+var currentMonth = date.getMonth();
+var currentDay = date.getDate();
 
 
 // Month is 1-indexed (January is 1, February is 2, etc).
@@ -84,11 +84,12 @@ function makeDate(year, month, day) {
 
 function blur(element, n) {
     // n is a valid css measure (Ej: 5px, 2em)
-    element.style['-webkit-filter'] =  'blur(' + n + ')';
-    element.style['-moz-filter'] =  'blur(' + n + ')';
-    element.style['-o-filter'] =  'blur(' + n + ')';
-    element.style['-ms-filter'] =  'blur(' + n + ')';
-    element.style['filter'] =  'blur(' + n + ')';
+    const blurGrade = 'blur(' + n + ')';
+    element.style['-webkit-filter'] =  blurGrade;
+    element.style['-moz-filter'] =  blurGrade;
+    element.style['-o-filter'] =  blurGrade;
+    element.style['-ms-filter'] =  blurGrade;
+    element.style['filter'] =  blurGrade;
 }
 
 function showModal() {
@@ -99,14 +100,16 @@ function showModal() {
     blur(all, '8px');
 }   
 
+
 function wrapperWeekDay(weekDay) {
     // moves the js days to our day index standard
     // 0 1 2 3 4 5 6 -> 6 0 1 2 3 4 6
     return (weekDay + 6) % 7
 
 }
-function makeCalendar(date, current) {
 
+
+function makeCalendar(date) {
     year = date.getFullYear();
     month = date.getMonth();
 
@@ -115,101 +118,102 @@ function makeCalendar(date, current) {
 
     var calendar = document.getElementById("calendar");
 
-    var initialWeekday  = new Date(year, month, 1).getDay(); // to be changed to real date
-    var numberDaysPastMonth = daysInMonth(month, year);
-
-    var numberDaysCurrentMonth = daysInMonth(month+1, year);
-
     var calendarHeaders = document.getElementById("calendar_headers");
     var calendar = document.getElementById("calendar");
     removeChilds(calendarHeaders);
     removeChilds(calendar);
-
+    
     var firstWeek = document.createElement('div');
     firstWeek.classList.add('week');
     calendar.appendChild(firstWeek);
-
+    
     // days of the past month
-    var n = numberDaysPastMonth - wrapperWeekDay(initialWeekday);
-    // this cont keep track of the number of days appended to the calendar
-    let cont = 0;
-    for( let i = n; i < numberDaysPastMonth; i++ ) {
+    var numberDaysPastMonth = daysInMonth(month, year);
+    var n = numberDaysPastMonth - wrapperWeekDay(new Date(year, month, 1).getDay());
+    // this index keep track of the number of days added to the calendar
+
+    let index = 0;
+    for (let i = n; i < numberDaysPastMonth; i++) {
         // add the days of the past month
-        var dayPastMonth = document.createElement("div");
-        dayPastMonth.classList.add("day", "not_available");
-        dayPastMonth.textContent = i + 1;
-        firstWeek.appendChild(dayPastMonth);
+        addDayPastMonth(i);
         // add the day_names and the dotted lines under them
-        var weekDay = document.createElement("div");
-        weekDay.classList.add("week_day");
-
-        weekDay.innerHTML = weekDays[cont];
-
-        var dottedLine = document.createElement("span");
-        dottedLine.classList.add("dotted_line");
-        weekDay.appendChild(dottedLine);
+        const weekDay = document.createElement("div");
+        addDayName(weekDay, index);
+        addDottedLine(weekDay, "dotted_line");
         calendarHeaders.appendChild(weekDay);
-        cont += 1;
+        index += 1;
     }
 
-
-    var week = firstWeek;
-    var dayNumber = 1;
-    // var weekDay = initialWeekday;
-    var i = 0;
+    let week = firstWeek;
+    let monthDay = 1;
     var renderingMonth = month
-    // reseted is true when the current months is appended completely
-    var reseted = false;
-    
-    var endGrid = false;
-    while( endGrid === false ) {
-        var dayMonth = document.createElement("div");
-        dayMonth.classList.add("day");
-        if ( !reseted ) {
+    // monthEnd is true when the current month is appended completely
+    let monthEnd = false;
+    while (1) {
+        const dayMonth = document.createElement("div");
+        if (monthEnd) {
+            dayMonth.classList.add("day", "not_available");
+        } else {
             dayMonth.classList.add("day", "available");
             clickableDay(dayMonth);
-        } else {
-            dayMonth.classList.add("day", "not_available");
         }
-        if( cont <= 6 ) {
+
+        if( index <= 6 ) {
             // add the day_names and the dotted lines under them
-            var weekDay = document.createElement("div");
-            weekDay.classList.add("week_day");
-            weekDay.innerHTML = weekDays[cont];
-            var dottedLine = document.createElement("span");
-            dottedLine.classList.add("dotted_line_bold");
-            weekDay.appendChild(dottedLine);
+            const weekDay = document.createElement("div");
+            addDayName(weekDay, index);
+            addDottedLine(weekDay, "dotted_line_bold");
             calendarHeaders.appendChild(weekDay);
         }
+
         // current day of different color
-        if ( renderingMonth === current_month && dayNumber===current_day && year===current_year) {
+        if ( renderingMonth === currentMonth && monthDay===currentDay && year===currentYear) {
             dayMonth.style.color = 'var(--main_color)';
             dayMonth.style.fontWeight = 'bold';
         }
 
-        dayMonth.textContent = doubleDigit(dayNumber.toString());
+        dayMonth.textContent = doubleDigit(monthDay.toString());
         week.appendChild(dayMonth);
 
-        dayNumber += 1;
-        cont += 1;
-        if( dayNumber > numberDaysCurrentMonth ) {
-            dayNumber = 1;
+        monthDay += 1;
+        index += 1;
+        const endCurrentMonth = monthDay > daysInMonth(month + 1, year);
+        if (endCurrentMonth) {
+            monthDay = 1;
             renderingMonth += 1;
-            reseted = true;
+            monthEnd = true;
         }
 
-        if( cont % 7 === 0 ) {
-            // end of the week
-            var week = document.createElement('div');
+        const endWeek = index % 7 === 0;
+        if (endWeek) {
+            week = document.createElement('div');
             week.classList.add('week');
             calendar.appendChild(week);
-            if( reseted ) {
-                // if it is the new month and the week ends, we finish adding days
-                endGrid = true;
-            }
+        }
+        if (monthEnd && endWeek) {
+            // if it is the new month and the week ends, we finish adding days
+            break;
         }
     }
 
+    function addDayName(weekDay, index) {
+        weekDay.classList.add("week_day");
+        weekDay.innerHTML = weekDays[index];
+        return weekDay;
+    }
+
+    function addDottedLine(weekDay, cssClass) {
+        const dottedLine = document.createElement("span");
+        dottedLine.classList.add(cssClass);
+        weekDay.appendChild(dottedLine);
+    }
+
+    function addDayPastMonth(i) {
+        var day = document.createElement("div");
+        day.classList.add("day", "not_available");
+        day.textContent = i + 1;
+        firstWeek.appendChild(day);
+    }
 }
 
 
@@ -219,42 +223,19 @@ function buttons() {
     inputElement.addEventListener('click', function() {
         month = date.getMonth() - 1;
         year = date.getFullYear();
-        date = new Date(year, month, 1);
-        makeCalendar(date, 0);
+        date = new Date(year, month);
+        makeCalendar(date);
     });
 
     inputElement = document.getElementById('next_month');
     inputElement.addEventListener('click', function() {
         month = date.getMonth() + 1;
         year = date.getFullYear();
-        date = new Date(year, month, 1);
-        makeCalendar(date, 0);
+        date = new Date(year, month);
+        makeCalendar(date);
     });
-    // var span = document.getElementById("close");
-    // span.addEventListener('click', function() {
-    //     var modal = document.getElementById('myModal');
-    //     modal.style.display = "none";
-    //     var all = document.getElementById('all');
-    //     blur(all, '0px');  
-    // });
 }
 
-// function daySelected(day) {
-//     // function not used yet
-//     var lastDaySelected = day;
-//     var days_available = document.getElementsByClassName("available");
-//     //Remove the past day selected
-//     for (var n = 0; n < days_available.length; n++) {
-//         if (days_available[n].classList.contains("selected")) {
-//             days_available[n].classList.remove("selected");
-//         }
-//     }
-//     //Add the selected class to the date
-//     // var day = document.getElementById(event.target.id);
-//     lastDaySelected.classList.add("selected");
-//     // lastDaySelected = event.target.id;
-//     //Add the value to the form-input
-// }
 
 function saveLastDate(day) {
     var input = document.getElementById('dateinput');
@@ -262,7 +243,10 @@ function saveLastDate(day) {
 }
 
 window.onload = function() {
-    makeCalendar(date, 1);
+    year = date.getFullYear();
+    month = date.getMonth();
+    date = new Date(year, month);
+    makeCalendar(date);
     buttons();
 };
 
