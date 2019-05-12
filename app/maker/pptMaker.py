@@ -193,7 +193,7 @@ class Maker:
 	def add_readings_ends(self, slide):
 		endings = {'primera_lectura': ('Palabra de Dios','Te alabamos Señor'),
 		   		   'segunda_lectura': ('Palabra de Dios','Te alabamos Señor'),
-		   		   'evangelio':       ('Palabra del Señor', 'Gloria a tí, Señor Jesus')
+		   		   'evangelio':       ('Palabra del Señor', 'Gloria a ti, Señor Jesús')
 		   }
 
 		dialog_padre = slide.placeholders[13]
