@@ -4,6 +4,7 @@
         <title>PPT Misa</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style2.css') }}">
         <script src="{{url_for('static', filename='index2.js')}}"></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111977130-1"></script>
@@ -19,14 +20,14 @@
     </head>
     <body>
         <div id="all">
-            <h1>Presentación Misa</h1> 
+            <h1>Presentación Misa</h1>
             <div class="header">
                 <div class="arrow" >
                     <div class="circle" id="past_month">
                         <div id="left"></div>
                     </div>
                 </div>
-                <h2 id="month"> <span id='year'></span></h2> 
+                <h2 id="month"> <span id='year'></span></h2>
                 <div class="arrow" >
                     <div class="circle" id="next_month">
                         <div id="right"></div>
