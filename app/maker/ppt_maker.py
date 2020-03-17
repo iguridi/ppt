@@ -179,15 +179,23 @@ class Maker:
         self.build_ppt()
         self.ppt.save(output_ppt)
 
+    def is_sunday(self):
+        return ppt.SECOND_LECTURE in self.readings
+
     def build_ppt(self):
         mass_parts = []
         mass_parts.append(Cover(self.ppt_title, self.date))
-        for name in self.readings.keys():
-            if name == 'salmo':
+        mass_part_names = [ppt.FIRST_LECTURE, ppt.GOSPEL]
+        if self.is_sunday():
+            mass_part_names = [
+                ppt.FIRST_LECTURE, ppt.SECOND_LECTURE, ppt.PSALM, ppt.GOSPEL
+            ]
+        for name in mass_part_names:
+            if name == ppt.PSALM:
                 reading = Psalm(name, self.addrs[name], self.readings[name])
             else:
                 reading = Reading(name, self.addrs[name], self.readings[name])
-            mass_parts.append(reading)
+                mass_parts.append(reading)
         mass_parts.append(Picture())
         mass_parts.append(Announcements())
         mass_parts.append(Picture())
