@@ -1,1 +1,1 @@
-web: gunicorn --chdir app app:app --preload --log-file -
+web: gunicorn --chdir app init:flask_app --preload --log-file
