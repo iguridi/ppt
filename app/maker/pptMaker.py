@@ -9,14 +9,14 @@ def remove_spaces(text):
 
 
 class Reading:
-    #In charge of all text-related thsings.
+    # in charge of all text-related thsings.
     def __init__(self, title, addrs, body):
         self.title = title
         self.addrs = addrs
         self.body = body
 
         self.slides = [
-        ]  #List of the text splited into chunks of a predifined max chars
+        ]  # list of the text splited into chunks of a predifined max chars
         self.make_pretty()
 
     def make_pretty(self):
@@ -88,7 +88,7 @@ class Maker:
         self.addrs = addrs
         self.date = date
         self.ppt_title = ppt_title
-        # creat ppt and save
+        # create ppt and save
         self.prs = Presentation(base_ppt)
         self.process()
         self.prs.save(output_ppt)
