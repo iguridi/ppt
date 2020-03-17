@@ -10,13 +10,14 @@ from bs4 import BeautifulSoup
 
 from flask import Flask, render_template, request, send_from_directory, current_app
 
-app = Flask(__name__)
+flask_app = Flask(__name__)
 # app.config.from_object('config')
-app.config['DEBUG'] = True
+flask_app.config['DEBUG'] = True
 
 BASE_URL = 'http://www.eucaristiadiaria.cl/'
 
-@app.route('/download-ppt', methods=['GET', 'POST'])
+
+@flask_app.route('/download-ppt', methods=['GET', 'POST'])
 def download():
     from maker import scrapper, ppt_maker
     folder = 'maker'
@@ -36,12 +37,11 @@ def download():
 
     path = os.path.join(current_app.root_path, folder)
 
-    return send_from_directory(
-        directory=path,
-        filename='ppt_listo.pptx',
-        as_attachment=True,
-        attachment_filename=date + '.pptx'
-    )
+    return send_from_directory(directory=path,
+                               filename='ppt_listo.pptx',
+                               as_attachment=True,
+                               attachment_filename=date + '.pptx')
+
 
 def next_sunday():
     from maker import scrapper, ppt_maker
@@ -49,25 +49,27 @@ def next_sunday():
     directory = os.path.dirname(__file__)
     BASE_PPT = directory + folder + '/plantilla python.pptx'
     OUTPUT_PPT = directory + folder + '/ppt_listo.pptx'
-    SLIDE_SIZE = 730
-    ADDRS = {}
-    READINGS = {}
+    addrs = {}
+    readings = {}
 
     if request.method == "PUT":
 
-        PPT_TITLE = request.form['title']
+        ppt_title = request.form['title']
         date = request.form['date']
         #Convert date to datetime object
         date = datetime.datetime.strptime(date, '%Y-%m-%d')
         url = make_url(date)
-        date = str(date.day) + ' ' + monthName(date.month) + ' ' + str(date.year)
-        ADDRS, READINGS= scrapper.run(url)
+        date = str(date.day) + ' ' + month_name(date.month) + ' ' + str(
+            date.year)
+        addrs, readings = scrapper.run(url)
 
-
-    ppt_maker.Maker(READINGS, BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, ADDRS, date, PPT_TITLE)
+    ppt_maker.Maker(BASE_PPT, OUTPUT_PPT, addrs, readings, date, ppt_title)
     path = current_app.root_path + folder
-    return send_from_directory(directory=path, filename='ppt_listo.pptx',
-        as_attachment=True, attachment_filename=date + '.pptx')
+    return send_from_directory(directory=path,
+                               filename='ppt_listo.pptx',
+                               as_attachment=True,
+                               attachment_filename=date + '.pptx')
+
 
 def make_url(date):
     BASE_URL = 'http://www.eucaristiadiaria.cl/'
@@ -77,18 +79,22 @@ def make_url(date):
         url = BASE_URL + 'dia_cal.php?fecha=' + str(date)
     return url
 
+
 def month_name(month_number):
-    months = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    months = [
+        "", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+        "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ]
     return months[month_number]
 
-app.register_error_handler(500, lambda e: 'bad request!')
+
+flask_app.register_error_handler(500, lambda e: 'bad request!')
 
 
-@app.route('/', methods=['GET', 'POST'])
+@flask_app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index2.html')
 
 
-
 if __name__ == '__main__':
-    app.run()
+    flask_app.run()

@@ -1,9 +1,9 @@
 from flask import render_template
-from app import app
+from init import flask_app
 from .forms import LoginForm
 
-@app.route('/')
-@app.route('/index')
-@app.route('home')
+@flask_app.route('/')
+@flask_app.route('/index')
+@flask_app.route('home')
 def index():
     return render_template("index.html",)
