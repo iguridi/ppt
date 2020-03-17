@@ -11,6 +11,6 @@ olefile==0.44
 Pillow==4.3.0
 python-pptx==0.6.7
 requests==2.20.0
-Werkzeug==0.12.2
+Werkzeug==0.15.3
 WTForms==2.1
 XlsxWriter==1.0.2
