@@ -21,4 +21,4 @@ DATE = 'fecha 1'
 
 
 if __name__ == '__main__':
-    Maker(BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, addrs, readings, DATE, PPT_TITLE)
+    Maker(BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, addrs, readings, PPT_TITLE, DATE)
