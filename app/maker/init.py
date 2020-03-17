@@ -1,11 +1,10 @@
 import sys
 
-from pptMaker import Maker
+from ppt_maker import Maker
 import scrapper
 
 BASE_PPT = 'plantilla python.pptx'
 OUTPUT_PPT = 'ppt_listo.pptx'
-SLIDE_SIZE = 730
 
 ADDRS = {}
 READINGS = {}
@@ -21,4 +20,4 @@ DATE = 'fecha 1'
 
 
 if __name__ == '__main__':
-    Maker(BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, addrs, readings, PPT_TITLE, DATE)
+    Maker(BASE_PPT, OUTPUT_PPT, addrs, readings, PPT_TITLE, DATE)

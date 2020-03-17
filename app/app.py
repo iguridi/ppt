@@ -3,7 +3,7 @@ import sys
 import datetime
 from datetime import datetime
 # #HTTP error handling:
-# import werkzeug 
+# import werkzeug
 # Web Scrapping:
 import requests
 from bs4 import BeautifulSoup
@@ -18,12 +18,11 @@ BASE_URL = 'http://www.eucaristiadiaria.cl/'
 
 @app.route('/download-ppt', methods=['GET', 'POST'])
 def download():
-    from maker import scrapper, pptMaker
+    from maker import scrapper, ppt_maker
     folder = 'maker'
     directory = os.path.dirname(__file__)
     base_ppt = os.path.join(directory, folder, 'plantilla python.pptx')
     output_ppt = os.path.join(directory, folder, 'ppt_listo.pptx')
-    slide_size = 730
 
     title = request.args['title']
     date = request.args['date']
@@ -33,19 +32,19 @@ def download():
     date = ' '.join([str(date.day), month_name(date.month), str(date.year)])
     addrs, readings = scrapper.run(url)
 
-    pptMaker.Maker(base_ppt, output_ppt, slide_size, addrs, readings, title, date)
-    
+    ppt_maker.Maker(base_ppt, output_ppt, addrs, readings, title, date)
+
     path = os.path.join(current_app.root_path, folder)
 
     return send_from_directory(
-        directory=path, 
+        directory=path,
         filename='ppt_listo.pptx',
-        as_attachment=True, 
+        as_attachment=True,
         attachment_filename=date + '.pptx'
     )
 
 def next_sunday():
-    from maker import scrapper, pptMaker
+    from maker import scrapper, ppt_maker
     folder = '/maker'
     directory = os.path.dirname(__file__)
     BASE_PPT = directory + folder + '/plantilla python.pptx'
@@ -65,7 +64,7 @@ def next_sunday():
         ADDRS, READINGS= scrapper.run(url)
 
 
-    pptMaker.Maker(READINGS, BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, ADDRS, date, PPT_TITLE)
+    ppt_maker.Maker(READINGS, BASE_PPT, OUTPUT_PPT, SLIDE_SIZE, ADDRS, date, PPT_TITLE)
     path = current_app.root_path + folder
     return send_from_directory(directory=path, filename='ppt_listo.pptx',
         as_attachment=True, attachment_filename=date + '.pptx')
