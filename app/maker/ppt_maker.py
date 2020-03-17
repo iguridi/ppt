@@ -1,26 +1,36 @@
+from typing import List, Dict
+
 import ppt
 
 SLIDE_SIZE = 730
 
+ENDINGS = {
+    ppt.FIRST_LECTURE: ('Palabra de Dios', 'Te alabamos Señor'),
+    ppt.SECOND_LECTURE: ('Palabra de Dios', 'Te alabamos Señor'),
+    ppt.GOSPEL: ('Palabra del Señor', 'Gloria a ti, Señor Jesús')
+}
 
-def format_addr(addr):
+
+def format_addr(addr: str) -> str:
     addr = addr.strip()
     addr = '(' + addr + ')'
     return addr
 
 
-def remove_spaces(text):
+def remove_spaces(text: str) -> str:
     text = text.replace('\n', ' ')
     text = text.replace('\t', ' ')
     text = text.replace('  ', ' ')
     return text.rstrip()
 
+
 class MassPart:
-    def add_itself_to_ppt(self, ppt):
+    def add_itself_to_ppt(self, ppt: ppt.Ppt):
         raise Exception('method add_itself_to_ppt not implemented')
 
+
 class Reading(MassPart):
-    def __init__(self, title, addrs, body):
+    def __init__(self, title: str, addrs: str, body: str):
         self.title = title
         self.addrs = format_addr(addrs)
         self.body = body
@@ -32,7 +42,7 @@ class Reading(MassPart):
         self.body = remove_spaces(self.body)
         self.body = '	' + self.body + '\n'
 
-    def add_itself_to_ppt(self, ppt):
+    def add_itself_to_ppt(self, ppt: ppt.Ppt):
         for i, slide_text in enumerate(self.slides):
             slide = ppt.add_slide(self.title)
             address = slide.placeholders[12]  # placeholder idx of the address
@@ -41,10 +51,16 @@ class Reading(MassPart):
             address.text = self.addrs
 
             body.text = slide_text
-            if i == len(self.slides) - 1: # the last slide of this part
-                ppt.add_readings_ends(slide, self)
+            if i == len(self.slides) - 1:  # the last slide of this part
+                dialog_father = slide.placeholders[13]
+                character = slide.placeholders[17]
+                dialog_people = slide.placeholders[16]
 
-    def separate_text(self):
+                dialog_father.text = ENDINGS[self.title][0]
+                character.text = 'R.'
+                dialog_people.text = ENDINGS[self.title][1]
+
+    def separate_text(self) -> List[str]:
         '''
 		Split the text into various slides depending of the text length
 		'''
@@ -77,17 +93,17 @@ class Cover(MassPart):
 
 
 class Picture(MassPart):
-    def add_itself_to_ppt(self, presentation):
+    def add_itself_to_ppt(self, presentation: ppt.Ppt):
         presentation.add_slide(ppt.PICTURE)
 
 
 class Announcements(MassPart):
-    def add_itself_to_ppt(self, presentation):
+    def add_itself_to_ppt(self, presentation: ppt.Ppt):
         presentation.add_slide(ppt.ANNOUNCEMENTS)
 
 
 class Psalm(Reading):
-    def __init__(self, title, addrs, body):
+    def __init__(self, title: str, addrs: str, body: str):
         super().__init__(title, addrs, body)
         self.response = ''
         self.paragraphs = []
@@ -111,7 +127,7 @@ class Psalm(Reading):
         for n, _ in enumerate(self.paragraphs):
             self.paragraphs[n] = '	' + self.paragraphs[n]
 
-    def add_itself_to_ppt(self, ppt):
+    def add_itself_to_ppt(self, ppt: ppt.Ppt):
         slide = ppt.add_slide(self.title)
         address = slide.placeholders[12]  # placeholder idx of the address
         body = slide.placeholders[10]  # placeholder idx of the body text
@@ -147,12 +163,12 @@ class Maker:
 	'''
     def __init__(
         self,
-        base_ppt,
-        output_ppt,
-        addrs,
-        readings,
-        ppt_title=None,
-        date=None,
+        base_ppt: str,
+        output_ppt: str,
+        addrs: Dict[str, str],
+        readings: Dict[str, str],
+        ppt_title: str = None,
+        date: str = None,
     ):
         self.readings = readings
         self.addrs = addrs
