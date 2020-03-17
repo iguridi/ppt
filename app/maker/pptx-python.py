@@ -25,7 +25,7 @@ def analyze_ppt(input, output):
                 # do not overwrite the title which is just a special placeholder
                 try:
                     if 'Title' not in shape.text:
-                        shape.text = 'Placeholder index:{} type:{}'.format(
+                        shape.text = 'PH index:{} type:{}'.format(
                             phf.idx, shape.name)
                 except AttributeError:
                     print("{} has no text attribute".format(phf.type))

@@ -1,10 +1,10 @@
 import sys
 
-from ppt_maker import Maker
-import scrapper
+from maker.ppt_maker import Maker
+from maker import scrapper
 
-BASE_PPT = 'plantilla python.pptx'
-OUTPUT_PPT = 'ppt_listo.pptx'
+BASE_PPT = 'maker/plantilla python.pptx'
+OUTPUT_PPT = 'maker/ppt_listo.pptx'
 
 ADDRS = {}
 READINGS = {}

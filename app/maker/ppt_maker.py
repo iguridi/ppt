@@ -1,6 +1,6 @@
 from typing import List, Dict
 
-import ppt
+from maker import ppt
 
 SLIDE_SIZE = 730
 
