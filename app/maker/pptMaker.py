@@ -1,5 +1,23 @@
 from pptx import Presentation
 
+COVER = 'portada'
+FIRST_LECTURE = 'primera_lectura'
+PSALM = 'salmo'
+SECOND_LECTURE = 'segunda_lectura'
+GOSPEL = 'evangelio'
+ANNOUNCEMENTS = 'anuncios'
+PICTURE = 'imagen'
+
+LAYOUTS_INDEX = {
+    COVER: 0,
+    FIRST_LECTURE: 1,
+    PSALM: 2,
+    SECOND_LECTURE: 3,
+    GOSPEL: 4,
+    ANNOUNCEMENTS: 5,
+    PICTURE: 6,
+}
+
 
 def remove_spaces(text):
     text = text.replace('\n', ' ')
@@ -9,19 +27,16 @@ def remove_spaces(text):
 
 
 class Reading:
-    # in charge of all text-related thsings.
+    # in charge of all text-related things.
     def __init__(self, title, addrs, body):
         self.title = title
         self.addrs = addrs
         self.body = body
-
-        self.slides = [
-        ]  # list of the text splited into chunks of a predifined max chars
+        # list of the text splited into chunks of a predifined max chars
+        self.slides = []
         self.make_pretty()
 
     def make_pretty(self):
-        # salmo_general = salmo_general.replace('.\n', '. R. ')
-        # salmo_general = salmo_general.replace('!\n', '! R. ')
         self.body = remove_spaces(self.body)
         self.body = '	' + self.body + '\n'
 
@@ -51,11 +66,9 @@ class Psalm(Reading):
 		Spliting the psalm`s paragraphs is needed for adding the "R." at the end of each.
 		'''
         self.psalm_response = self.body[:self.body.find('***')]
-        # print(self.psalm_response)
         pars_pos = self.body.find('***') + 3
         self.body = self.body[pars_pos:]
         self.psalm_paragraphs = self.body.split(' R.')
-        # print(self.psalm_paragraphs)
         del self.psalm_paragraphs[-1]
         for n, _ in enumerate(self.psalm_paragraphs):
             self.psalm_paragraphs[n] = '	' + self.psalm_paragraphs[n]
@@ -133,7 +146,7 @@ class Maker:
         '''
 		Add the cover and its title and date to the ppt
 		'''
-        cover_layout = self.prs.slide_layouts[0]
+        cover_layout = self.get_slide_layout(COVER)
         cover = self.prs.slides.add_slide(cover_layout)
         self.title = cover.shapes.title  # placeholder idx of the address
         date = cover.placeholders[10]  # placeholder idx of the body
@@ -145,23 +158,14 @@ class Maker:
         '''
 		Add the actual slides and its text and address and ending
 		'''
-        ppt_readings_layout = {
-            'primera_lectura': 1,
-            'salmo': 2,
-            'segunda_lectura': 3,
-            'evangelio': 4
-        }
-
-        n = ppt_readings_layout[self.reading.title]
+        n = LAYOUTS_INDEX[self.reading.title]
         slide_layout = self.prs.slide_layouts[n]
         for i, slide_text in enumerate(self.reading.slides):
             slide = self.prs.slides.add_slide(slide_layout)
             address = slide.placeholders[12]  # placeholder idx of the address
             body = slide.placeholders[10]  # placeholder idx of the body text
-
             address.text = self.format_addr(
                 self.reading.addrs)  # the address is the same for all
-
             # setting up the text of the body of the psalm is different beacause its formatting
             if self.reading.title == 'salmo':
                 txt_fm = body.text_frame
@@ -198,18 +202,21 @@ class Maker:
             'evangelio': ('Palabra del Señor', 'Gloria a ti, Señor Jesús')
         }
 
-        dialog_padre = slide.placeholders[13]
+        dialog_father = slide.placeholders[13]
         character = slide.placeholders[17]
         dialog_people = slide.placeholders[16]
 
-        dialog_padre.text = endings[self.reading.title][0]
+        dialog_father.text = endings[self.reading.title][0]
         character.text = 'R.'
         dialog_people.text = endings[self.reading.title][1]
 
+    def get_slide_layout(self, name):
+        return self.prs.slide_layouts[LAYOUTS_INDEX[name]]
+
+    def add_slide(self, name):
+        self.prs.slides.add_slide(self.get_slide_layout(name))
+
     def add_extra_slides(self):
-        '''
-		Adds the pictures slides and the announcements slides required.
-		'''
-        pic1 = self.prs.slides.add_slide(self.prs.slide_layouts[6])
-        announcements = self.prs.slides.add_slide(self.prs.slide_layouts[5])
-        pic2 = self.prs.slides.add_slide(self.prs.slide_layouts[6])
+        self.add_slide(PICTURE)
+        self.add_slide(ANNOUNCEMENTS)
+        self.add_slide(PICTURE)
