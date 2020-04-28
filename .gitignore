@@ -1,9 +1,7 @@
-*.pptx
-*.ppt
 *.key
 
-!plantilla python.pptx
-!plantilla.pptx
+ppt_listo.pptx
+probando.pptx
 
 *.xml
 
