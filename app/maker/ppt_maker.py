@@ -5,28 +5,28 @@ from maker import ppt
 SLIDE_SIZE = 730
 
 ENDINGS = {
-    ppt.FIRST_LECTURE: ('Palabra de Dios', 'Te alabamos Señor'),
-    ppt.SECOND_LECTURE: ('Palabra de Dios', 'Te alabamos Señor'),
-    ppt.GOSPEL: ('Palabra del Señor', 'Gloria a ti, Señor Jesús')
+    ppt.FIRST_LECTURE: ("Palabra de Dios", "Te alabamos Señor"),
+    ppt.SECOND_LECTURE: ("Palabra de Dios", "Te alabamos Señor"),
+    ppt.GOSPEL: ("Palabra del Señor", "Gloria a ti, Señor Jesús"),
 }
 
 
 def format_addr(addr: str) -> str:
     addr = addr.strip()
-    addr = '(' + addr + ')'
+    addr = "(" + addr + ")"
     return addr
 
 
 def remove_spaces(text: str) -> str:
-    text = text.replace('\n', ' ')
-    text = text.replace('\t', ' ')
-    text = text.replace('  ', ' ')
+    text = text.replace("\n", " ")
+    text = text.replace("\t", " ")
+    text = text.replace("  ", " ")
     return text.rstrip()
 
 
 class MassPart:
     def add_itself_to_ppt(self, ppt: ppt.Ppt):
-        raise Exception('method add_itself_to_ppt not implemented')
+        raise Exception("method add_itself_to_ppt not implemented")
 
 
 class Reading(MassPart):
@@ -40,7 +40,7 @@ class Reading(MassPart):
 
     def make_pretty(self):
         self.body = remove_spaces(self.body)
-        self.body = '	' + self.body + '\n'
+        self.body = "	" + self.body + "\n"
 
     def add_itself_to_ppt(self, ppt: ppt.Ppt):
         for i, slide_text in enumerate(self.slides):
@@ -57,22 +57,22 @@ class Reading(MassPart):
                 dialog_people = slide.placeholders[16]
 
                 dialog_father.text = ENDINGS[self.title][0]
-                character.text = 'R.'
+                character.text = "R."
                 dialog_people.text = ENDINGS[self.title][1]
 
     def separate_text(self) -> List[str]:
-        '''
+        """
 		Split the text into various slides depending of the text length
-		'''
+		"""
         t = self.body
-        new_text = ''
+        new_text = ""
         while len(t) > SLIDE_SIZE:
             diap = t[:SLIDE_SIZE]
-            i = len(diap) - diap[::-1].find('.')
-            new_text += t[:i] + '\n\n    '
+            i = len(diap) - diap[::-1].find(".")
+            new_text += t[:i] + "\n\n    "
             t = t[i:]
         separated_text = new_text + t
-        return separated_text.split('\n\n')
+        return separated_text.split("\n\n")
 
     def __repr__(self):
         return (self.title, self.addrs, self.body)
@@ -86,8 +86,7 @@ class Cover(MassPart):
     def add_itself_to_ppt(self, presentation):
         cover = presentation.add_slide(ppt.COVER)
         title_placeholder = cover.shapes.title  # placeholder idx of the address
-        date_placeholder = cover.placeholders[
-            10]  # placeholder idx of the body
+        date_placeholder = cover.placeholders[10]  # placeholder idx of the body
         title_placeholder.text = self.title
         date_placeholder.text = self.date
 
@@ -105,27 +104,27 @@ class Announcements(MassPart):
 class Psalm(Reading):
     def __init__(self, title: str, addrs: str, body: str):
         super().__init__(title, addrs, body)
-        self.response = ''
+        self.response = ""
         self.paragraphs = []
         self.split_paragraphs()
 
     def make_pretty(self):
         self.body = remove_spaces(self.body)
-        self.body = self.body.replace('R/. ', 'R. ')
-        self.body = self.body.replace('. R. ', '. R.')
-        self.body = self.body.replace('! R. ', '! R.')
+        self.body = self.body.replace("R/. ", "R. ")
+        self.body = self.body.replace(". R. ", ". R.")
+        self.body = self.body.replace("! R. ", "! R.")
 
     def split_paragraphs(self):
-        '''
+        """
 		Spliting the psalm`s paragraphs is needed for adding the "R." at the end of each.
-		'''
-        self.response = self.body[:self.body.find('***')]
-        pars_pos = self.body.find('***') + 3
+		"""
+        self.response = self.body[: self.body.find("***")]
+        pars_pos = self.body.find("***") + 3
         self.body = self.body[pars_pos:]
-        self.paragraphs = self.body.split(' R.')
+        self.paragraphs = self.body.split(" R.")
         del self.paragraphs[-1]
         for n, _ in enumerate(self.paragraphs):
-            self.paragraphs[n] = '	' + self.paragraphs[n]
+            self.paragraphs[n] = "	" + self.paragraphs[n]
 
     def add_itself_to_ppt(self, ppt: ppt.Ppt):
         slide = ppt.add_slide(self.title)
@@ -144,13 +143,13 @@ class Psalm(Reading):
             par = txt_fm.add_paragraph()
             par.text = paragraph
             run = par.add_run()
-            run.text = ' R.'
+            run.text = " R."
             font = run.font
             font.bold = True
 
 
 class Maker:
-    '''
+    """
 	In charge of making and formating the slides.
 	Arguments:
 		* base_ppt (string): name of the ppt with the layouts
@@ -160,7 +159,8 @@ class Maker:
 		* readings (list(string)): lectures themselves
 		* ppt_title (string): title of the presentation based on the celebration on that *date
 		* date (string): Date of the mass
-	'''
+	"""
+
     def __init__(
         self,
         base_ppt: str,
@@ -188,7 +188,10 @@ class Maker:
         mass_part_names = [ppt.FIRST_LECTURE, ppt.GOSPEL]
         if self.is_sunday():
             mass_part_names = [
-                ppt.FIRST_LECTURE, ppt.SECOND_LECTURE, ppt.PSALM, ppt.GOSPEL
+                ppt.FIRST_LECTURE,
+                ppt.SECOND_LECTURE,
+                ppt.PSALM,
+                ppt.GOSPEL,
             ]
         for name in mass_part_names:
             if name == ppt.PSALM:
