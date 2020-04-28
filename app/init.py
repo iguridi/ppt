@@ -18,6 +18,7 @@ BASE_URL = 'http://www.eucaristiadiaria.cl/'
 
 BASE_PPT = 'plantilla-tema-oscuro.pptx'
 OUTPUT_PPT = 'ppt_listo.pptx'
+BASE_URL = 'http://www.eucaristiadiaria.cl/'
 
 
 @flask_app.route('/download-ppt', methods=['GET', 'POST'])
@@ -31,8 +32,7 @@ def download():
     title = request.args['title']
     date = request.args['date']
     date = datetime.strptime(date, '%Y-%m-%d')
-    url = make_url(date)
-
+    url = BASE_URL + 'dia_cal.php?fecha=' + str(date)
     date = ' '.join([str(date.day), month_name(date.month), str(date.year)])
     addrs, readings = scrapper.run(url)
 
@@ -44,15 +44,6 @@ def download():
                                filename=OUTPUT_PPT,
                                as_attachment=True,
                                attachment_filename=date + '.pptx')
-
-
-def make_url(date):
-    BASE_URL = 'http://www.eucaristiadiaria.cl/'
-    if date.weekday() == 6:
-        url = BASE_URL + 'domingo.php'
-    else:
-        url = BASE_URL + 'dia_cal.php?fecha=' + str(date)
-    return url
 
 
 def month_name(month_number):
