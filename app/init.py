@@ -18,7 +18,7 @@ flask_app.config["DEBUG"] = True
 
 BASE_URL = "http://www.eucaristiadiaria.cl/"
 
-BASE_PPT = "plantilla-tema-oscuro.pptx"
+BASE_PPT = "plantilla-youtube.pptx"
 OUTPUT_PPT = "ppt_listo.pptx"
 BASE_URL = "http://www.eucaristiadiaria.cl/"
 
