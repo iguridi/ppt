@@ -120,7 +120,6 @@ class Psalm(Reading):
 		"""
         end_response = self.body.find(" R.")
         self.response = self.body[:end_response]
-        self.body = self.body[end_response + 3 :]
         self.paragraphs = self.body.split(" R.")
         del self.paragraphs[-1]
         for n, _ in enumerate(self.paragraphs):

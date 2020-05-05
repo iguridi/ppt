@@ -43,7 +43,7 @@ reading_formatter = ReadingFormatter()
 
 
 def format_salm(text, reading):
-    res = re.search(r"(\d?\d,[-\.\d\s]*\d)\.?\nR/.([\s\S]+)", text)
+    res = re.search(r"(\d?\d,[-\.\d\s]*\d[abcd]?)\.?\nR/.([\s\S]+)", text)
     address = "Sal " + res.group(1) if res else None
     salm = None
     if res is not None:
