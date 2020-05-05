@@ -198,7 +198,7 @@ class Maker:
                 reading = Psalm(name, self.addrs[name], self.readings[name])
             else:
                 reading = Reading(name, self.addrs[name], self.readings[name])
-                mass_parts.append(reading)
+            mass_parts.append(reading)
         mass_parts.append(Picture())
         mass_parts.append(Announcements())
         mass_parts.append(Picture())

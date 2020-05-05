@@ -72,27 +72,12 @@ def get_readings(text):
         if res:
             parts[key] = res.group(1)
 
+    # Adding a ? on a quantifier (?, * or +) makes it non-greedy
+    # [\s\S] matches anything (\s: space, \S: non-space)
     add_to_dict("first_reading", r"PRIMERA LECTURA([\s\S]+?)SALMO")
     add_to_dict("salm", r"RESPONSORIAL([\s\S]+?)(SEGUNDA LECTURA|EVANGELIO)")
     add_to_dict("second_reading", r"SEGUNDA LECTURA([\s\S]+?)EVANGELIO")
     add_to_dict("gospel", r"EVANGELIO([\s\S]+?)(Credo.|LITURGIA EUCARÍSTICA)")
-    # Adding a ? on a quantifier (?, * or +) makes it non-greedy
-    # [\s\S] matches anything (\s: space, \S: non-space)
-    # res = re.search(r"PRIMERA LECTURA([\s\S]+?)SALMO", text)
-    # if res:
-    #     parts["first_reading"] = res.group(1)
-
-    # res = re.search(r"RESPONSORIAL([\s\S]+?)(SEGUNDA LECTURA|EVANGELIO)", text)
-    # if res:
-    #     parts["salm"] = res.group(1)
-
-    # res = re.search(r"SEGUNDA LECTURA([\s\S]+?)EVANGELIO", text)
-    # if res:
-    #     parts["second_reading"] = res.group(1)
-
-    # res = re.search(r"EVANGELIO([\s\S]+?)(Credo.|LITURGIA EUCARÍSTICA)", text,)
-    # if res:
-    #     parts["gospel"] = res.group(1)
     return parts
 
 
