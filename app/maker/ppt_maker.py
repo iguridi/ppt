@@ -185,7 +185,7 @@ class Maker:
     def build_ppt(self):
         mass_parts = []
         mass_parts.append(Cover(self.ppt_title, self.date))
-        mass_part_names = [ppt.FIRST_LECTURE, ppt.GOSPEL]
+        mass_part_names = [ppt.FIRST_LECTURE, ppt.PSALM, ppt.GOSPEL]
         if self.is_sunday():
             mass_part_names = [
                 ppt.FIRST_LECTURE,
