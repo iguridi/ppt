@@ -2,6 +2,8 @@
 
 This project consists of a web page that allows anyone to download an automatically made PowerPoint that is used for displaying the mass readings.
 
+It gets its contents from [http://www.eucaristiadiaria.cl/]
+
 Currently running [here](https://pptmisa.herokuapp.com/)
 
 Tested and deployed with _Python 3.7_

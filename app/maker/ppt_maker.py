@@ -118,9 +118,9 @@ class Psalm(Reading):
         """
 		Spliting the psalm`s paragraphs is needed for adding the "R." at the end of each.
 		"""
-        self.response = self.body[: self.body.find("***")]
-        pars_pos = self.body.find("***") + 3
-        self.body = self.body[pars_pos:]
+        end_response = self.body.find(" R.")
+        self.response = self.body[:end_response]
+        self.body = self.body[end_response + 3 :]
         self.paragraphs = self.body.split(" R.")
         del self.paragraphs[-1]
         for n, _ in enumerate(self.paragraphs):
