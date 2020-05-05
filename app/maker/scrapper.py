@@ -103,13 +103,6 @@ def run(url):
 
     readings_raw = get_readings(text)
 
-    mapping_spn = {
-        "first_reading": "primera_lectura",
-        "salm": "salmo",
-        "second_reading": "segunda_lectura",
-        "gospel": "evangelio",
-    }
-
     mapping_fnc = {
         "first_reading": reading_formatter.format_reading,
         "salm": format_salm,
@@ -118,9 +111,8 @@ def run(url):
     }
 
     for key in readings_raw:
-        spanish = mapping_spn[key]
         function = mapping_fnc[key]
-        addrs[spanish], readings[spanish] = function(readings_raw[key], key)
+        addrs[key], readings[key] = function(readings_raw[key], key)
 
     return addrs, readings
 

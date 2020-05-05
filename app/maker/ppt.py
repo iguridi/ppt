@@ -1,12 +1,12 @@
 from pptx import Presentation
 
-COVER = "portada"
-FIRST_LECTURE = "primera_lectura"
-PSALM = "salmo"
-SECOND_LECTURE = "segunda_lectura"
-GOSPEL = "evangelio"
-ANNOUNCEMENTS = "anuncios"
-PICTURE = "imagen"
+COVER = "cover"
+FIRST_LECTURE = "first_reading"
+PSALM = "salm"
+SECOND_LECTURE = "second_reading"
+GOSPEL = "gospel"
+ANNOUNCEMENTS = "announcements"
+PICTURE = "picture"
 
 LAYOUTS_INDEX = {
     COVER: 0,
