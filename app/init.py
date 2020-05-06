@@ -14,10 +14,8 @@ from flask import Flask, render_template, request, send_from_directory, current_
 from maker import scrapper, ppt_maker
 
 flask_app = Flask(__name__)
-flask_app.config["DEBUG"] = True
 
 BASE_URL = "http://www.eucaristiadiaria.cl/"
-
 BASE_PPT = "plantilla-youtube.pptx"
 OUTPUT_PPT = "ppt_listo.pptx"
 BASE_URL = "http://www.eucaristiadiaria.cl/"
