@@ -69,9 +69,9 @@ def month_name(month_number):
 flask_app.register_error_handler(500, lambda e: "bad request!")
 
 
-@flask_app.route("/", methods=["GET", "POST"])
+@flask_app.route("/", methods=["GET"])
 def index():
-    return render_template("index2.html")
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
