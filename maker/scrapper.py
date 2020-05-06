@@ -25,6 +25,7 @@ class ReadingFormatter:
                 reading = res.group(2)
                 reading = reading.replace("\n", " ")
                 reading = reading.replace("  ", " ")
+                reading = reading.rstrip()
                 return address, reading
         logging.error(f"'{reading} couldn't be formatted '{text}'")
         return None, None
@@ -43,7 +44,7 @@ reading_formatter = ReadingFormatter()
 
 
 def format_salm(text, reading):
-    res = re.search(r"(\d?\d,[-\.\d\s]*\d[abcd]?)\.?\nR/.([\s\S]+)", text)
+    res = re.search(r"(\d?\d,[-\.\d\s]*\d[abcd]?)\.?\n([\s\S]+)", text)
     address = "Sal " + res.group(1) if res else None
     salm = None
     if res is not None:
@@ -52,6 +53,7 @@ def format_salm(text, reading):
         salm = salm.replace("!\n", "! R. ")
         salm = salm.replace("\n", "")
         salm = salm.replace("  ", " ")
+        salm = salm.rstrip()
     else:
         logging.error(f"'{reading} couldn't be formatted '{text}'")
     return address, salm

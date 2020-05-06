@@ -66,16 +66,16 @@ def test_format_first_reading(text, address, reading):
         (
             "\xa0\xa0 32, 1-2. 4-5. 19\nR/. Señor, que descienda tu amor sobre nosotros.\nAclamen, justos, al Señor: es propio de los buenos alabarlo. Alaben al Señor con la cítara, toquen en su honor el arpa de diez cuerdas.\nPorque la palabra del Señor es recta y Él obra siempre con lealtad; Él ama la justicia y el derecho, y la tierra está llena de su amor.\nLos ojos del Señor están fijos sobre sus fieles, sobre los que esperan en su misericordia, para librar sus vidas de la muerte y sustentarlos en el tiempo de indigencia.\n",
             "Sal 32, 1-2. 4-5. 19",
-            "Señor, que descienda tu amor sobre nosotros. R. Aclamen, justos, al Señor: es propio de los buenos alabarlo. Alaben al Señor con la cítara, toquen en su honor el arpa de diez cuerdas. R. Porque la palabra del Señor es recta y Él obra siempre con lealtad; Él ama la justicia y el derecho, y la tierra está llena de su amor. R. Los ojos del Señor están fijos sobre sus fieles, sobre los que esperan en su misericordia, para librar sus vidas de la muerte y sustentarlos en el tiempo de indigencia. R. ",
+            "R/. Señor, que descienda tu amor sobre nosotros. R. Aclamen, justos, al Señor: es propio de los buenos alabarlo. Alaben al Señor con la cítara, toquen en su honor el arpa de diez cuerdas. R. Porque la palabra del Señor es recta y Él obra siempre con lealtad; Él ama la justicia y el derecho, y la tierra está llena de su amor. R. Los ojos del Señor están fijos sobre sus fieles, sobre los que esperan en su misericordia, para librar sus vidas de la muerte y sustentarlos en el tiempo de indigencia. R.",
         ),
         (
             ". Sal. 18, 2-5.\nR/. Resuena su eco por toda la tierra.\nEl cielo proclama la gloria de Dios y el firmamento anuncia la obra de sus manos; un día transmite al otro este mensaje y las noches se van dando la noticia.\nSin hablar, sin pronunciar palabras, sin que se escuche su voz, resuena su eco por toda la tierra y su lenguaje, hasta los confines del mundo.\n\n",
             "Sal 18, 2-5",
-            "Resuena su eco por toda la tierra. R. El cielo proclama la gloria de Dios y el firmamento anuncia la obra de sus manos; un día transmite al otro este mensaje y las noches se van dando la noticia. R. Sin hablar, sin pronunciar palabras, sin que se escuche su voz, resuena su eco por toda la tierra y su lenguaje, hasta los confines del mundo. R. ",
+            "R/. Resuena su eco por toda la tierra. R. El cielo proclama la gloria de Dios y el firmamento anuncia la obra de sus manos; un día transmite al otro este mensaje y las noches se van dando la noticia. R. Sin hablar, sin pronunciar palabras, sin que se escuche su voz, resuena su eco por toda la tierra y su lenguaje, hasta los confines del mundo. R.",
         ),
     ],
 )
 def test_format_salm(text, address, reading):
-    address1, reading1 = scrapper.format_salm(text)
+    address1, reading1 = scrapper.format_salm(text, "salm")
     assert address == address1
     assert reading == reading1

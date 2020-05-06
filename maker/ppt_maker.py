@@ -17,13 +17,6 @@ def format_addr(addr: str) -> str:
     return addr
 
 
-def remove_spaces(text: str) -> str:
-    text = text.replace("\n", " ")
-    text = text.replace("\t", " ")
-    text = text.replace("  ", " ")
-    return text.rstrip()
-
-
 class MassPart:
     def add_itself_to_ppt(self, ppt: ppt.Ppt):
         raise Exception("method add_itself_to_ppt not implemented")
@@ -33,14 +26,9 @@ class Reading(MassPart):
     def __init__(self, title: str, addrs: str, body: str):
         self.title = title
         self.addrs = format_addr(addrs)
-        self.body = body
+        self.body = "	" + self.body
         # list of the text splited into chunks of a predifined max chars
-        self.make_pretty()
         self.slides = self.separate_text()
-
-    def make_pretty(self):
-        self.body = remove_spaces(self.body)
-        self.body = "	" + self.body + "\n"
 
     def add_itself_to_ppt(self, ppt: ppt.Ppt):
         for i, slide_text in enumerate(self.slides):
@@ -109,7 +97,6 @@ class Psalm(Reading):
         self.split_paragraphs()
 
     def make_pretty(self):
-        self.body = remove_spaces(self.body)
         self.body = self.body.replace("R/. ", "R. ")
         self.body = self.body.replace(". R. ", ". R.")
         self.body = self.body.replace("! R. ", "! R.")

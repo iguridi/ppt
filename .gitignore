@@ -24,3 +24,5 @@ Calendario
 
 __pycache__
 *.pyc
+
+.pytest_cache
