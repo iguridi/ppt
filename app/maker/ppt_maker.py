@@ -2,7 +2,7 @@ from typing import List, Dict
 
 from maker import ppt
 
-SLIDE_SIZE = 730
+SLIDE_SIZE = 690
 
 ENDINGS = {
     ppt.FIRST_LECTURE: ("Palabra de Dios", "Te alabamos Señor"),
