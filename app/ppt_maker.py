@@ -1,6 +1,6 @@
 from typing import List, Dict
 
-from maker import ppt
+from app import ppt
 
 SLIDE_SIZE = 690
 
@@ -26,7 +26,7 @@ class Reading(MassPart):
     def __init__(self, title: str, addrs: str, body: str):
         self.title = title
         self.addrs = format_addr(addrs)
-        self.body = "	" + self.body
+        self.body = "	" + body
         # list of the text splited into chunks of a predifined max chars
         self.slides = self.separate_text()
 
@@ -92,12 +92,13 @@ class Announcements(MassPart):
 class Psalm(Reading):
     def __init__(self, title: str, addrs: str, body: str):
         super().__init__(title, addrs, body)
+        self.make_pretty()
         self.response = ""
         self.paragraphs = []
         self.split_paragraphs()
 
     def make_pretty(self):
-        self.body = self.body.replace("R/. ", "R. ")
+        self.body = self.body.replace("R/. ", "")
         self.body = self.body.replace(". R. ", ". R.")
         self.body = self.body.replace("! R. ", "! R.")
 

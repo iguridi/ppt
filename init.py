@@ -11,22 +11,23 @@ from bs4 import BeautifulSoup
 
 from flask import Flask, render_template, request, send_from_directory, current_app
 
-from maker import scrapper, ppt_maker
+from scrapper import scrapper
+from app import ppt_maker
 
 flask_app = Flask(__name__)
 
 BASE_URL = "http://www.eucaristiadiaria.cl/"
-BASE_PPT = "plantilla-youtube.pptx"
-OUTPUT_PPT = "ppt_listo.pptx"
+BASE_PPT = "ppt_templates/plantilla-youtube.pptx"
+OUTPUT_PPT = "ppt_templates/ppt_listo.pptx"
 BASE_URL = "http://www.eucaristiadiaria.cl/"
 
 
 @flask_app.route("/download-ppt", methods=["GET", "POST"])
 def download():
-    folder = "maker"
+    FOLDER = "app"
     directory = os.path.dirname(__file__)
-    base_ppt = os.path.join(directory, folder, BASE_PPT)
-    output_ppt = os.path.join(directory, folder, OUTPUT_PPT)
+    base_ppt = os.path.join(directory, FOLDER, BASE_PPT)
+    output_ppt = os.path.join(directory, FOLDER, OUTPUT_PPT)
 
     title = request.args["title"]
     date = request.args["date"]
@@ -37,7 +38,7 @@ def download():
 
     ppt_maker.Maker(base_ppt, output_ppt, addrs, readings, title, date_formatted)
 
-    path = os.path.join(current_app.root_path, folder)
+    path = os.path.join(current_app.root_path, FOLDER)
 
     return send_from_directory(
         directory=path,
