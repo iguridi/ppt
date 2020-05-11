@@ -12,6 +12,7 @@ analize_pptx.py
 Calendario
 /flask
 /ve
+.env
 
 .DS_Store
 

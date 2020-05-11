@@ -13,7 +13,7 @@ class ReadingFormatter:
     def format_reading(self, text, reading):
         for book in self.books:
             book_name = book["name"]
-            res = re.search(fr"{book_name}.*?(\d?\d,[-\.\d\s]*\d)\n([\s\S]+)\n", text)
+            res = re.search(fr"{book_name}.*?(\d.*)\n([\s\S]+)\n", text)
             if res is not None:
                 number = ""
                 if "Corint" in book["name"]:
@@ -44,7 +44,7 @@ reading_formatter = ReadingFormatter()
 
 
 def format_salm(text, reading):
-    res = re.search(r"(\d?\d,[-\.\d\s]*\d[abcd]?)\.?\n([\s\S]+)", text)
+    res = re.search(r"(\d.*?)\.?\n([\s\S]+)", text)
     address = "Sal " + res.group(1) if res else None
     salm = None
     if res is not None:
@@ -55,7 +55,8 @@ def format_salm(text, reading):
         salm = salm.replace("  ", " ")
         salm = salm.rstrip()
     else:
-        logging.error(f"'{reading} couldn't be formatted '{text}'")
+        err = {"text": text}
+        logging.error(f"'{reading} couldn't be formatteddddd '{err}'")
     return address, salm
 
 
