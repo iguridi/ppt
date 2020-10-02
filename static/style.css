@@ -8,10 +8,10 @@
     --available_color: #fff;
 }
 
-@font-face { 
-    font-family: Roboto; 
-    src: url('Roboto-Regular.ttf'); 
-} 
+@font-face {
+    font-family: Roboto;
+    src: url('Roboto-Regular.ttf');
+}
 
 * {
     box-sizing: border-box;
@@ -21,7 +21,7 @@
 
 body {
     background-color: var(--main_color);
-    font-family: Roboto; 
+    font-family: Roboto;
 }
 
 #all {
@@ -84,7 +84,7 @@ h1 {
     align-items: center;
     justify-content: center;
     border: 1.5px solid #fff;
-    border-radius: 30px;    
+    border-radius: 30px;
 }
 
 .circle:not(:focus):hover {
@@ -211,6 +211,7 @@ h4 {
     font-weight: 500;
     letter-spacing: 0px;
     font-size: 1.4em;
+    cursor: pointer;
 }
 
 .available:not(:focus):hover {
@@ -251,7 +252,7 @@ h4 {
 
 .dotted_line_bold {
     border-bottom: 2.8px dashed #000;
-    
+
 }
 
 
@@ -317,7 +318,7 @@ h4 {
 #titleinput:-moz-placeholder {
     color: #ddd;
 }
- 
+
 
 #modalheader {
     margin-top: 40px;
