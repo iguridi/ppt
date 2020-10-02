@@ -53,27 +53,17 @@ h1 {
   align-items: center;
 }
 
-.arrow,
-.day {
-}
-
 .arrow {
-  /*align-self: flex-start;*/
   min-width: 25px;
   width: 15%;
   margin-bottom: 20px;
-  /*width: 130px;*/
   height: 60px;
-  /*margin: 0 10px 0;*/
   display: flex;
-  /*    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;*/
   align-items: center;
   justify-content: center;
 }
 
 .circle:active {
-  /*background-color: #F57F17;*/
   margin-top: +4px;
 }
 
@@ -101,7 +91,6 @@ h1 {
 }
 
 #left {
-  /*margin-left: auto;*/
   margin-left: 4px;
   -moz-transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
@@ -115,17 +104,15 @@ h1 {
   transform: rotate(135deg);
 }
 
-/*month*/
+/* month */
 h2 {
   margin: 0 4px 25px 0;
   text-align: center;
   font-size: 30px;
   width: 74%;
-  /*width: 47%;*/
   flex: 1 1 280px;
 }
 
-/*year*/
 #year {
   margin: 0 0 22px 4px;
   text-align: left;
@@ -133,7 +120,6 @@ h2 {
   font-weight: normal;
   letter-spacing: -2.2px;
   color: var(--main_color);
-  /*width: 27%;*/
   flex: 2 2 200px;
 }
 
@@ -147,7 +133,6 @@ h4 {
   flex-direction: row;
   flex-wrap: nowrap;
   border-bottom: 18px solid #fff;
-  /*border-bottom: 0.8em;*/
   width: 90%;
   align-self: center;
   background-color: var(--calendar_headers_color);
@@ -159,9 +144,6 @@ h4 {
   width: 130px;
   height: 1.7em;
   align-items: stretch;
-  /*margin-bottom: 100px;*/
-
-  /*font-family: Verdana, Geneva, sans-serif;*/
   font-size: 1.3em;
   font-style: normal;
   font-variant: normal;
@@ -230,11 +212,6 @@ h4 {
   font-size: 1.4em;
 }
 
-.not_available:not(:focus):hover {
-  /*background-color: #efefef;*/
-  /*font-weight: bold;*/
-}
-
 .dotted_line,
 .dotted_line_bold {
   display: block;
@@ -256,7 +233,6 @@ h4 {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  /*padding-top: 100px;  Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -268,8 +244,6 @@ h4 {
 /* Modal Content */
 .modal-content {
   background-color: var(--main_color);
-  /*background-color: #d3ebf8;*/
-  /*background-color: #eee;*/
   margin: 10% auto 0;
   padding: 20px;
   border: 0px solid var(--main_color);
@@ -327,10 +301,6 @@ h4 {
   background-color: #fff;
   font-size: 1.3em;
   margin-bottom: 1px;
-  /*color: var(--main_color);*/
-  /*font-weight: bold;*/
-  /*background-color: #d3ebf8;*/
-  /*background-color: var(--main_color);*/
 }
 
 #buttondownload:not(:focus):hover {
@@ -348,23 +318,6 @@ h4 {
   text-align: center;
   margin: 15% auto;
 }
-
-/*.selected {
-    background-color: #fcd6b6;
-}*/
-/* The Close Button */
-/*#close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-#close:hover, #close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}*/
 
 @viewport {
   zoom: 1;
