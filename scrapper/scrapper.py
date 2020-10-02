@@ -27,7 +27,7 @@ class ReadingFormatter:
                 reading = reading.replace("  ", " ")
                 reading = reading.rstrip()
                 return address, reading
-        logging.error(f"'{reading} couldn't be formatted '{text}'")
+        logging.error(f"'{reading} couldn't be formated '{text}'")
         return None, None
 
     def get_books(self):
@@ -56,7 +56,7 @@ def format_salm(text, reading):
         salm = salm.rstrip()
     else:
         err = {"text": text}
-        logging.error(f"'{reading} couldn't be formatteddddd '{err}'")
+        logging.error(f"'{reading} (salm) couldn't be formatteddddd '{err}'")
     return address, salm
 
 
