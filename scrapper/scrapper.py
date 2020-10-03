@@ -34,7 +34,7 @@ class ReadingFormatter:
         abreviations_file = "abbreviations.csv"
         path = os.path.join(os.path.dirname(__file__), abreviations_file)
         with open(path) as f:
-            rows = f.read().split("\n")
+            rows = f.read().split("\n")[:-1]
             data = (row.split(",") for row in rows[1:])
             books = [{"name": row[0], "abbrs": row[1:]} for row in data]
         return books
