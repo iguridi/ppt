@@ -67,7 +67,12 @@ def month_name(month_number):
     return months[month_number]
 
 
-flask_app.register_error_handler(500, lambda e: "bad request!")
+def handle_error(e):
+    print("Error:", e)
+    return "Hubo un problema con esta solicitud"
+
+
+flask_app.register_error_handler(500, handle_error)
 
 
 @flask_app.route("/", methods=["GET"])
@@ -75,5 +80,6 @@ def index():
     return render_template("index.html")
 
 
+debug = os.environ.get("FLASK_ENV") == "development"
 if __name__ == "__main__":
-    flask_app.run()
+    flask_app.run(debug=debug)
