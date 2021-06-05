@@ -177,8 +177,8 @@ class Maker:
         if self.is_sunday():
             mass_part_names = [
                 ppt.FIRST_LECTURE,
-                ppt.SECOND_LECTURE,
                 ppt.PSALM,
+                ppt.SECOND_LECTURE,
                 ppt.GOSPEL,
             ]
         for name in mass_part_names:

@@ -79,7 +79,7 @@ def get_readings(text):
     # [\s\S] matches anything (\s: space, \S: non-space)
     add_to_dict("first_reading", r"PRIMERA LECTURA([\s\S]+?)SALMO")
     add_to_dict("salm", r"RESPONSORIAL([\s\S]+?)(SEGUNDA LECTURA|EVANGELIO)")
-    add_to_dict("second_reading", r"SEGUNDA LECTURA([\s\S]+?)EVANGELIO")
+    add_to_dict("second_reading", r"SEGUNDA LECTURA([\s\S]+?)(SECUENCIA|EVANGELIO)")
     add_to_dict("gospel", r"EVANGELIO([\s\S]+?)(Credo.|LITURGIA EUCARÍSTICA)")
     return parts
 
@@ -106,7 +106,6 @@ def run(url):
 
 
 if __name__ == "__main__":
-    url = "http://www.eucaristiadiaria.cl/dia_cal.php?fecha=2020-05-10"
-    url = "http://www.eucaristiadiaria.cl/dia_cal.php?fecha=2020-05-06"
+    url = "http://www.eucaristiadiaria.cl/dia_cal.php?fecha=2021-06-06"
     res = run(url)
     print(json.dumps(res, indent=4))
