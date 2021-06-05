@@ -42,7 +42,7 @@ def download():
 
     return send_from_directory(
         directory=path,
-        filename=OUTPUT_PPT,
+        path=OUTPUT_PPT,
         as_attachment=True,
         attachment_filename=date_formatted + ".pptx",
     )
