@@ -27,7 +27,7 @@ class ReadingFormatter:
                 reading = reading.replace("  ", " ")
                 reading = reading.rstrip()
                 return address, reading
-        logging.error(f"'{reading} couldn't be formated '{text}'")
+        logging.error(f'"{reading} couldn\'t be formated: "{text}"')
         return None, None
 
     def get_books(self):
@@ -56,7 +56,7 @@ def format_salm(text, reading):
         salm = salm.rstrip()
     else:
         err = {"text": text}
-        logging.error(f"'{reading} (salm) couldn't be formatteddddd '{err}'")
+        logging.error(f'"{reading} (salm) couldn\'t be formatted: "{err}"')
     return address, salm
 
 
@@ -106,6 +106,6 @@ def run(url):
 
 
 if __name__ == "__main__":
-    url = "http://www.eucaristiadiaria.cl/dia_cal.php?fecha=2021-06-06"
+    url = "http://www.eucaristiadiaria.cl/dia_cal.php?fecha=2021-11-17"
     res = run(url)
     print(json.dumps(res, indent=4))
