@@ -17,7 +17,7 @@ from app import ppt_maker
 flask_app = Flask(__name__)
 
 BASE_URL = "http://www.eucaristiadiaria.cl/"
-BASE_PPT = "ppt_templates/plantilla-youtube.pptx"
+BASE_PPT = "ppt_templates/plantilla python.pptx"
 OUTPUT_PPT = "ppt_templates/ppt_listo.pptx"
 BASE_URL = "http://www.eucaristiadiaria.cl/"
 
