@@ -14,20 +14,19 @@ from flask import Flask, render_template, request, send_from_directory, current_
 from scrapper import scrapper
 from app import ppt_maker
 
-flask_app = Flask(__name__)
+app = Flask(__name__)
 
-BASE_URL = "http://www.eucaristiadiaria.cl/"
+BASE_URL = "https://www.eucaristiadiaria.cl/"
 BASE_PPT = "ppt_templates/plantilla python.pptx"
-OUTPUT_PPT = "ppt_templates/ppt_listo.pptx"
-BASE_URL = "http://www.eucaristiadiaria.cl/"
+OUTPUT_PPT = "ppt_listo.pptx"
 
 
-@flask_app.route("/download-ppt", methods=["GET", "POST"])
+@app.route("/download-ppt", methods=["GET", "POST"])
 def download():
     FOLDER = "app"
     directory = os.path.dirname(__file__)
     base_ppt = os.path.join(directory, FOLDER, BASE_PPT)
-    output_ppt = os.path.join(directory, FOLDER, OUTPUT_PPT)
+    output_ppt = os.path.join("/tmp", OUTPUT_PPT)
 
     title = request.args["title"]
     date = request.args["date"]
@@ -42,7 +41,7 @@ def download():
 
     return send_from_directory(
         directory=path,
-        path=OUTPUT_PPT,
+        path=output_ppt,
         as_attachment=True,
         attachment_filename=date_formatted + ".pptx",
     )
@@ -72,14 +71,14 @@ def handle_error(e):
     return "Hubo un problema con esta solicitud"
 
 
-flask_app.register_error_handler(500, handle_error)
+app.register_error_handler(500, handle_error)
 
 
-@flask_app.route("/", methods=["GET"])
+@app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
 
 
 debug = os.environ.get("FLASK_ENV") == "development"
 if __name__ == "__main__":
-    flask_app.run(debug=debug)
+    app.run(debug=debug)

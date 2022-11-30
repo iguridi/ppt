@@ -8,4 +8,4 @@ Currently running [here](https://pptmisa.herokuapp.com/)
 
 Tested and deployed with _Python 3.7_
 
-Run locally with `python3 init.py`
+Run locally with `python3 index.py`

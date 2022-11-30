@@ -86,6 +86,7 @@ def get_readings(text):
 
 def run(url):
     text = get_text(url)
+    print('weeee', text)
 
     addrs, readings = {}, {}
 
@@ -106,6 +107,6 @@ def run(url):
 
 
 if __name__ == "__main__":
-    url = "http://www.eucaristiadiaria.cl/dia_cal.php?fecha=2021-11-17"
+    url = "https://www.eucaristiadiaria.cl/dia_cal.php?fecha=2022-12-08"
     res = run(url)
     print(json.dumps(res, indent=4))
