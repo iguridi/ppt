@@ -1,6 +1,8 @@
 from typing import List, Dict
 
 from app import ppt
+import io
+
 
 SLIDE_SIZE = 690
 
@@ -141,7 +143,7 @@ class Maker:
 	In charge of making and formating the slides.
 	Arguments:
 		* base_ppt (string): name of the ppt with the layouts
-		* output_ppt (string): name of the  ppt to modify
+		* output_ppt (StringIO): file like object to temporarily store ppt
 		* slide_size (int): ideal maximum of characters in a slide
 		* addrs (list(string)): readings bible addresses
 		* readings (list(string)): lectures themselves
@@ -152,7 +154,7 @@ class Maker:
     def __init__(
         self,
         base_ppt: str,
-        output_ppt: str,
+        output_ppt: io.BytesIO,
         addrs: Dict[str, str],
         readings: Dict[str, str],
         ppt_title: str = None,
@@ -163,7 +165,9 @@ class Maker:
         self.date = date
         self.ppt_title = ppt_title
         # create ppt and save in new file
-        self.ppt = ppt.Ppt(base_ppt)
+        with open(base_ppt, 'rb') as f:
+            source_stream = io.BytesIO(f.read())
+        self.ppt = ppt.Ppt(source_stream)
         self.build_ppt()
         self.ppt.save(output_ppt)
 

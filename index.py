@@ -1,3 +1,5 @@
+# from io import StringIO
+import io
 import os
 import sys
 import datetime
@@ -7,9 +9,10 @@ from datetime import datetime
 # import werkzeug
 # Web Scrapping:
 import requests
+import tempfile
 from bs4 import BeautifulSoup
 
-from flask import Flask, render_template, request, send_from_directory, current_app
+from flask import Flask, render_template, request, send_file, current_app
 
 from scrapper import scrapper
 from app import ppt_maker
@@ -18,15 +21,15 @@ app = Flask(__name__)
 
 BASE_URL = "https://www.eucaristiadiaria.cl/"
 BASE_PPT = "ppt_templates/plantilla python.pptx"
-OUTPUT_PPT = "ppt_listo.pptx"
+OUTPUT_PPT = "ppt_listo2.pptx"
 
 
 @app.route("/download-ppt", methods=["GET", "POST"])
 def download():
     FOLDER = "app"
-    directory = os.path.dirname(__file__)
-    base_ppt = os.path.join(directory, FOLDER, BASE_PPT)
-    output_ppt = os.path.join("/tmp", OUTPUT_PPT)
+    base_ppt = os.path.join(os.path.dirname(__file__), FOLDER, BASE_PPT)
+    # output_ppt = os.path.join(tempfile.gettempdir(), OUTPUT_PPT)
+    output_ppt = io.BytesIO()
 
     title = request.args["title"]
     date = request.args["date"]
@@ -39,12 +42,25 @@ def download():
 
     path = os.path.join(current_app.root_path, FOLDER)
 
-    return send_from_directory(
-        directory=path,
-        path=output_ppt,
+    # mem = io.BytesIO()
+    # mem.write(output_ppt.getvalue().encode())
+    # # seeking was necessary. Python 3.5.2, Flask 0.12.2
+    # mem.seek(0)
+    # output_ppt.close()
+
+    return send_file(
+        output_ppt,
         as_attachment=True,
-        attachment_filename=date_formatted + ".pptx",
+        download_name=date_formatted + ".pptx",
+        # mimetype='text/csv'
     )
+
+    # return send_from_directory(
+    #     directory=path,
+    #     path=output_ppt,
+    #     as_attachment=True,
+    #     attachment_filename=date_formatted + ".pptx",
+    # )
 
 
 def month_name(month_number):
