@@ -143,7 +143,7 @@ class Maker:
 	In charge of making and formating the slides.
 	Arguments:
 		* base_ppt (string): name of the ppt with the layouts
-		* output_ppt (StringIO): file like object to temporarily store ppt
+		* output_ppt (BytesIO): file like object to temporarily store ppt
 		* slide_size (int): ideal maximum of characters in a slide
 		* addrs (list(string)): readings bible addresses
 		* readings (list(string)): lectures themselves

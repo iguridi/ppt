@@ -86,7 +86,6 @@ def get_readings(text):
 
 def run(url):
     text = get_text(url)
-    print('weeee', text)
 
     addrs, readings = {}, {}
 

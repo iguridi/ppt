@@ -28,7 +28,6 @@ OUTPUT_PPT = "ppt_listo2.pptx"
 def download():
     FOLDER = "app"
     base_ppt = os.path.join(os.path.dirname(__file__), FOLDER, BASE_PPT)
-    # output_ppt = os.path.join(tempfile.gettempdir(), OUTPUT_PPT)
     output_ppt = io.BytesIO()
 
     title = request.args["title"]
@@ -42,25 +41,11 @@ def download():
 
     path = os.path.join(current_app.root_path, FOLDER)
 
-    # mem = io.BytesIO()
-    # mem.write(output_ppt.getvalue().encode())
-    # # seeking was necessary. Python 3.5.2, Flask 0.12.2
-    # mem.seek(0)
-    # output_ppt.close()
-
     return send_file(
         output_ppt,
         as_attachment=True,
         download_name=date_formatted + ".pptx",
-        # mimetype='text/csv'
     )
-
-    # return send_from_directory(
-    #     directory=path,
-    #     path=output_ppt,
-    #     as_attachment=True,
-    #     attachment_filename=date_formatted + ".pptx",
-    # )
 
 
 def month_name(month_number):
