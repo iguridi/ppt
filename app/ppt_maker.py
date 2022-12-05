@@ -143,7 +143,6 @@ class Maker:
 	In charge of making and formating the slides.
 	Arguments:
 		* base_ppt (string): name of the ppt with the layouts
-		* output_ppt (BytesIO): file like object to temporarily store ppt
 		* slide_size (int): ideal maximum of characters in a slide
 		* addrs (list(string)): readings bible addresses
 		* readings (list(string)): lectures themselves
@@ -154,7 +153,6 @@ class Maker:
     def __init__(
         self,
         base_ppt: str,
-        output_ppt: io.BytesIO,
         addrs: Dict[str, str],
         readings: Dict[str, str],
         ppt_title: str = None,
@@ -168,8 +166,14 @@ class Maker:
         with open(base_ppt, 'rb') as f:
             source_stream = io.BytesIO(f.read())
         self.ppt = ppt.Ppt(source_stream)
+
+    def run(self):
         self.build_ppt()
-        self.ppt.save(output_ppt)
+        stream = io.BytesIO()
+        self.ppt.save(stream)
+        stream.seek(0)
+        return stream
+
 
     def is_sunday(self):
         return ppt.SECOND_LECTURE in self.readings

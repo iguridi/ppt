@@ -28,7 +28,6 @@ OUTPUT_PPT = "ppt_listo2.pptx"
 def download():
     FOLDER = "app"
     base_ppt = os.path.join(os.path.dirname(__file__), FOLDER, BASE_PPT)
-    output_ppt = io.BytesIO()
 
     title = request.args["title"]
     date = request.args["date"]
@@ -45,12 +44,13 @@ def download():
         <a href="/">página principal</a>
         '''
 
-    ppt_maker.Maker(base_ppt, output_ppt, addrs, readings, title, date_formatted)
+    output = ppt_maker.Maker(base_ppt, addrs, readings, title, date_formatted).run()
 
     return send_file(
-        output_ppt,
+        output,
         as_attachment=True,
         download_name=date_formatted + ".pptx",
+        mimetype="application/vnd.openxmlformats-officedocument.presentationml.presentation",
     )
 
 
