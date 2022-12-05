@@ -5,6 +5,7 @@ This project consists of a web page that allows anyone to download an automatica
 It gets its contents from [http://www.eucaristiadiaria.cl/]
 
 Currently running [here](https://ppt-pink.vercel.app/)
+To deploy run `vercel --prod`
 
 Tested and deployed with _Python 3.7_
 

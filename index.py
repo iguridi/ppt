@@ -37,6 +37,14 @@ def download():
     date_formatted = f"{date.day} {month_name(date.month)} {date.year}"
     addrs, readings = scrapper.run(url)
 
+    if addrs == {} and readings == {}:
+        return f'''Fecha {date_formatted} vacía.
+        <br/><br/>Probablemente signifique que ese día no ha sido llenado aún en
+        <a href="https://www.eucaristiadiaria.cl/calendario.php">https://www.eucaristiadiaria.cl</a>.
+        <br/><br/>Por mientras se pueden descargar fechas anteriores a esta desde la
+        <a href="/">página principal</a>
+        '''
+
     ppt_maker.Maker(base_ppt, output_ppt, addrs, readings, title, date_formatted)
 
     return send_file(
