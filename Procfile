@@ -1,1 +1,0 @@
-web: gunicorn init:flask_app

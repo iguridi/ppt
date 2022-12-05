@@ -39,8 +39,6 @@ def download():
 
     ppt_maker.Maker(base_ppt, output_ppt, addrs, readings, title, date_formatted)
 
-    path = os.path.join(current_app.root_path, FOLDER)
-
     return send_file(
         output_ppt,
         as_attachment=True,

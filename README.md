@@ -4,8 +4,8 @@ This project consists of a web page that allows anyone to download an automatica
 
 It gets its contents from [http://www.eucaristiadiaria.cl/]
 
-Currently running [here](https://pptmisa.herokuapp.com/)
+Currently running [here](https://ppt-pink.vercel.app/)
 
 Tested and deployed with _Python 3.7_
 
-Run locally with `python3 index.py`
+Run locally with `make dev`
