@@ -191,10 +191,16 @@ class Maker:
                 ppt.GOSPEL,
             ]
         for name in mass_part_names:
+            addr, reading = self.addrs[name], self.readings[name]
+            print(addr, reading, 'WAHJALAKLJ')
+            if addr is None:
+                raise Exception(f"Error, address {name} not found in {self.addrs}")
+            if reading is None:
+                raise Exception(f"Error, reading {name} not found in {self.readings}")
             if name == ppt.PSALM:
-                reading = Psalm(name, self.addrs[name], self.readings[name])
+                reading = Psalm(name, addr, reading)
             else:
-                reading = Reading(name, self.addrs[name], self.readings[name])
+                reading = Reading(name, addr, reading)
             mass_parts.append(reading)
 
         mass_parts.append(Picture())

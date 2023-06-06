@@ -106,6 +106,6 @@ def run(url):
 
 
 if __name__ == "__main__":
-    url = "https://www.eucaristiadiaria.cl/dia_cal.php?fecha=2022-12-08"
+    url = "https://www.eucaristiadiaria.cl/dia_cal.php?fecha=2023-6-08"
     res = run(url)
     print(json.dumps(res, indent=4))

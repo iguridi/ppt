@@ -9,4 +9,11 @@ To deploy run `vercel --prod`
 
 Tested and deployed with _Python 3.7_
 
-Run locally with `make dev`
+Run locally with
+
+```bash
+$ python3 -m venv myenv
+$ source myenv/bin/activate
+$ pip install -r requirements.txt
+$ make dev
+```
