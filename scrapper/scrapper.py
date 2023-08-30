@@ -27,7 +27,7 @@ class ReadingFormatter:
                 reading = reading.replace("  ", " ")
                 reading = reading.rstrip()
                 return address, reading
-        logging.error(f'"{reading} couldn\'t be formated: "{text}"')
+        logging.error(f'"Bible book not recognized for {reading}: "{text}"')
         return None, None
 
     def get_books(self):
