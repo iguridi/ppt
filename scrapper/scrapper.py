@@ -71,16 +71,18 @@ def get_readings(text):
     parts = {}
 
     def add_to_dict(key, regex):
-        res = re.search(regex, text)
-        if res:
-            parts[key] = res.group(1)
+        for r in regex:
+            res = re.search(r, text)
+            if res:
+                parts[key] = res.group(1)
+                return
 
     # Adding a ? on a quantifier (?, * or +) makes it non-greedy
     # [\s\S] matches anything (\s: space, \S: non-space)
-    add_to_dict("first_reading", r"LITURGIA DE LA PALABRA([\s\S]+?)SALMO")
-    add_to_dict("salm", r"RESPONSORIAL([\s\S]+?)(SEGUNDA LECTURA|EVANGELIO)")
-    add_to_dict("second_reading", r"SEGUNDA LECTURA([\s\S]+?)(SECUENCIA|EVANGELIO)")
-    add_to_dict("gospel", r"EVANGELIO([\s\S]+?)(Credo.|LITURGIA EUCARÍSTICA)")
+    add_to_dict("first_reading", [r"LITURGIA DE LA PALABRA([\s\S]+?)SALMO", r"PRIMERA LECTURA([\s\S]+?)SALMO"])
+    add_to_dict("salm", [r"RESPONSORIAL([\s\S]+?)(SEGUNDA LECTURA|EVANGELIO)"])
+    add_to_dict("second_reading", [r"SEGUNDA LECTURA([\s\S]+?)(SECUENCIA|EVANGELIO)"])
+    add_to_dict("gospel", [r"EVANGELIO([\s\S]+?)(Credo.|LITURGIA EUCARÍSTICA)"])
     return parts
 
 
