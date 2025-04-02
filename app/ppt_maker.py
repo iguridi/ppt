@@ -192,7 +192,6 @@ class Maker:
             ]
         for name in mass_part_names:
             addr, reading = self.addrs[name], self.readings[name]
-            print(addr, reading, 'WAHJALAKLJ')
             if addr is None:
                 raise Exception(f"Error, address {name} not found in {self.addrs}")
             if reading is None:
